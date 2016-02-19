@@ -27,6 +27,17 @@ class My_model extends CI_Model {
 		}
 			
 	}
+	public function Get_limit($table,$limit=15,$offset=10)
+	{
+		$this->db->from($table);
+        $this->db->limit($limit,$offset);
+        $query = $this->db->get();
+        return $query->result();
+	}
+	public function Cout_table($table)
+	{
+		return $this->db->count_all('user');
+	}
 	public function Get_user_by_code($code='')
 	{
 		$query = $this->db->get_where('user',array('code' => $code));

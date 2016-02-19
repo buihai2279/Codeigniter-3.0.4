@@ -71,6 +71,7 @@
 							<span class="caret"></span>
 						</button>
 					  	<ul class="dropdown-menu bg-primary" aria-labelledby="dLabel">
+					  		<li><a href="">Xem chi tiet</a></li>
 					    	<?php 
 							    if($_SESSION['level']>0&&$value->status==2){
 							    	echo '<li><a href="">UnBlock</a></li>';
@@ -99,6 +100,7 @@
 		</tbody>
 	</table>
 	</div>
+	<?php echo $pag; ?>
 </div>
 
 </body>

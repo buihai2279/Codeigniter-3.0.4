@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class My_sentmail
+class Demo_library
 {
 	protected $ci;
 
@@ -40,9 +40,6 @@ class My_sentmail
 		    return TRUE;
 		}
 	}
-
-	
-
 }
 
 /* End of file My_sentmail.php */

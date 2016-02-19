@@ -37,11 +37,12 @@ class Auth extends CI_Controller {
 			        'mail' => $mail,
 			        'password' => md5($this->input->post('password')),
 			        'code' => $code,
+			        'date_created' => time(),
 			        'status' => 0
 				);
 				$this->db->insert('user', $data);
-				$this->load->library('My_sentmail');
-				if ($this->my_sentmail->sent_mail_active_user($mail,$code)==TRUE) {
+				$this->load->library('demo_library');
+				if ($this->demo_library->sent_mail_active_user($mail,$code)==TRUE) {
 					$this->session->set_flashdata('message_tmp', 'Đăng ký thành công Check mail để kích hoạt.Hoặc nhập mã kích hoạt tại đây');
 					redirect('auth/active','refresh');
 					die();
