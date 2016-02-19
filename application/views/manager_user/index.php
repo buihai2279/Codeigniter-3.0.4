@@ -1,5 +1,4 @@
 <br>
-<br>
 <?php if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';?>
 <?php if (isset($_SESSION['login'])) {
 ?>
@@ -16,18 +15,17 @@
 	  </ul>
 	</div>
   <a  href="<?php echo base_url(); ?>"><i class="fa fa-home fa-fw"></i>  Trang người dùng</a>
-
 <?php 
-
 	}
 ?>
 <div class="clear-fix"></div>
 <br>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 <div class="list-group">
-  <a class="list-group-item" href="#"><i class="fa fa-book fa-fw"></i>&nbsp; QL Danh mục</a>
-  <a class="list-group-item" href="#"><i class="fa fa-pencil fa-fw"></i>&nbsp; QL slide</a>
-  <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>
+  <a class="list-group-item" href="manager_user/edit_user"><i class="fa fa-book fa-fw"></i> Edit user</a>
+  <a class="list-group-item" href="manager_user/block_user"><i class="fa fa-pencil fa-fw"></i> Block user</a>
+  <a class="list-group-item" href="manager_user/set_manager"><i class="fa fa-cog fa-fw"></i> Set Manager</a>
+  <a class="list-group-item" href="manager_user/view_all"><i class="fa fa-cog fa-fw"></i> View All</a>
 </div>	
 </div>
 <h1>Trang quản trị</h1>

@@ -77,9 +77,14 @@ class Auth extends CI_Controller {
         else
         {//validate dữ liệu đúng thì bắt đầu kiểm tra tài khoản có tồn tại hay chưa
 			$mail=$this->input->post('mail',TRUE);
-			$pass=$this->input->post('password',TRUE);
-        	$result = $this->My_model->Get_user_by_mail($mail);
-        	if(isset($result)&&$mail==$result->mail && md5($pass)==$result->password && $result->status==1)
+			$pass=md5($this->input->post('password',TRUE));
+        	$result = $this->My_model->Check_login($mail,$pass);
+        	if ($result==FALSE) {
+        		$this->session->set_flashdata('message_tmp', 'Mật khẩu hoặc Mail vừa nhập không đúng');
+        		redirect('auth/login','refresh');
+        		die();
+        	}
+    		if($result->status==1)
         	{//đă nhập thành công
         		$level=$result->level;
         		$array = array(
@@ -98,16 +103,12 @@ class Auth extends CI_Controller {
         			redirect('Home','refresh');
         		}
         	}
-        	else if(isset($result)&&$mail==$result->mail && md5($pass)==$result->password && $result->status==0){
+        	else if($result->status==0){
         		$data['message']='<div class="alert alert-danger">Tài khoản chưa kích hoạt</div>';
         		$this->Load_view('back-end/login',$data);
         	}
-        	else if(isset($result)&&$mail==$result->mail && md5($pass)==$result->password && $result->status==2){
+        	else if($result->status==2){
         		$data['message']='<div class="alert alert-danger">Tài khoản đang bị khóa liên hệ admin</div>';
-        		$this->Load_view('back-end/login',$data);
-        	}
-        	else{//nếu tài khoản và mật khẩu sai trả về thông báo lỗi
-        		$data['message']='<div class="alert alert-danger">Mật khẩu hoặc Mail vừa nhập không đúng</div>';
         		$this->Load_view('back-end/login',$data);
         	}
         }

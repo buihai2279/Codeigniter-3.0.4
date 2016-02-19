@@ -12,8 +12,20 @@ class My_model extends CI_Model {
 		$query = $this->db->get_where('user',array('mail' => $mail));
 		if ($query->num_rows()==1){
 			return $query->row();
-		}else
-		return FALSE;
+		}else{
+			return FALSE;
+		}
+			
+	}
+	public function Check_login($mail='',$pass='')
+	{
+		$query = $this->db->get_where('user',array('mail' => $mail,'password'=>$pass));
+		if ($query->num_rows()==1){
+			return $query->row();
+		}else{
+			return FALSE;
+		}
+			
 	}
 	public function Get_user_by_code($code='')
 	{
@@ -21,19 +33,30 @@ class My_model extends CI_Model {
 		if ($query->num_rows()==1){
 			return $query->row();
 		}else
-		return FALSE;
+			return FALSE;
 	}
 	public function Check_user_by_mail($mail)
 	{
 		$query = $this->db->select('mail')->get_where('user',array('mail'=>$mail));
-		if ($query->num_rows()==1&&$mail==$query->row()->mail){
+		if ($query->num_rows()==1){
 			return TRUE;
 		}else
-		return FALSE;
+			return FALSE;
 	}
 	public function Update($id,$array,$table)
 	 {
 	 	$this->db->where('id',$id)->update($table,$array);
+	 	return TRUE;
+	 }
+	public function Get_all($table,$col='id',$sort='')
+	 {
+	 	if ($col==''&&$sort=='') {
+	 		$query=$this->db->get($table);
+	 	}else{
+	 		$query=$this->db->get($table);
+	 	}
+	 	return $query->result();
+	 	
 	 } 
 }
 
