@@ -1,5 +1,4 @@
 <body>
-<?php echo current_url(); ?>
 <?php if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';?>
 <?php if (isset($_SESSION['login'])) {
 ?>
@@ -36,6 +35,8 @@
 		<tbody>
 		<?php 
 			foreach ($result as $key => $value) {
+
+							    	
 		?>
 			<tr <?php if ($value->level>0) {echo "class='success'";} ?>>
 				<td><?php echo $value->id; ?></td>
@@ -74,21 +75,37 @@
 					  	<ul class="dropdown-menu bg-primary" aria-labelledby="dLabel">
 					  		<li><a href="">Xem chi tiet</a></li>
 					    	<?php 
-							    if($_SESSION['level']>0&&$value->status==2){
-							    	echo '<li><a href="">UnBlock</a></li>';
+							    if($_SESSION['level']>=1&&$value->status==2){
+							    	$link =base_url("Manager_user/un_block_user").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">UnBlock</a></li>';
 							    }
-							    else if($_SESSION['level']>0&&$value->level==0&&$value->status==1){
-							    	echo '<li><a href="">Block</a></li>';
-							    }else if($_SESSION['level']==2&&$value->level>0&&$value->status==1){
-							    	echo '<li><a href="">Block</a></li>';
+							    else if($_SESSION['level']==2&&$value->level==1&&$value->status==2){
+							    	$link =base_url("Manager_user/un_block_user").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">UnBlock</a></li>';
+							    }
+							    else if($_SESSION['level']>=1&&$value->level==0&&$value->status==1){
+							    	$link =base_url("Manager_user/block_user").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">Block</a></li>';
+							    }else if($_SESSION['level']==2&&$value->level==1&&$value->status==1){
+							    	$link =base_url("Manager_user/block_user").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">Block</a></li>';
 							    }
 						    ?>
 						    <?php 
-							    if($_SESSION['level']==2&&$value->level==1){echo '<li><a href="">UnSet Manager</a></li>';}
-							    else if($_SESSION['level']==2&&$value->level==0){echo '<li><a href="">Set Manager</a></li>';}
+							    if($_SESSION['level']==2&&$value->level==1){
+							    	$link =base_url("Manager_user/un_set_manager").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">UnSet Manager</a></li>';
+							    }
+							    else if($_SESSION['level']==2&&$value->level==0){
+							    	$link =base_url("Manager_user/set_manager").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">Set Manager</a></li>';
+							    }
 						    ?>
 						   <?php 
-							    if($_SESSION['level']==2&&$value->level!=2){echo '<li><a href="">Delete</a></li>';}
+							    if($_SESSION['level']==2&&$value->level!=2){
+							    	$link =base_url("Manager_user/delete_user").'/'.$value->id;
+							    	echo '<li><a href="'.$link.'">Delete</a></li>';
+							    }
 						    ?>
 					  	</ul>
 				  	</div>

@@ -2,9 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Manager_user extends CI_Controller {
+	public $limit=10;
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('My_model');
 		$this->load->library('session');
 		$this->load->helper('url');
 		if ($this->session->has_userdata('login')==FAlSE) {
@@ -26,8 +28,6 @@ class Manager_user extends CI_Controller {
 	}
 	public function View_all()
 	{
-		$this->load->model('My_model');
-		$limit=2;
 		$table='user';
 		$segment=(int)$this->uri->segment(3);
 		$total=$this->My_model->Count_table($table);
@@ -37,27 +37,98 @@ class Manager_user extends CI_Controller {
 			$segment=0;
 		}
 		$link='http://localhost/Codeigniter-Project/manager_user/view_all';
-		$data['result'] = $this->My_model->get_limit($table,$limit,$segment);
-		$data['pag']=$this->create_pagination($link,$total,$limit,$segment);
+		$data['result'] = $this->My_model->get_limit($table,$this->limit,$segment);
+		// print_r($data['result']);
+		$data['pag']=$this->create_pagination($link,$total,$this->limit,$segment);
 		$this->Load_view('manager_user/View_all',$data);
 	}
 	public function Edit_user()
 	{
 		$this->Load_view('manager_user/edit_user');
 	}
-	public function Block_user($id)
+	public function Block_user($id='')
 	{
-		$arrayName = array('status' => 2);
-		$this->My_model->Update(2,$arrayName,'user');
-		$this->Load_view('manager_user/Block_user');
+		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')>=1) {
+			$arrayName = array('status' => 2);
+			$result=$this->My_model->update($id,$arrayName,'user');
+			if ($result==TRUE) {
+				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}
+		}
 	}
-	public function Block_user()
+	public function Un_block_user($id='')
 	{
-		$this->Load_view('manager_user/Block_user');
+		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')>=1) {
+			$arrayName = array('status' => 1);
+			$result=$this->My_model->update($id,$arrayName,'user');
+			if ($result==TRUE) {
+				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}
+		}
 	}
-	public function Set_manager()
+	public function Set_manager($id)
 	{
-		$this->Load_view('manager_user/Set_manager');
+		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')==2) {
+			$arrayName = array('level' => 1);
+			$result=$this->My_model->update($id,$arrayName,'user');
+			if ($result==TRUE) {
+				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}
+		}
+
+	}
+
+	public function Un_set_manager($id)
+	{
+		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')==2) {
+			$arrayName = array('level' => 0);
+			$result=$this->My_model->update($id,$arrayName,'user');
+			if ($result==TRUE) {
+				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}
+		}
+
+	}
+
+	public function Delete_user($id)
+	{
+		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')==2) {
+			$result=$this->My_model->delete($id,'user');
+			if ($result==TRUE) {
+				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				redirect('Manager_user/view_all','refresh');
+				die();
+			}
+		}
+
 	}
 	public function View_only()
 	{

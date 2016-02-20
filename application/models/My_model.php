@@ -55,10 +55,14 @@ class My_model extends CI_Model {
 			return FALSE;
 	}
 	public function Update($id,$array,$table)
-	 {
-	 	$query=$this->db->where('id',$id)->update($table,$array);
-	 	return $query->num_rows;
-	 }
+	{
+	 	return $this->db->where('id',$id)->update($table,$array);
+	}
+	public function Delete($id,$table)
+	{
+	 	return $this->db->delete($table, array('id' => $id));
+	}
+	
 	public function Get_all($table,$col='id',$sort='')
 	 {
 	 	if ($col==''&&$sort=='') {
@@ -66,7 +70,7 @@ class My_model extends CI_Model {
 	 	}else{
 	 		$query=$this->db->get($table);
 	 	}
-	 	return $query->result();
+	 	return $query->result_array();
 	 	
 	 } 
 }
