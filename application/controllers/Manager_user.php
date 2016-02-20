@@ -27,19 +27,29 @@ class Manager_user extends CI_Controller {
 	public function View_all()
 	{
 		$this->load->model('My_model');
-		$limit=5;
+		$limit=2;
 		$table='user';
-		$segment=$this->uri->segment(3);
-		if($segment>$this->My_model->Cout_table($table)-1||$segment<0)
-			$segment=$this->My_model->Cout_table($table)-1;
+		$segment=(int)$this->uri->segment(3);
+		$total=$this->My_model->Count_table($table);
+		if($segment>=$total)
+			$segment=$total-$limit;
+		if ($segment<0) {
+			$segment=0;
+		}
 		$link='http://localhost/Codeigniter-Project/manager_user/view_all';
 		$data['result'] = $this->My_model->get_limit($table,$limit,$segment);
-		$data['pag']=$this->create_pagination($link,$table,$limit,$segment);
+		$data['pag']=$this->create_pagination($link,$total,$limit,$segment);
 		$this->Load_view('manager_user/View_all',$data);
 	}
 	public function Edit_user()
 	{
 		$this->Load_view('manager_user/edit_user');
+	}
+	public function Block_user($id)
+	{
+		$arrayName = array('status' => 2);
+		$this->My_model->Update(2,$arrayName,'user');
+		$this->Load_view('manager_user/Block_user');
 	}
 	public function Block_user()
 	{
@@ -57,12 +67,12 @@ class Manager_user extends CI_Controller {
 	{
 		$this->Load_view('manager_user/index');
 	}
-	public function Create_pagination($link,$table,$limit=15,$offset=1)
+	protected function Create_pagination($link,$total,$limit=15,$offset=1)
 	{
 
 		$this->load->library('pagination');
 		$config['base_url'] = $link;
-		$config['total_rows'] = $this->My_model->Cout_table($table);
+		$config['total_rows'] = $total;
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 3;
 		$config['num_links'] = 3;

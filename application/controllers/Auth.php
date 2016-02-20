@@ -33,11 +33,18 @@ class Auth extends CI_Controller {
 			if ($this->My_model->Check_user_by_mail($mail)==FALSE){
 				$code = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),0,8);
 				$mail=$this->input->post('mail');
+		   		date_default_timezone_set('Asia/Ho_Chi_Minh');
+		   		$date_time = date('Y-m-d H:i:s');
+		   		$level=0;
+		   		if ($this->My_model->Count_table('user')==0) {
+		   			$level=2;
+		   		}
 				$data = array(
 			        'mail' => $mail,
 			        'password' => md5($this->input->post('password')),
 			        'code' => $code,
-			        'date_created' => time(),
+			        'level' => $level,
+			        'date_created' => $date_time,
 			        'status' => 0
 				);
 				$this->db->insert('user', $data);

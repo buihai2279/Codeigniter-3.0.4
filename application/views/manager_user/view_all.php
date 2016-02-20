@@ -1,4 +1,5 @@
 <body>
+<?php echo current_url(); ?>
 <?php if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';?>
 <?php if (isset($_SESSION['login'])) {
 ?>
@@ -63,7 +64,7 @@
 				<td>
 					<?php if ($_SESSION['mail']==$value->mail){
 							echo "No-action";
-							break;
+							continue;
 						} ?>
 					<div class="dropdown">
 						<button id="dLabel" class="btn btn-primary btn-xs" data-toggle="dropdown">
@@ -100,7 +101,8 @@
 		</tbody>
 	</table>
 	</div>
-	<?php echo $pag; ?>
+	<div class="col-md-4 col-md-offset-4">
+	<?php echo $pag; ?></div>
 </div>
 
 </body>
