@@ -7,7 +7,6 @@ class Manager_user extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->helper('url');
-		$this->load->model('My_model');
 		if ($this->session->has_userdata('login')==FAlSE) {
 			$this->session->set_flashdata('message_tmp', 'Bạn CHƯA đăng nhập');
 			redirect('Auth/login','refresh');
@@ -27,7 +26,8 @@ class Manager_user extends CI_Controller {
 	}
 	public function View_all()
 	{
-		$limit=10;
+		$this->load->model('My_model');
+		$limit=2;
 		$table='user';
 		$segment=(int)$this->uri->segment(3);
 		$total=$this->My_model->Count_table($table);
@@ -47,14 +47,11 @@ class Manager_user extends CI_Controller {
 	}
 	public function Block_user($id)
 	{
-
 		$arrayName = array('status' => 2);
-		print_r($this->My_model->update($id,$arrayName,'user'));
-		$this->session->set_flashdata('message_tmp', 'Update du lieu thanh cong');
-		redirect('manager_user/View_all','refresh');
-		// $this->Load_view('manager_user/Block_user');
+		$this->My_model->Update(2,$arrayName,'user');
+		$this->Load_view('manager_user/Block_user');
 	}
-	public function Delete_user()
+	public function Block_user()
 	{
 		$this->Load_view('manager_user/Block_user');
 	}
