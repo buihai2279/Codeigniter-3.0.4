@@ -32,7 +32,7 @@ class Demo_library
 		$mail->Subject = 'Mail active tai khoan';
 		$mail->Body    = 'Mail active tài khoản click vào đường link sau để active<br>';
 		$mail->Body    .= '<b>http://localhost/final/auth/active/'.$code.'</b><br>';
-		$mail->Body    .= 'Hoặc nhập code :<b>'.$code. '</b> vào trang : http://localhost/final/auth/active';
+		$mail->Body    .= 'Hoặc nhập code :<b>'.$code. '</b> vào trang : http://localhost/Codeigniter-Project/auth/active';
 		if(!$mail->send()) {
 		    return FALSE;
 		    echo 'Mailer Error: ' . $mail->ErrorInfo;

@@ -1,5 +1,5 @@
 <body>
-<?php echo current_url(); ?>
+<!-- <?php echo current_url(); ?> -->
 <?php if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';?>
 <?php if (isset($_SESSION['login'])) {
 ?>
@@ -22,7 +22,7 @@
 <div class="container">
 <h3>Danh sach nguoif dung</h3>
 <div class="table-responsive">
-	<table class="table table-hover table-hover table-bordered table-striped">
+	<table class="table table-hover table-bordered ">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -37,7 +37,10 @@
 		<?php 
 			foreach ($result as $key => $value) {
 		?>
-			<tr <?php if ($value->level>0) {echo "class='success'";} ?>>
+			<tr <?php if ($value->level>0) {echo "class='success'";}
+				elseif ($value->status==2) {echo "class='danger'";} 
+				?>
+			>
 				<td><?php echo $value->id; ?></td>
 				<td><?php echo $value->mail; ?></td>
 				<td><?php echo $value->date_created; ?></td>

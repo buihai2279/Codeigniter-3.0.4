@@ -56,8 +56,7 @@ class My_model extends CI_Model {
 	}
 	public function Update($id,$array,$table)
 	 {
-	 	$query=$this->db->where('id',$id)->update($table,$array);
-	 	return $query->num_rows;
+	 	$this->db->where('id',$id)->update($table,$array);
 	 }
 	public function Get_all($table,$col='id',$sort='')
 	 {
