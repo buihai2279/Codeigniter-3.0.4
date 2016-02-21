@@ -58,6 +58,8 @@
 				echo form_button($data,'<i class="fa fa-sign-in"></i> Register');
 	       ?>
 		<?php echo form_close(); ?>
+		<p><a href="<?php echo base_url('auth/login'); ?>">login </a></p>
+
 	</div>
 </div>
 </body>

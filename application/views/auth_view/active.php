@@ -7,19 +7,20 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-right">
 				<img src="<?php echo base_url('logo.png')?>" class="img-responsive " alt="Responsive image">
 			</div>
-			<legend>Recover Password</legend>
+			<legend>Active</legend>
 			<div class="form-group">
 				<?php  if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-warning">'.$_SESSION['message_tmp'].'</div>'; ?> 
 				<?php  if(isset($message)) echo $message ; ?> 
-				<div class="input-group <?php echo (form_error('mail')!='') ? 'has-error' : ''; ?>">
+				
+			    <div class="input-group <?php echo (form_error('code')!='') ? 'has-error' : '' ; ?>">
 			      <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
 			      <?php 
 			      		$data = array(
-						        'name'          => 'mail',
+						        'name'          => 'code',
 						        'class'         => 'form-control',
 						        'type'          => 'text',
-						        'placeholder'   => 'Mail',
-						        'value'			=> set_value("mail")
+						        'placeholder'   => 'Code',
+						        'value'			=> set_value("code")
 						);
 						echo form_input($data);
 			       ?>
@@ -33,10 +34,11 @@
 						'type'          => 'submit',
 				        'value'			=> 'ok'
 				);
-				echo form_button($data,'<i class="fa fa-sign-in"></i> Lấy lại mật khẩu');
+				echo form_button($data,'<i class="fa fa-check-square-o"></i> Active');
 	       ?>
-	       	<a href="<?php echo base_url('auth/login'); ?>"> Login</a>
 		<?php echo form_close(); ?>
+		<p><a href="<?php echo base_url('auth/re_active'); ?>">Gửi lại mail kích hoạt </a></p>
 	</div>
+	
 </div>
 </body>

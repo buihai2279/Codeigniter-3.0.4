@@ -21,11 +21,10 @@
 <div class="clear-fix"></div>
 <br>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-<div class="list-group">
-  <a class="list-group-item" href="manager_user/edit_user"><i class="fa fa-book fa-fw"></i> Edit user</a>
-  <a class="list-group-item" href="manager_user/block_user"><i class="fa fa-pencil fa-fw"></i> Block user</a>
-  <a class="list-group-item" href="manager_user/set_manager"><i class="fa fa-cog fa-fw"></i> Set Manager</a>
-  <a class="list-group-item" href="<?php echo base_url('manager_user/view_all'); ?>"><i class="fa fa-cog fa-fw"></i> View All</a>
-</div>	
+	<div class="list-group">
+		<a class="list-group-item" href="<?php echo base_url('manager_user/view_all'); ?>">
+			<i class="fa fa-cog fa-fw"></i> View All
+		</a>
+	</div>	
 </div>
 <h1>Trang quản trị</h1>

@@ -58,11 +58,18 @@ class My_model extends CI_Model {
 	{
 	 	return $this->db->where('id',$id)->update($table,$array);
 	}
+	public function Block($id,$table)
+	{
+	 	return $this->db->where('id',$id)->update($table,array('status' => 2));
+	}
+	public function Un_block($id,$table)
+	{
+	 	return $this->db->where('id',$id)->update($table,array('status' => 1));
+	}
 	public function Delete($id,$table)
 	{
 	 	return $this->db->delete($table, array('id' => $id));
 	}
-	
 	public function Get_all($table,$col='id',$sort='')
 	 {
 	 	if ($col==''&&$sort=='') {

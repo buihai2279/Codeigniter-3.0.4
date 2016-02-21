@@ -46,6 +46,9 @@
 				echo form_button($data,'<i class="fa fa-sign-in"></i> Login');
 	       ?>
 		<?php echo form_close(); ?>
+		<p><a href="<?php echo base_url('auth/register'); ?>">Đăng ký</a></p>
+		<p><a href="<?php echo base_url('auth/recover_password'); ?>">recover_password</a></p>
+
 	</div>
 </div>
 </body>

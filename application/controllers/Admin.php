@@ -15,13 +15,13 @@ class Admin extends CI_Controller {
 	}
 	public function Load_view($view,$data=NULL)
 	{
-        $this->load->view('back-end/header');
+        $this->load->view('auth_view/header');
         $this->load->view($view,$data);
-        $this->load->view('back-end/footer');
+        $this->load->view('auth_view/footer');
 	}
 	public function index()
 	{
-		$this->Load_view('back-end/index');
+		$this->Load_view('auth_view/index');
 	}
 
 }

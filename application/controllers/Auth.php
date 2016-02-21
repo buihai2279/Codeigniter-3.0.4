@@ -12,9 +12,9 @@ class Auth extends CI_Controller {
 	}
 	public function Load_view($view,$data=NULL)
 	{//Hàm load 
-        $this->load->view('back-end/header');
+        $this->load->view('auth_view/header');
         $this->load->view($view,$data);
-        $this->load->view('back-end/footer');
+        $this->load->view('auth_view/footer');
 	}
 	public function register()
 	{
@@ -65,7 +65,7 @@ class Auth extends CI_Controller {
 				die();
 			}
 		}
-		$this->Load_view('back-end/register',$data);
+		$this->Load_view('auth_view/register',$data);
 	}
 	public function Login()
 	{
@@ -80,7 +80,7 @@ class Auth extends CI_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{//validate dữ liệu nếu sai thì gửi thông báo lỗi 
 			$data['message'] =validation_errors('<div class="alert alert-danger">','</div>');
-            $this->Load_view('back-end/login',$data);
+            $this->Load_view('auth_view/login',$data);
         }
         else
         {//validate dữ liệu đúng thì bắt đầu kiểm tra tài khoản có tồn tại hay chưa
@@ -113,11 +113,11 @@ class Auth extends CI_Controller {
         	}
         	else if($result->status==0){
         		$data['message']='<div class="alert alert-danger">Tài khoản chưa kích hoạt</div>';
-        		$this->Load_view('back-end/login',$data);
+        		$this->Load_view('auth_view/login',$data);
         	}
         	else if($result->status==2){
         		$data['message']='<div class="alert alert-danger">Tài khoản đang bị khóa liên hệ admin</div>';
-        		$this->Load_view('back-end/login',$data);
+        		$this->Load_view('auth_view/login',$data);
         	}
         }
 	}
@@ -142,14 +142,14 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('mail','Mail','required|valid_email|trim');
 		if ($this->form_validation->run() == FALSE) {
 			$data['message'] =validation_errors('<div class="alert alert-danger">','</div>');
-			$this->Load_view('back-end/recover_password',$data);
+			$this->Load_view('auth_view/recover_password',$data);
 		} else {
 			$mail=$this->input->post('mail');
 			if($this->My_model->Check_user_by_mail($mail)==TRUE)
 				$data['message']='<div class="alert alert-success">Đã gửi mail vui lòng check mail</div>';
 			else
 				$data['message']='<div class="alert alert-danger">Không tồn tại mail</div>';
-			$this->Load_view('back-end/recover_password',$data);
+			$this->Load_view('auth_view/recover_password',$data);
 		}
 		
 	}
@@ -165,7 +165,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('re-new-password','Re-new-password','required|trim|matches[new-password]');
 		if ($this->form_validation->run() == FALSE) {
 			$data['message'] =validation_errors('<div class="alert alert-danger">','</div>');
-			$this->Load_view('back-end/change_password',$data);
+			$this->Load_view('auth_view/change_password',$data);
 		} else {
 			$mail=$this->session->userdata('mail');
 			$result=$this->My_model->Get_user_by_mail($mail);
@@ -221,7 +221,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('code','Code','required|trim');
 		if ($this->form_validation->run() == FALSE) {
 			$data['message'] =validation_errors('<div class="alert alert-danger">','</div>');
-			$this->Load_view('back-end/active',$data);
+			$this->Load_view('auth_view/active',$data);
 		} else {
 			$code=$this->input->post('code');
 			$result=$this->My_model->Get_user_by_code($code);
@@ -242,6 +242,27 @@ class Auth extends CI_Controller {
 				redirect('home','refresh');
 				die();
 			}
+		}
+	}
+	public function Re_active()
+	{
+		$this->form_validation->set_rules('mail','Mail','required|trim|valid_email');
+		if ($this->form_validation->run() == FALSE) {
+			$data['message'] =validation_errors('<div class="alert alert-danger">','</div>');
+			$this->Load_view('auth_view/re_active',$data);
+		} 
+		else
+		{
+			$mail=$this->input->post('mail');
+			$result=$this->My_model->Get_user_by_mail($mail);
+			if ($result->code!='') {
+				$this->load->library('demo_library');
+				$this->demo_library->sent_mail_active_user($mail,$result->code);
+				$this->session->set_flashdata('message_tmp', 'Gửi mã thành công kiểm tra lại tài khoản');
+			}else{
+				$this->session->set_flashdata('message_tmp', 'Mã kích hoạt không tồn tại!!');
+			}
+			$this->Load_view('auth_view/re_active');
 		}
 	}
 	public function index()
