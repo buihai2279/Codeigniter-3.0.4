@@ -2,13 +2,13 @@
 <div class="col-md-6 col-md-offset-3">
 	<br>
 	<div class="well well-lg">
-		<?php echo form_open(''); ?>
+		<?php echo form_open('auth/login/#'); ?>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-right">
 				<img src="<?php echo base_url('logo.png')?>" class="img-responsive " alt="Responsive image">
 			</div>
 			<legend>Login</legend>
 			<div class="form-group">
-			<?php if (isset($_SESSION['message_tmp']))echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';?>
+			<?php if (isset($_SESSION['message_tmp']))echo $_SESSION['message_tmp'];?>
 				<?php  if(isset($message)) echo $message ; ?> 
 				<div class="input-group <?php echo (form_error('mail')!='') ? 'has-error' : '' ; ?>">
 			      <div class="input-group-addon"><i class="fa fa-envelope"></i></div>

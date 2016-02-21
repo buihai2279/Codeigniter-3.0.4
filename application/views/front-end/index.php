@@ -1,6 +1,6 @@
 <br>
 <?php 
-	if(isset($_SESSION['message_tmp'])) echo '<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';
+	if(isset($_SESSION['message_tmp'])) echo $_SESSION['message_tmp'];
 	if (isset($_SESSION['login'])) {
 ?>
 		<div class="btn-group">

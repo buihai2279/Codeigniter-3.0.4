@@ -9,7 +9,7 @@
 <div class="container">
 	<?php 
 		if(isset($_SESSION['message_tmp']))
-			echo'<div class="alert alert-info">'.$_SESSION['message_tmp'].'</div>';
+			echo$_SESSION['message_tmp'];
 	?>
 </div>
 <?php 
