@@ -53,8 +53,8 @@ if (isset($_SESSION['login'])) {
 						<th>Cart</th>
 						<th>date_created <i style="color:red" class="fa fa-sort-alpha-asc"></i></th>
 						<th>status</th>
-						<th>level</th>
 						<th>Custom</th>
+						<th>level</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,20 +87,6 @@ if (isset($_SESSION['login'])) {
 							?>
 						</td>
 						<td>
-							<?php 
-							if ($value->level==0) {
-								echo "User";
-							}else if($value->level==1) 
-								echo "Manager"; 
-							else if($value->level==2)
-								echo "Admin";
-							?>
-						</td>
-						<td>
-							<?php if ($value->level>$_SESSION['level']){
-									echo '<a href="">Detail</a>';
-									continue;
-								} ?>
 							<div class="dropdown">
 								<button id="dLabel" class="btn btn-primary btn-xs" data-toggle="dropdown">
 									Change
@@ -136,6 +122,16 @@ if (isset($_SESSION['login'])) {
 								    ?>
 							  	</ul>
 						  	</div>
+						</td>
+						<td>
+							<?php 
+							if ($value->level==0) {
+								echo "User";
+							}else if($value->level==1) 
+								echo "Manager"; 
+							else if($value->level==2)
+								echo "Admin";
+							?>
 						</td>
 					</tr>
 

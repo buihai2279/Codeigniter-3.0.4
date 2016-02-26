@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Manager_user extends CI_Controller {
 	public $limit=10;
 	public $table='user';
@@ -40,7 +39,7 @@ class Manager_user extends CI_Controller {
 		}
 		$link='http://localhost/Codeigniter-Project/manager_user/view_all';
 		$data['result'] = $this->My_model->get_limit($this->table,$this->limit,$segment);
-		$data['pag']=$this->create_pagination($link,$total,$segment);
+		$data['pag']=$this->My_model->create_pagination($link,$total,$segment);
 		$this->Load_view('manager_user/View_all',$data);
 	}
 	public function Block_user($id='')
@@ -189,35 +188,6 @@ class Manager_user extends CI_Controller {
 	public function index()
 	{
 		$this->Load_view('manager_user/index');
-	}
-	protected function Create_pagination($link,$total,$offset=1)
-	{
-		$this->load->library('pagination');
-		$config['base_url'] = $link;
-		$config['total_rows'] = $total;
-		$config['per_page'] = $this->limit;
-		$config['uri_segment'] = 3;
-		$config['num_links'] = 3;
-		$config['full_tag_open'] = '<nav><ul class="pagination pagination-sm">';
-		$config['full_tag_close'] = '</ul></nav>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<li class="">';
-		$config['first_tag_close'] = '</li>';
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
-		$config['next_link'] = '<i class="fa fa-caret-right"></i>';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['prev_link'] = '<i class="fa fa-caret-left"></i>';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><a>';
-		$config['cur_tag_close'] = '</a></li>';
-		$this->pagination->initialize($config);
-		return $this->pagination->create_links();
 	}
 }
 /* End of file manager_user.php */

@@ -71,15 +71,43 @@ class My_model extends CI_Model {
 	 	return $this->db->delete($table, array('id' => $id));
 	}
 	public function Get_all($table,$col='id',$sort='')
-	 {
+	{
 	 	if ($col==''&&$sort=='') {
 	 		$query=$this->db->get($table);
 	 	}else{
 	 		$query=$this->db->get($table);
 	 	}
 	 	return $query->result_array();
-	 	
-	 } 
+	}
+	public function Create_pagination($link,$total,$offset=1)
+	{
+		$this->load->library('pagination');
+		$config['base_url'] = $link;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $this->limit;
+		$config['uri_segment'] = 3;
+		$config['num_links'] = 3;
+		$config['full_tag_open'] = '<nav><ul class="pagination pagination-sm">';
+		$config['full_tag_close'] = '</ul></nav>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li class="">';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['next_link'] = '<i class="fa fa-caret-right"></i>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_link'] = '<i class="fa fa-caret-left"></i>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$this->pagination->initialize($config);
+		return $this->pagination->create_links();
+	}
 }
 
 /* End of file My_model.php */
