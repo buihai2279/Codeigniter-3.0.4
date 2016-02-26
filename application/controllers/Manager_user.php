@@ -185,7 +185,6 @@ class Manager_user extends CI_Controller {
 				}
 			}
 		}
-		
 	}
 	public function index()
 	{
