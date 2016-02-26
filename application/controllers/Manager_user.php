@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Manager_user extends CI_Controller {
-	public $limit=5;
+	public $limit=10;
 	public $table='user';
 	public function __construct()
 	{
@@ -11,12 +11,14 @@ class Manager_user extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('url');
 		if ($this->session->has_userdata('login')==FAlSE) {
-			$this->session->set_flashdata('message_tmp', 'Bạn CHƯA đăng nhập');
+			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
+			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Auth/login','refresh');
 			die();
 		}
 		if ($this->session->has_userdata('level')==TRUE&&$this->session->userdata('level')==0) {
-			$this->session->set_flashdata('message_tmp', 'Bạn KHÔNG	có quyền truy cập');
+			$message='<div class="alert alert-danger">Bạn KHÔNG	có quyền truy cập</div>';
+			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
 			die();
 		}
@@ -46,11 +48,13 @@ class Manager_user extends CI_Controller {
 		$arrayName = array('status' => 2);
 		$result=$this->My_model->update($id,$arrayName,$this->table);
 		if ($result==TRUE) {
-			$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+			$message='<div class="alert alert-danger">Thao tác thành công</div>';
+			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Manager_user/view_all','refresh');
 			die();
 		}else{
-			$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Manager_user/view_all','refresh');
 			die();
 		}
@@ -61,11 +65,13 @@ class Manager_user extends CI_Controller {
 			$arrayName = array('status' => 1);
 			$result=$this->My_model->update($id,$arrayName,$this->table);
 			if ($result==TRUE) {
-				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+				$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}
@@ -77,16 +83,17 @@ class Manager_user extends CI_Controller {
 			$arrayName = array('level' => 1);
 			$result=$this->My_model->update($id,$arrayName,$this->table);
 			if ($result==TRUE) {
-				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+				$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}
 		}
-
 	}
 	public function Un_set_manager($id)
 	{
@@ -94,28 +101,30 @@ class Manager_user extends CI_Controller {
 			$arrayName = array('level' => 0);
 			$result=$this->My_model->update($id,$arrayName,$this->table);
 			if ($result==TRUE) {
-				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+			$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}
 		}
-
 	}
-
 	public function Delete_user($id)
 	{
 		if ($this->session->userdata('level')==2) {
 			$result=$this->My_model->delete($id,$this->table);
 			if ($result==TRUE) {
-				$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+			$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-				$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}
@@ -123,8 +132,9 @@ class Manager_user extends CI_Controller {
 	}
 	public function Proccess()
 	{
-		if (!isset($_POST['submit'])) {
-			$this->session->set_flashdata('message_tmp', 'Có lỗi xảy ra');
+		if (!isset($_POST['submit'])||!isset($_POST['check'])) {
+			$message='<div class="alert alert-danger">Có lỗi xảy ra</div>';
+			$this->session->set_flashdata('message_tmp', $message);
 			redirect('Manager_user/view_all','refresh');
 		}else {
 			$arrayName=$this->input->post('check');
@@ -133,11 +143,13 @@ class Manager_user extends CI_Controller {
 					$result=$this->My_model->delete($value,$this->table);
 				}
 				if ($result==TRUE) {
-					$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+					$message='<div class="alert alert-danger">Thao tác thành công</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}else{
-					$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+					$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}
@@ -146,11 +158,13 @@ class Manager_user extends CI_Controller {
 					$result=$this->My_model->block($value,$this->table);
 				}
 				if ($result==TRUE) {
-					$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+					$message='<div class="alert alert-danger">Thao tác thành công</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}else{
-					$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+					$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}
@@ -159,11 +173,13 @@ class Manager_user extends CI_Controller {
 					$result=$this->My_model->un_block($value,$this->table);
 				}
 				if ($result==TRUE) {
-					$this->session->set_flashdata('message_tmp', 'Thao tác thành công');
+					$message='<div class="alert alert-danger">Thao tác thành công</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}else{
-					$this->session->set_flashdata('message_tmp', 'Thao tác Lỗi');
+					$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+					$this->session->set_flashdata('message_tmp', $message);
 					redirect('Manager_user/view_all','refresh');
 					die();
 				}
@@ -205,6 +221,5 @@ class Manager_user extends CI_Controller {
 		return $this->pagination->create_links();
 	}
 }
-
 /* End of file manager_user.php */
 /* Location: ./application/controllers/manager_user.php */

@@ -18,7 +18,7 @@ class Auth extends CI_Controller {
 	}
 	public function register()
 	{
-		if ($this->session->has_userdata('login')==TRUE) {//kiểm tra người dùng đang đăng nhập chuyển hướng về home
+		if ($this->check_login()==TRUE) {//kiểm tra người dùng đang đăng nhập chuyển hướng về home
 			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp', $message);
 			redirect('Home','refresh');
@@ -41,13 +41,13 @@ class Auth extends CI_Controller {
 		   			$level=2;
 		   		}
 				$data = array(
-			        'mail' => $mail,
-			        'password' => md5($this->input->post('password')),
-			        'code' => $code,
-			        'level' => $level,
-			        'date_created' => $date_time,
-			        'status' => 0
-				);
+					        'mail' => $mail,
+					        'password' => md5($this->input->post('password')),
+					        'code' => $code,
+					        'level' => $level,
+					        'date_created' => $date_time,
+					        'status' => 0
+						);
 				$this->db->insert('user', $data);
 				$this->load->library('demo_library');
 				if ($this->demo_library->sent_mail_active_user($mail,$code)==TRUE) {
@@ -72,9 +72,8 @@ class Auth extends CI_Controller {
 		$this->Load_view('auth_view/register',$data);
 	}
 	public function Login()
-	{
-		//kiểm tra nếu người dùng đang đăng nhập thì đẩy về trang chủ
-		if ($this->session->has_userdata('login')&&$this->session->userdata('login')==TRUE) {
+	{//kiểm tra nếu người dùng đang đăng nhập thì đẩy về trang chủ
+		if ($this->check_login()==TRUE) {
 			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -102,14 +101,14 @@ class Auth extends CI_Controller {
         	{//đă nhập thành công
         		$level=$result->level;
         		$array = array(
-        			'mail' => $mail,
-        			'login' => TRUE,
-        			'level' => $level
-        		);
+		        			'mail' => $mail,
+		        			'login' => TRUE,
+		        			'level' => $level
+		        		);
         		$this->session->set_userdata( $array );
         		if ($level==1||$level==2) //kiểm tra tài khoản đăng nhập là user hay admin
         		{//nếu là admin thì chuyển hướng về trang quản trị 
-					$message='<div class="alert alert-primary">Đăng nhập trang quản trị thành công.</div>';
+					$message='<div class="alert alert-info">Đăng nhập trang quản trị thành công.</div>';
         			$this->session->set_flashdata('message_tmp',$message);
         			redirect('Admin','refresh');
         		}
@@ -131,7 +130,7 @@ class Auth extends CI_Controller {
 	}
 	public function logout()
 	{
-		if ($this->session->userdata('login')==FALSE) {
+		if ($this->check_login()==FALSE) {
 			$message='<div class="alert alert-warning">Chưa đăng nhập!!!</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -142,7 +141,7 @@ class Auth extends CI_Controller {
 	}
 	public function recover_password()
 	{
-		if ($this->session->has_userdata('login')==TRUE) {//kiểm tra người dùng đã đăng nhập hay chưa
+		if ($this->check_login()==TRUE) {//kiểm tra người dùng đã đăng nhập hay chưa
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -154,8 +153,25 @@ class Auth extends CI_Controller {
 			$this->Load_view('auth_view/recover_password',$data);
 		} else {
 			$mail=$this->input->post('mail');
-			if($this->My_model->Check_user_by_mail($mail)==TRUE)
-				$data['message']='<div class="alert alert-success">Đã gửi mail vui lòng check mail</div>';
+			$result=$this->My_model->Get_user_by_mail($mail);
+			if($result->mail==$mail){
+				$code = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),0,8);
+				$this->load->library('demo_library');
+				if ($this->demo_library->mail_recover_password($mail,$code)==TRUE) {
+					$message='<div class="alert alert-success">Đã gửi mail vui lòng check mail vaf kich hoat lai tai khoan</div>';
+					$id=$result->id;
+					$data=array('password'=>md5(123456),'code'=>$code);
+					$this->My_model->Update($id,$data,'user');
+					$this->session->set_flashdata('message_tmp',$message);
+					redirect('auth/active','refresh');
+					die();
+				}else {
+					$message='<div class="alert alert-danger">Có lỗi xảy ra</div>';
+					$this->session->set_flashdata('message_tmp',$message);
+					redirect('auth/recover_password','refresh');
+					die();
+				}
+			}
 			else
 				$data['message']='<div class="alert alert-danger">Không tồn tại mail</div>';
 			$this->Load_view('auth_view/recover_password',$data);
@@ -164,7 +180,7 @@ class Auth extends CI_Controller {
 	}
 	public function change_password()
 	{
-		if ($this->session->has_userdata('login')==FALSE) {//kiểm tra người dùng đã đăng nhập hay chưa
+		if ($this->check_login()==FALSE) {//kiểm tra người dùng đã đăng nhập hay chưa
 			$message='<div class="alert alert-warning">Bạn chưa đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Auth/login','refresh');
@@ -196,8 +212,8 @@ class Auth extends CI_Controller {
 				$id=$result->id;
 				$data=array('password'=>$new_password);
 				$this->My_model->Update($id,$data,'user');
-				$message='<div class="alert alert-success"></div>';
-				$this->session->set_flashdata('message_tmp', 'Đổi mật khẩu thành công!!!');
+				$message='<div class="alert alert-success">Đổi mật khẩu thành công!!!</div>';
+				$this->session->set_flashdata('message_tmp',$message);
 				redirect('home','refresh');
 			}
 		}
@@ -205,7 +221,7 @@ class Auth extends CI_Controller {
 		
 	public function active($code=NULL)
 	{
-		if ($this->session->has_userdata('login')==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
+		if ($this->check_login()==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -228,7 +244,7 @@ class Auth extends CI_Controller {
         			'level' => $result->level
         		);
         		$this->session->set_userdata( $array );
-				$message='<div class="alert alert-success">Active tài khoản thành công '.$result->mail.' Đăng nhập thành công với tài khoản: '.$result->mail.'</div>';
+				$message='<div class="alert alert-success">Active tài khoản thành công. Đăng nhập thành công với tài khoản: '.$result->mail.'</div>';
         		$this->session->set_flashdata('message_tmp',$message);
 				redirect('home','refresh');
 				die();
@@ -250,10 +266,10 @@ class Auth extends CI_Controller {
 				$arrayName = array('status' => 1, 'code' =>'');
 				$this->My_model->Update($result->id,$arrayName,'user');
 				$array = array(
-        			'mail' => $result->mail,
-        			'login' => TRUE,
-        			'level' => $result->level
-        		);
+			        			'mail' => $result->mail,
+			        			'login' => TRUE,
+			        			'level' => $result->level
+			        		);
         		$this->session->set_userdata( $array );
 				$message='<div class="alert alert-danger">Active tài khoản thành công'.$result->mail.' Đăng nhập thành công với tài khoản: '.$result->mail.'</div>';
         		$this->session->set_flashdata('message_tmp',$message);
@@ -264,7 +280,7 @@ class Auth extends CI_Controller {
 	}
 	public function Re_active()
 	{
-		if ($this->session->has_userdata('login')==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
+		if ($this->check_login()==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -294,6 +310,12 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		redirect('Auth/login','refresh');
+	}
+	public function check_login()
+	{
+		if ($this->session->has_userdata('login')==TRUE)
+			return TRUE;
+		else return FALSE;
 	}
 }
 /* End of file Auth.php */

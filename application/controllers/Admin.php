@@ -8,7 +8,8 @@ class Admin extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('url');
 		if ($this->session->userdata('level')==0) {
-			$this->session->set_flashdata('message_tmp', 'Bạn KHÔNG	có quyền truy cập');
+			$message='<div class="alert alert-danger">Bạn KHÔNG	có quyền truy cập</div>';
+			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
 			die();
 		}
