@@ -1,14 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Manager_user extends CI_Controller {
-	public $limit=10;
+	public $limit=5;
 	public $table='user';
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('My_model');
-		$this->load->library('session');
-		$this->load->helper('url');
 		if ($this->session->has_userdata('login')==FAlSE) {
 			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
@@ -78,7 +76,7 @@ class Manager_user extends CI_Controller {
 	}
 	public function Set_manager($id)
 	{
-		if ($this->session->userdata('level')==2) {
+		if ($this->My_model->check_admin()) {
 			$arrayName = array('level' => 1);
 			$result=$this->My_model->update($id,$arrayName,$this->table);
 			if ($result==TRUE) {
@@ -87,7 +85,7 @@ class Manager_user extends CI_Controller {
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
 				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
@@ -96,16 +94,16 @@ class Manager_user extends CI_Controller {
 	}
 	public function Un_set_manager($id)
 	{
-		if ($this->session->userdata('level')==2) {
+		if ($this->My_model->check_admin()) {
 			$arrayName = array('level' => 0);
 			$result=$this->My_model->update($id,$arrayName,$this->table);
 			if ($result==TRUE) {
-			$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$message='<div class="alert alert-danger">Thao tác thành công</div>';
 				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
 				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
@@ -114,15 +112,15 @@ class Manager_user extends CI_Controller {
 	}
 	public function Delete_user($id)
 	{
-		if ($this->session->userdata('level')==2) {
+		if ($this->My_model->check_admin()) {
 			$result=$this->My_model->delete($id,$this->table);
 			if ($result==TRUE) {
-			$message='<div class="alert alert-danger">Thao tác thành công</div>';
+				$message='<div class="alert alert-danger">Thao tác thành công</div>';
 				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
 			}else{
-			$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
+				$message='<div class="alert alert-danger">Thao tác Lỗi</div>';
 				$this->session->set_flashdata('message_tmp',$message);
 				redirect('Manager_user/view_all','refresh');
 				die();
@@ -187,7 +185,19 @@ class Manager_user extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->Load_view('manager_user/index');
+		print_r($_GET);
+		$segment=(int)$this->uri->segment(3);
+		$total=$this->My_model->Count_table($this->table);
+		if($segment>=$total)
+			$segment=$total-$limit;
+		if ($segment<0) {
+			$segment=0;
+		}
+		$link='http://localhost/Codeigniter-Project/manager_user/index';
+		$tmp=$this->db->query('SELECT * FROM user ORDER BY mail DESC LIMIT 5');
+		$data['result'] = $tmp->result();
+		$data['pag']=$this->My_model->create_pagination($link,$total,$segment);
+		$this->Load_view('manager_user/View_all',$data);
 	}
 }
 /* End of file manager_user.php */

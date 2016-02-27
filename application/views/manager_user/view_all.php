@@ -4,6 +4,9 @@
 	    $("#selecctall").change(function(){
       		$(".checkbox").prop('checked', $(this).prop("checked"));
       	});
+      	$("#btn-fillter").click(function() {
+		 	$("div").addclass( "de");
+		});
 	});
 </script>
 <div class="container">
@@ -41,6 +44,10 @@ if (isset($_SESSION['login'])) {
 		}
 	?>
 <div class="container">
+<button class="btn btn-info" id="btn-fillter">Fillter</button>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 active" id="fillter">
+	hello word
+</div>
 	<h3>Danh sach nguoif dung</h3>
 	<div class="table-responsive">
 		<form action="<?php echo base_url('manager_user/proccess'); ?>" method="POST">
@@ -48,13 +55,13 @@ if (isset($_SESSION['login'])) {
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="selecctall"></th>
-						<th>id</th>
-						<th>Mail</th>
-						<th>Cart</th>
-						<th>date_created <i style="color:red" class="fa fa-sort-alpha-asc"></i></th>
-						<th>status</th>
-						<th>Custom</th>
-						<th>level</th>
+						<th><a href="">id</a></th>
+						<th><a href="">Mail</a></th>
+						<th><a href="">Cart</a></th>
+						<th><a href="">status</a></th>
+						<th><a href="">level</a></th>
+						<th><a href="">Custom</a></th>
+						<th><a href="">date_created <i style="color:red" class="fa fa-sort-alpha-asc"></i></a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,7 +82,6 @@ if (isset($_SESSION['login'])) {
 						<td><?php echo $value->id; ?></td>
 						<td><?php echo $value->mail; ?></td>
 						<td>0 san pham</td>
-						<td><?php echo $value->date_created; ?></td>
 						<td>
 							<?php 
 								if ($value->status==0) {
@@ -84,6 +90,16 @@ if (isset($_SESSION['login'])) {
 									echo '<i class="fa fa-check-square-o text-success" data-toggle="tooltip" title=" Active"></i>';
 								else if($value->status==2)
 									echo '<i class="fa fa-ban text-danger" data-toggle="tooltip" title="Block"></i>';
+							?>
+						</td>
+						<td>
+							<?php 
+							if ($value->level==0) {
+								echo '<span class="label label-default">User</span>';
+							}else if($value->level==1) 
+								echo '<span class="label label-success">Manager</span>'; 
+							else if($value->level==2)
+								echo '<span class="label label-info">Admin</span>';
 							?>
 						</td>
 						<td>
@@ -123,16 +139,7 @@ if (isset($_SESSION['login'])) {
 							  	</ul>
 						  	</div>
 						</td>
-						<td>
-							<?php 
-							if ($value->level==0) {
-								echo "User";
-							}else if($value->level==1) 
-								echo "Manager"; 
-							else if($value->level==2)
-								echo "Admin";
-							?>
-						</td>
+						<td><?php echo $value->date_created; ?></td>
 					</tr>
 
 				<?php 

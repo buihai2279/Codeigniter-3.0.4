@@ -11,8 +11,6 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('session');
-		$this->load->helper('url');
 		if ($this->session->userdata('level')==0) {
 			$message='<div class="alert alert-danger">Bạn KHÔNG	có quyền truy cập</div>';
 			$this->session->set_flashdata('message_tmp',$message);

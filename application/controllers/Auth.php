@@ -1,24 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Auth extends CI_Controller {
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
     	$this->load->model('My_model');
-    	$this->load->library('session');
-		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->helper('form');
 	}
-	public function Load_view($view,$data=NULL)
-	{//Hàm load 
+	public function Load_view($view,$data=NULL){//Hàm load 
         $this->load->view('auth_view/header');
         $this->load->view($view,$data);
         $this->load->view('auth_view/footer');
 	}
-	public function register()
-	{
-		if ($this->check_login()==TRUE) {//kiểm tra người dùng đang đăng nhập chuyển hướng về home
+	public function register(){
+		if ($this->check_login()) {//kiểm tra người dùng đang đăng nhập chuyển hướng về home
 			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp', $message);
 			redirect('Home','refresh');
@@ -71,9 +66,8 @@ class Auth extends CI_Controller {
 		}
 		$this->Load_view('auth_view/register',$data);
 	}
-	public function Login()
-	{//kiểm tra nếu người dùng đang đăng nhập thì đẩy về trang chủ
-		if ($this->check_login()==TRUE) {
+	public function Login(){//kiểm tra nếu người dùng đang đăng nhập thì đẩy về trang chủ
+		if ($this->check_login()) {
 			$message='<div class="alert alert-danger">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -128,8 +122,7 @@ class Auth extends CI_Controller {
         	}
         }
 	}
-	public function logout()
-	{
+	public function logout(){
 		if ($this->check_login()==FALSE) {
 			$message='<div class="alert alert-warning">Chưa đăng nhập!!!</div>';
 			$this->session->set_flashdata('message_tmp',$message);
@@ -139,9 +132,8 @@ class Auth extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('Home','refresh');die();
 	}
-	public function recover_password()
-	{
-		if ($this->check_login()==TRUE) {//kiểm tra người dùng đã đăng nhập hay chưa
+	public function recover_password(){
+		if ($this->check_login()) {//kiểm tra người dùng đã đăng nhập hay chưa
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -178,8 +170,7 @@ class Auth extends CI_Controller {
 		}
 		
 	}
-	public function change_password()
-	{
+	public function change_password(){
 		if ($this->check_login()==FALSE) {//kiểm tra người dùng đã đăng nhập hay chưa
 			$message='<div class="alert alert-warning">Bạn chưa đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
@@ -219,9 +210,8 @@ class Auth extends CI_Controller {
 		}
 	}
 		
-	public function active($code=NULL)
-	{
-		if ($this->check_login()==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
+	public function active($code=NULL){
+		if ($this->check_login()) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -278,9 +268,8 @@ class Auth extends CI_Controller {
 			}
 		}
 	}
-	public function Re_active()
-	{
-		if ($this->check_login()==TRUE) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
+	public function Re_active(){
+		if ($this->check_login()) {//kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
 			$message='<div class="alert alert-warning">Bạn đang đăng nhập</div>';
 			$this->session->set_flashdata('message_tmp',$message);
 			redirect('Home','refresh');
@@ -307,12 +296,10 @@ class Auth extends CI_Controller {
 			$this->Load_view('auth_view/re_active');
 		}
 	}
-	public function index()
-	{
+	public function index(){
 		redirect('Auth/login','refresh');
 	}
-	public function check_login()
-	{
+	public function check_login(){
 		if ($this->session->has_userdata('login')==TRUE)
 			return TRUE;
 		else return FALSE;
