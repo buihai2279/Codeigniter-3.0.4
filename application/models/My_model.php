@@ -65,20 +65,19 @@ class My_model extends CI_Model {
 	public function Delete($id,$table){
 	 	return $this->db->delete($table, array('id' => $id));
 	}
-	public function Get_all($table,$col='id',$sort=''){
-	 	if ($col==''&&$sort=='')
+	public function Get_all($table){
+	 	// if ($col==''&&$sort=='')
 	 		$query=$this->db->get($table);
-	 	else
-	 		$query=$this->db->get($table);
+	 	// else
+	 		// $query=$this->db->get($table);
 	 	return $query->result_array();
 	}
-
-	public function Create_pagination($link,$total,$offset=1){
+	public function Create_pagination($link,$total,$offset=1,$uri_segment=3){
 		$this->load->library('pagination');
 		$config['base_url'] = $link;
 		$config['total_rows'] = $total;
 		$config['per_page'] = $this->limit;
-		$config['uri_segment'] = 3;
+		$config['uri_segment'] = $uri_segment;
 		$config['num_links'] = 3;
 		$config['full_tag_open'] = '<nav><ul class="pagination pagination-sm">';
 		$config['full_tag_close'] = '</ul></nav>';

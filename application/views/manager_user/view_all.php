@@ -1,52 +1,65 @@
 <body>
 <script type="text/javascript">
-	$(document).ready(function(){ 
+	$(document).ready(function(){
 	    $("#selecctall").change(function(){
       		$(".checkbox").prop('checked', $(this).prop("checked"));
       	});
-      	$("#btn-fillter").click(function() {
-		 	$("div").addclass( "de");
-		});
 	});
+$(document).ready(function(){
+    $("#btn-fillter").click(function(){
+        $("#fillter").toggleClass("show");
+        // show('fast')//.toggleClass("show")
+    });
+});
 </script>
 <div class="container">
-	<?php 
-		if(isset($_SESSION['message_tmp']))
-			echo$_SESSION['message_tmp'];
-	?>
-</div>
-<?php 
-if (isset($_SESSION['login'])) {
+	<?php
+if (isset($_SESSION['message_tmp'])) {
+	echo $_SESSION['message_tmp'];
+}
 ?>
-	<div class="btn-group">
-	  <a class="btn btn-primary" href="#">
-		  <i class="fa fa-user fa-fw"></i>
-		  <?php echo $_SESSION['mail']; ?>
-	  </a>
-	  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-	    <span class="fa fa-caret-down"></span></a>
-	  <ul class="dropdown-menu">
-	    <li>
-		    <a href="<?php echo base_url('Auth/change_password'); ?>">
-			    <i class="fa fa-pencil fa-fw"></i>
-			     Change Pass
-		    </a>
-	    </li>
-	    <li>
-		    <a href="<?php echo base_url('Auth/logout'); ?>">
-		    	<i class="fa fa-pencil fa-fw"></i> Logout
-		    </a>
-	    </li>
-	  </ul>
+</div>
+<div class="container"><br>
+<ol class="breadcrumb">
+  <li><a href="<?php echo base_url(); ?>">Home</a></li>
+	<li>
+		<a href="<?php echo base_url().$this->uri->segment(1); ?>">
+			<?php echo $this->uri->segment(1); ?>
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo base_url().$this->uri->segment(1).'/'.$this->uri->segment(2); ?>">
+			<?php echo $this->uri->segment(2); ?>
+		</a>
+	</li>
+</ol>
+<div class="btn btn-info" id="btn-fillter">Fillter</div><br><br>
+<div style="display: none" id="fillter">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form action="<?php echo base_url('manager_user/Proccess_1')?>" method="POST" class="form-inline" role="form">
+				<div class="form-group col-md-3">
+					<label for="input" class=" control-label">Sort By</label>
+						<select name="name" id="input" class="form-control" required="required">
+							<option value="id">ID</option>
+							<option value="mail">Mail</option>
+							<option value="">Cart</option>
+							<option value="date_created">Date Created</option>
+							<option value="level">Level</option>
+							<option value="status">Status</option>
+						</select>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="input" class="control-label">Sort By</label>
+						<select name="sort_by" id="input" class="form-control" required="required">
+							<option value="DESC">DESC</option>
+							<option value="ASC">ASC</option>
+						</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
 	</div>
-  <a  href="<?php echo base_url(); ?>"><i class="fa fa-home fa-fw"></i>  Trang người dùng</a>
-	<?php 
-		}
-	?>
-<div class="container">
-<button class="btn btn-info" id="btn-fillter">Fillter</button>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 active" id="fillter">
-	hello word
 </div>
 	<h3>Danh sach nguoif dung</h3>
 	<div class="table-responsive">
@@ -65,42 +78,46 @@ if (isset($_SESSION['login'])) {
 					</tr>
 				</thead>
 				<tbody>
-				<?php 
-					foreach ($result as $key => $value) {
-				?>
-					<tr <?php if ($value->level>0) {echo "class='success'";} ?>>
+				<?php
+foreach ($result as $key => $value) {
+	?>
+					<tr <?php if ($value->level > 0) {echo "class='success'";}
+	?>>
 						<td>
-							<?php 
-								if ($value->level==2||$value->mail==$_SESSION['mail']||$value->level==$_SESSION['level']) {
-									echo '';
-								}else {
-									echo '<input type="checkbox" class="checkbox" value="'.$value->id.'" name="check[]">';
-								}
-							?>
-						
+							<?php
+if ($value->level == 2 || $value->mail == $_SESSION['mail'] || $value->level == $_SESSION['level']) {
+		echo '';
+	} else {
+		echo '<input type="checkbox" class="checkbox" value="' . $value->id . '" name="check[]">';
+	}
+	?>
 						</td>
 						<td><?php echo $value->id; ?></td>
 						<td><?php echo $value->mail; ?></td>
 						<td>0 san pham</td>
 						<td>
-							<?php 
-								if ($value->status==0) {
-									echo '<i class="fa fa-square-o text-warning" data-toggle="tooltip" title="Chua Active"></i>';
-								}else if($value->status==1)
-									echo '<i class="fa fa-check-square-o text-success" data-toggle="tooltip" title=" Active"></i>';
-								else if($value->status==2)
-									echo '<i class="fa fa-ban text-danger" data-toggle="tooltip" title="Block"></i>';
-							?>
+							<?php
+if ($value->status == 0) {
+		echo '<i class="fa fa-square-o text-warning" data-toggle="tooltip" title="Chua Active"></i>';
+	} else if ($value->status == 1) {
+		echo '<i class="fa fa-check-square-o text-success" data-toggle="tooltip" title=" Active"></i>';
+	} else if ($value->status == 2) {
+		echo '<i class="fa fa-ban text-danger" data-toggle="tooltip" title="Block"></i>';
+	}
+
+	?>
 						</td>
 						<td>
-							<?php 
-							if ($value->level==0) {
-								echo '<span class="label label-default">User</span>';
-							}else if($value->level==1) 
-								echo '<span class="label label-success">Manager</span>'; 
-							else if($value->level==2)
-								echo '<span class="label label-info">Admin</span>';
-							?>
+							<?php
+if ($value->level == 0) {
+		echo '<span class="label label-default">User</span>';
+	} else if ($value->level == 1) {
+		echo '<span class="label label-success">Manager</span>';
+	} else if ($value->level == 2) {
+		echo '<span class="label label-info">Admin</span>';
+	}
+
+	?>
 						</td>
 						<td>
 							<div class="dropdown">
@@ -110,41 +127,39 @@ if (isset($_SESSION['login'])) {
 								</button>
 							  	<ul class="dropdown-menu bg-primary" aria-labelledby="dLabel">
 							  		<li><a href="">Xem chi tiet</a></li>
-							    	<?php 
-									    if($_SESSION['level']>$value->level&&$value->status==2){
-									    	$link =base_url("Manager_user/un_block_user").'/'.$value->id;
-									    	echo '<li><a href="'.$link.'">UnBlock</a></li>';
-									    }
-									    else if($_SESSION['level']>$value->level&&$value->status==1){
-									    	$link =base_url("Manager_user/block_user").'/'.$value->id;
-									    	echo '<li><a href="'.$link.'">Block</a></li>';
-									    }
-								    ?>
-								    <?php 
-									    if($_SESSION['level']==2&&$value->level==1){
-									    	$link =base_url("Manager_user/un_set_manager").'/'.$value->id;
-									    	echo '<li><a href="'.$link.'">UnSet Manager</a></li>';
-									    }
-									    else if($_SESSION['level']==2&&$value->level==0){
-									    	$link =base_url("Manager_user/set_manager").'/'.$value->id;
-									    	echo '<li><a href="'.$link.'">Set Manager</a></li>';
-									    }
-								    ?>
-								   <?php 
-									    if($_SESSION['level']>$value->level&&$_SESSION['level']==2){
-									    	$link =base_url("Manager_user/delete_user").'/'.$value->id;
-									    	echo '<li><a href="'.$link.'">Delete</a></li>';
-									    }
-								    ?>
+							    	<?php
+if ($_SESSION['level'] > $value->level && $value->status == 2) {
+		$link = base_url("Manager_user/un_block_user") . '/' . $value->id;
+		echo '<li><a href="' . $link . '">UnBlock</a></li>';
+	} else if ($_SESSION['level'] > $value->level && $value->status == 1) {
+		$link = base_url("Manager_user/block_user") . '/' . $value->id;
+		echo '<li><a href="' . $link . '">Block</a></li>';
+	}
+	?>
+								    <?php
+if ($_SESSION['level'] == 2 && $value->level == 1) {
+		$link = base_url("Manager_user/un_set_manager") . '/' . $value->id;
+		echo '<li><a href="' . $link . '">UnSet Manager</a></li>';
+	} else if ($_SESSION['level'] == 2 && $value->level == 0) {
+		$link = base_url("Manager_user/set_manager") . '/' . $value->id;
+		echo '<li><a href="' . $link . '">Set Manager</a></li>';
+	}
+	?>
+								   <?php
+if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
+		$link = base_url("Manager_user/delete_user") . '/' . $value->id;
+		echo '<li><a href="' . $link . '">Delete</a></li>';
+	}
+	?>
 							  	</ul>
 						  	</div>
 						</td>
 						<td><?php echo $value->date_created; ?></td>
 					</tr>
 
-				<?php 
-					}
-				 ?>
+				<?php
+}
+?>
 				</tbody>
 			</table>
 			<div class="form-group">
@@ -152,10 +167,11 @@ if (isset($_SESSION['login'])) {
 					<select name="edit" id="input" class="form-control" required="required">
 						<option value="block">Block</option>
 						<option value="un_block">Un Block</option>
-						<?php if ($_SESSION['level']==2) {
-							echo '<option value="delete">Delete</option>';
-						} ?>
-						
+						<?php if ($_SESSION['level'] == 2) {
+	echo '<option value="delete">Delete</option>';
+}
+?>
+
 					</select>
 				</div>
 			</div>
@@ -166,5 +182,4 @@ if (isset($_SESSION['login'])) {
 			<?php echo $pag; ?>
 		</div>
 </div>
-
 </body>
