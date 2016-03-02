@@ -1,5 +1,4 @@
-<body>
-<br>
+br>
 <?php if(isset($_SESSION['message_tmp'])) echo$_SESSION['message_tmp'];?>
 <?php if (isset($_SESSION['login'])) {
 ?>
@@ -19,8 +18,6 @@
 <?php 
 	}
 ?>
-<div class="container">
-
 	<form action="" method="POST" role="form">
 		<legend>Form title</legend>
 	

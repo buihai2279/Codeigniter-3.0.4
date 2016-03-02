@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Categories extends CI_Controller {
 
-	public $limit = 3;
 	public $table = 'category';
 	public function __construct()
 	{
@@ -14,6 +13,7 @@ class Categories extends CI_Controller {
 	{
 		$data['result']=$this->My_model->get_all($this->table);
 		$this->load->view('categories/header');	
+		$this->load->view('categories/breadcrumb');	
 		$this->load->view('categories/list',$data);	
 		$this->load->view('categories/footer');	
 	}

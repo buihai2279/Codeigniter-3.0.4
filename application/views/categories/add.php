@@ -15,19 +15,7 @@ if (isset($_SESSION['message_tmp'])) {
 ?>
 </div>
 <div class="container"><br>
-	<ol class="breadcrumb">
-	  <li><a href="<?php echo base_url(); ?>">Home</a></li>
-		<li>
-			<a href="<?php echo base_url().$this->uri->segment(1); ?>">
-				<?php echo $this->uri->segment(1); ?>
-			</a>
-		</li>
-		<li>
-			<a href="<?php echo base_url().$this->uri->segment(1).'/'.$this->uri->segment(2); ?>">
-				<?php echo $this->uri->segment(2); ?>
-			</a>
-		</li>
-	</ol>
+	
 	<h3>Danh sach nguoif dung</h3>
   			
 	<form class="form-horizontal" method="POST" action="#">

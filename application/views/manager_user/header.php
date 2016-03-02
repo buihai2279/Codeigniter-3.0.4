@@ -15,6 +15,8 @@
 			})
 		</script>
 	</head>
+<body>
+<div class="container">
 	<?php
 if (isset($_SESSION['login'])) {
 	?>

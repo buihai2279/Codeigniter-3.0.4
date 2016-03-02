@@ -1,4 +1,3 @@
-<body>
 <script type="text/javascript">
 	$(document).ready(function(){
 	    $("#selecctall").change(function(){
@@ -19,25 +18,12 @@ if (isset($_SESSION['message_tmp'])) {
 }
 ?>
 </div>
-<div class="container"><br>
-<ol class="breadcrumb">
-  <li><a href="<?php echo base_url(); ?>">Home</a></li>
-	<li>
-		<a href="<?php echo base_url().$this->uri->segment(1); ?>">
-			<?php echo $this->uri->segment(1); ?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo base_url().$this->uri->segment(1).'/'.$this->uri->segment(2); ?>">
-			<?php echo $this->uri->segment(2); ?>
-		</a>
-	</li>
-</ol>
+<br>
 <div class="btn btn-info" id="btn-fillter">Fillter</div><br><br>
 <div style="display: none" id="fillter">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<form action="<?php echo base_url('manager_user/Proccess_1')?>" method="POST" class="form-inline" role="form">
+			<form action="<?php echo base_url('manager_user/fillter')?>" method="POST" class="form-inline" role="form">
 				<div class="form-group col-md-3">
 					<label for="input" class=" control-label">Sort By</label>
 						<select name="name" id="input" class="form-control" required="required">
@@ -61,6 +47,37 @@ if (isset($_SESSION['message_tmp'])) {
 		</div>
 	</div>
 </div>
+<?php
+	$segment=array();
+	$segment=$this->uri->segments;
+	$link=base_url('manager_user/fillter').'/';
+	$link_id=$link.'id/ASC';
+	$link_mail=$link.'mail/ASC';
+	$link_cart=$link.'cart/ASC';
+	$link_status=$link.'status/ASC';
+	$link_level=$link.'level/ASC';
+	$link_date_created=$link.'date_created/ASC';
+	if (isset($segment['3'])&&isset($segment['4'])) {
+		if ($segment['3']=='id'&&strtoupper($segment['4'])=='ASC') {
+			$link_id=$link.'id/DESC';
+		}
+		if ($segment['3']=='mail'&&strtoupper($segment['4'])=='ASC') {
+			$link_mail=$link.'mail/DESC';
+		}
+		if ($segment['3']=='cart'&&strtoupper($segment['4'])=='ASC') {
+			$link_cart=$link.'cart/DESC';
+		}
+		if ($segment['3']=='status'&&strtoupper($segment['4'])=='ASC') {
+			$link_status=$link.'status/DESC';
+		}
+		if ($segment['3']=='level'&&strtoupper($segment['4'])=='ASC') {
+			$link_level=$link.'level/DESC';
+		}
+		if ($segment['3']=='date_created'&&strtoupper($segment['4'])=='ASC') {
+			$link_date_created=$link.'date_created/DESC';
+		}
+	}
+?>
 	<h3>Danh sach nguoif dung</h3>
 	<div class="table-responsive">
 		<form action="<?php echo base_url('manager_user/proccess'); ?>" method="POST">
@@ -68,13 +85,13 @@ if (isset($_SESSION['message_tmp'])) {
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="selecctall"></th>
-						<th><a href="">id</a></th>
-						<th><a href="">Mail</a></th>
-						<th><a href="">Cart</a></th>
-						<th><a href="">status</a></th>
-						<th><a href="">level</a></th>
-						<th><a href="">Custom</a></th>
-						<th><a href="">date_created <i style="color:red" class="fa fa-sort-alpha-asc"></i></a></th>
+						<th><a href="<?php echo $link_id ?>">ID</a></th>
+						<th><a href="<?php echo $link_mail ?>">Mail</a></th>
+						<th><a href="<?php echo $link_cart ?>">Cart</a></th>
+						<th><a href="<?php echo $link_status ?>">status</a></th>
+						<th><a href="<?php echo $link_level ?>">level</a></th>
+						<th>Custom</th>
+						<th><a href="<?php echo $link_date_created ?>">date_created</a></th>
 					</tr>
 				</thead>
 				<tbody>

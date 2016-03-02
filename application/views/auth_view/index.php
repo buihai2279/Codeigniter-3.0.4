@@ -16,9 +16,7 @@
 	  </ul>
 	</div>
   <a  href="<?php echo base_url(); ?>"><i class="fa fa-home fa-fw"></i>  Trang người dùng</a>
-
 <?php 
-
 	}
 ?>
 <div class="clear-fix"></div>
@@ -26,7 +24,8 @@
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 <div class="list-group">
   <a class="list-group-item" href="<?php echo base_url('manager_user'); ?>"><i class="fa fa-book fa-fw"></i>&nbsp; QL Nguoi dung</a>
-  <a class="list-group-item" href="#"><i class="fa fa-pencil fa-fw"></i>&nbsp; QL slide</a>
+  <a class="list-group-item" href="<?php echo base_url('categories'); ?>"><i class="fa fa-pencil fa-fw"></i>&nbsp; QL Category</a>
+  <a class="list-group-item" href="<?php echo base_url('manager_product'); ?>"><i class="fa fa-pencil fa-fw"></i>&nbsp; QL San Pham</a>
   <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>
 </div>	
 </div>
