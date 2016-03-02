@@ -20,6 +20,8 @@ if (isset($_SESSION['message_tmp'])) {
 			</a>
 		</li>
 	</ol>
+	<a class="btn btn-large btn-info" href="<?php echo base_url('categories/add'); ?>">
+	<i class="fa fa-plus"></i>Them Danh Muc</a>
 	<h3>Danh sach nguoif dung</h3>
 	<div class="table-responsive">
 		<table class="table table-hover">
@@ -27,8 +29,10 @@ if (isset($_SESSION['message_tmp'])) {
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
+					<th>Parrent_id</th>
 					<th>Tittle</th>
 					<th>Description</th>
+					<th>Custom</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,8 +41,10 @@ if (isset($_SESSION['message_tmp'])) {
 				<tr>
 					<td><?php echo $value['id']; ?></td>
 					<td><?php echo $value['name']; ?></td>
+					<td><?php echo $value['parrent_id']; ?></td>
 					<td><?php echo $value['tittle']; ?></td>
 					<td><?php echo $value['description']; ?></td>
+					<td><a href="">Edit</a><a href="">Delete</a></td>
 				</tr>
 			<?php } ?>
 			</tbody>
