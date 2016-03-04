@@ -8,9 +8,10 @@ class Auth extends CI_Controller {
 		$this->load->helper('form');
 	}
 	public function Load_view($view,$data=NULL){//Hàm load 
-        $this->load->view('auth_view/header');
+        $this->load->view('back-end/header-normal');
+        // $this->load->view('back-end/breadcrumb');
         $this->load->view($view,$data);
-        $this->load->view('auth_view/footer');
+        $this->load->view('back-end/footer-normal');
 	}
 	public function Sent_message($message='Thao tác thành công',$link='home',$color='success') {
 		$message = '<div class="alert alert-'.$color.'">'.$message.'</div>';

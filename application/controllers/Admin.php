@@ -20,9 +20,9 @@ class Admin extends CI_Controller {
 	}
 	public function Load_view($view,$data=NULL)
 	{
-        $this->load->view('auth_view/header');
+        $this->load->view('back-end/header');
         $this->load->view($view,$data);
-        $this->load->view('auth_view/footer');
+        $this->load->view('back-end/footer');
 	}
 	public function index()
 	{

@@ -11,13 +11,11 @@ $(document).ready(function(){
     });
 });
 </script>
-<div class="container">
 	<?php
 if (isset($_SESSION['message_tmp'])) {
 	echo $_SESSION['message_tmp'];
 }
 ?>
-</div>
 <br>
 <div class="btn btn-info" id="btn-fillter">Fillter</div><br><br>
 <div style="display: none" id="fillter">
@@ -96,45 +94,45 @@ if (isset($_SESSION['message_tmp'])) {
 				</thead>
 				<tbody>
 				<?php
-foreach ($result as $key => $value) {
-	?>
-					<tr <?php if ($value->level > 0) {echo "class='success'";}
-	?>>
-						<td>
+					foreach ($result as $key => $value){
+						?>
+							<tr <?php if ($value->level > 0) {echo "class='success'";}
+						?>>
+							<td>
 							<?php
-if ($value->level == 2 || $value->mail == $_SESSION['mail'] || $value->level == $_SESSION['level']) {
-		echo '';
-	} else {
-		echo '<input type="checkbox" class="checkbox" value="' . $value->id . '" name="check[]">';
-	}
-	?>
+							if ($value->level == 2 || $value->mail == $_SESSION['mail'] || $value->level == $_SESSION['level']) {
+								echo '';
+									} else {
+									echo '<input type="checkbox" class="checkbox" value="' . $value->id . '" name="check[]">';
+							}
+						?>
 						</td>
 						<td><?php echo $value->id; ?></td>
 						<td><?php echo $value->mail; ?></td>
 						<td>0 san pham</td>
 						<td>
 							<?php
-if ($value->status == 0) {
-		echo '<i class="fa fa-square-o text-warning" data-toggle="tooltip" title="Chua Active"></i>';
-	} else if ($value->status == 1) {
-		echo '<i class="fa fa-check-square-o text-success" data-toggle="tooltip" title=" Active"></i>';
-	} else if ($value->status == 2) {
-		echo '<i class="fa fa-ban text-danger" data-toggle="tooltip" title="Block"></i>';
-	}
+						if ($value->status == 0) {
+								echo '<i class="fa fa-square-o text-warning" data-toggle="tooltip" title="Chua Active"></i>';
+							} else if ($value->status == 1) {
+								echo '<i class="fa fa-check-square-o text-success" data-toggle="tooltip" title=" Active"></i>';
+							} else if ($value->status == 2) {
+								echo '<i class="fa fa-ban text-danger" data-toggle="tooltip" title="Block"></i>';
+							}
 
-	?>
+							?>
 						</td>
 						<td>
 							<?php
-if ($value->level == 0) {
-		echo '<span class="label label-default">User</span>';
-	} else if ($value->level == 1) {
-		echo '<span class="label label-success">Manager</span>';
-	} else if ($value->level == 2) {
-		echo '<span class="label label-info">Admin</span>';
-	}
+							if ($value->level == 0) {
+									echo '<span class="label label-default">User</span>';
+								} else if ($value->level == 1) {
+									echo '<span class="label label-success">Manager</span>';
+								} else if ($value->level == 2) {
+									echo '<span class="label label-info">Admin</span>';
+								}
 
-	?>
+								?>
 						</td>
 						<td>
 							<div class="dropdown">
@@ -145,35 +143,34 @@ if ($value->level == 0) {
 							  	<ul class="dropdown-menu bg-primary" aria-labelledby="dLabel">
 							  		<li><a href="">Xem chi tiet</a></li>
 							    	<?php
-if ($_SESSION['level'] > $value->level && $value->status == 2) {
-		$link = base_url("Manager_user/un_block_user") . '/' . $value->id;
-		echo '<li><a href="' . $link . '">UnBlock</a></li>';
-	} else if ($_SESSION['level'] > $value->level && $value->status == 1) {
-		$link = base_url("Manager_user/block_user") . '/' . $value->id;
-		echo '<li><a href="' . $link . '">Block</a></li>';
-	}
-	?>
+									if ($_SESSION['level'] > $value->level && $value->status == 2) {
+											$link = base_url("Manager_user/un_block_user") . '/' . $value->id;
+											echo '<li><a href="' . $link . '">UnBlock</a></li>';
+										} else if ($_SESSION['level'] > $value->level && $value->status == 1) {
+											$link = base_url("Manager_user/block_user") . '/' . $value->id;
+											echo '<li><a href="' . $link . '">Block</a></li>';
+										}
+										?>
 								    <?php
-if ($_SESSION['level'] == 2 && $value->level == 1) {
-		$link = base_url("Manager_user/un_set_manager") . '/' . $value->id;
-		echo '<li><a href="' . $link . '">UnSet Manager</a></li>';
-	} else if ($_SESSION['level'] == 2 && $value->level == 0) {
-		$link = base_url("Manager_user/set_manager") . '/' . $value->id;
-		echo '<li><a href="' . $link . '">Set Manager</a></li>';
-	}
-	?>
+									if ($_SESSION['level'] == 2 && $value->level == 1) {
+											$link = base_url("Manager_user/un_set_manager") . '/' . $value->id;
+											echo '<li><a href="' . $link . '">UnSet Manager</a></li>';
+										} else if ($_SESSION['level'] == 2 && $value->level == 0) {
+											$link = base_url("Manager_user/set_manager") . '/' . $value->id;
+											echo '<li><a href="' . $link . '">Set Manager</a></li>';
+										}
+										?>
 								   <?php
-if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
-		$link = base_url("Manager_user/delete_user") . '/' . $value->id;
-		echo '<li><a href="' . $link . '">Delete</a></li>';
-	}
-	?>
+								if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
+										$link = base_url("Manager_user/delete_user") . '/' . $value->id;
+										echo '<li><a href="' . $link . '">Delete</a></li>';
+									}
+									?>
 							  	</ul>
 						  	</div>
 						</td>
 						<td><?php echo $value->date_created; ?></td>
 					</tr>
-
 				<?php
 }
 ?>
@@ -198,5 +195,3 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
 		<div class="col-md-4 col-md-offset-4">
 			<?php echo $pag; ?>
 		</div>
-</div>
-</body>

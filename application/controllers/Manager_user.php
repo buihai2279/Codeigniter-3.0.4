@@ -16,10 +16,10 @@ class manager_user extends CI_Controller {
 		}
 	}
 	protected function Load_view($view, $data = NULL) {
-		$this->load->view('manager_user/header');
-		$this->load->view('categories/breadcrumb');	
+		$this->load->view('back-end/header');
+		$this->load->view('back-end/breadcrumb');	
 		$this->load->view($view, $data);
-		$this->load->view('manager_user/footer');
+		$this->load->view('back-end/footer');
 	}
 	public function View_all() {
 		$segment = (int) $this->uri->segment(3);
@@ -138,6 +138,7 @@ class manager_user extends CI_Controller {
 		}
 	}
 	public function index() {
+		redirect('manager_user/fillter','refresh');
 		$segment = (int) $this->uri->segment(3);
 		$total   = $this->My_model->Count_table($this->table);
 		if ($segment >= $total) {

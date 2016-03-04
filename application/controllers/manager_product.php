@@ -5,31 +5,33 @@ class Manager_product extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('manager_user/header');
-		$this->load->view('categories/breadcrumb');
+		$this->load->view('back-end/header');
+		$this->load->view('back-end/breadcrumb');
 		$this->load->view('manager_product/list');
-		$this->load->view('manager_user/footer');
+		$this->load->view('back-end/footer');
 	}
 	public function test()
 	{
-		$this->load->library('simple_html_dom');
-		// 1. Write a function with parameter "$element"
-		function my_callback($element) {
-		    if ($element->tag=='input')
-		        $element->outertext = 'input';
-		    if ($element->tag=='img')
-		        $element->outertext = 'img';
-		    if ($element->tag=='a')
-		        $element->outertext = 'a';
-		}
-		// 2. create HTML Dom
-		$html = file_get_html('http://www.google.com/');
-		// 3. Register the callback function with it's function name
-		$html->set_callback('my_callback');
-		// 4. Callback function will be invoked while dumping
-		echo $html;
-	}
+	// 	$this->load->library('simple_html_dom');
+	// 	// Create DOM from URL or file
+	// 	$html = file_get_html('https://hoanghamobile.com/iphone-6s-plus-c2114.html');
 
+	// // Find all images 
+	// foreach($html->find('div') as $element) 
+	// 	$tmp=$element->find('img');
+ //       	echo "<pre>";
+ //       	print_r($tmp);
+ //       	echo "</pre>";
+		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+
+		if ( ! $foo = $this->cache->get('foo'))
+		{
+			echo 'Saving to the cache!<br />';
+			$foo = 'foobarbdddaz!';
+			 $this->cache->save('foo', $foo, 300);
+		}
+			echo $foo;
+		}
 }
 
 /* End of file manager_product.php */

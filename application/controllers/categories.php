@@ -12,10 +12,10 @@ class Categories extends CI_Controller {
 	public function index()
 	{
 		$data['result']=$this->My_model->get_all($this->table);
-		$this->load->view('categories/header');	
-		$this->load->view('categories/breadcrumb');	
+		$this->load->view('back-end/header');	
+		$this->load->view('back-end/breadcrumb');	
 		$this->load->view('categories/list',$data);	
-		$this->load->view('categories/footer');	
+		$this->load->view('back-end/footer');	
 	}
 	public function add()
 	{
@@ -41,9 +41,9 @@ class Categories extends CI_Controller {
             }
 		}
 		$data['data1']=$this->My_model->Get_col('id,name','category');
-		$this->load->view('categories/header');	
+		$this->load->view('back-end/header');	
 		$this->load->view('categories/add',$data);	
-		$this->load->view('categories/footer');	
+		$this->load->view('back-end/footer');	
 	}
 
 }
