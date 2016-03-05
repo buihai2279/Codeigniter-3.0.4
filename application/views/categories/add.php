@@ -1,18 +1,11 @@
-<?php $tmp=validation_errors(); ?>
-<?php if (isset($tmp)&&!empty($tmp)) {
+<?php if (validation_errors()!=NULL) {
   ?>
   <div class="alert alert-warning">
-      <?php echo $tmp; ?>
+      <?php echo validation_errors(); ?>
   </div>
 <?php 
 } ?>
-	<?php
-if (isset($_SESSION['message_tmp'])) {
-	echo $_SESSION['message_tmp'];
-}
-?>
 <br>
-	
 	<h3>Danh sach nguoif dung</h3>
 	<form class="form-horizontal" method="POST" action="#">
    <div class="form-group">
@@ -36,7 +29,6 @@ if (isset($_SESSION['message_tmp'])) {
     <div class="form-group">
     	<label for="input" class="col-sm-2 control-label">Parrent ID</label>
     	<div class="col-sm-2">
-    			
     		<select  name="parrent_id" id="input" class="form-control" required="required">
     		<?php foreach ($data1 as $key => $value) {
     			?>
@@ -52,5 +44,3 @@ if (isset($_SESSION['message_tmp'])) {
       </div>
     </div>
 </form> 
-
-

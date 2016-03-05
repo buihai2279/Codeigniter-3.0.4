@@ -9,5 +9,12 @@
 		<link href="<?php echo base_url('bootstrap/css/font-awesome.min.css')?>" rel="stylesheet">
 		<script src="<?php echo base_url('bootstrap/js/jquery-1.12.0.min.js')?>"></script>
 		<script src="<?php echo base_url('bootstrap/js/bootstrap.min.js')?>"></script>
+		<style>
+			.inline{
+				display: inline;
+				float: left;
+			}
+		</style>
 	</head>
-	<body>
+<body style="background-color: #2B2B33;">
+	

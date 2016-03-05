@@ -1,4 +1,3 @@
-<body style="background-color: #2B2B33;">
 <br><br>
 <div class="col-md-6 col-md-offset-3">
 	<br>
@@ -66,4 +65,3 @@
 		<?php echo form_close(); ?>
 	</div>
 </div>
-</body>

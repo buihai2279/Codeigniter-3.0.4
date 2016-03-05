@@ -6,8 +6,21 @@ class My_model extends CI_Model {
 	public function __construct(){
 		parent::__construct();
 	}
+	public function Load_view($view='',$data='')
+	{
+        $this->load->view('back-end/header');
+        $this->load->view($view, $data);
+        $this->load->view('back-end/footer');
+	}
 	public function Get_user_by_mail($mail=''){
 		$query = $this->db->get_where('user',array('mail' => $mail));
+		if ($query->num_rows()==1)
+			return $query->row();
+		else
+			return FALSE;
+	}
+	public function Get_user_by_id($id=''){
+		$query = $this->db->get_where('user',array('id' => $id));
 		if ($query->num_rows()==1)
 			return $query->row();
 		else

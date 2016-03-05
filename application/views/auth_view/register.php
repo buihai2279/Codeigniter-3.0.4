@@ -1,4 +1,3 @@
-<body style="background-color: #2B2B33;">
 <div class="col-md-6 col-md-offset-3">
 	<br>
 	<div class="well well-lg">
@@ -59,7 +58,5 @@
 	       ?>
 		<?php echo form_close(); ?>
 		<p><a href="<?php echo base_url('auth/login'); ?>">login </a></p>
-
 	</div>
 </div>
-</body>

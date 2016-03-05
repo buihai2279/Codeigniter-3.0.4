@@ -1,38 +1,66 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Manager_product extends CI_Controller {
+class Manager_product extends CI_Controller
+{
 
-	public function index()
-	{
-		$this->load->view('back-end/header');
-		$this->load->view('back-end/breadcrumb');
-		$this->load->view('manager_product/list');
-		$this->load->view('back-end/footer');
-	}
-	public function test()
-	{
-	// 	$this->load->library('simple_html_dom');
-	// 	// Create DOM from URL or file
-	// 	$html = file_get_html('https://hoanghamobile.com/iphone-6s-plus-c2114.html');
+    public function index()
+    {
+        $data['result'] = $this->My_model->get_all('product');
+        // print_r($result);
+        $this->load->view('back-end/header');
+        $this->load->view('manager_product/list', $data);
+        $this->load->view('back-end/footer');
+        if ($this->session->has_userdata('login') == false&&$this->session->has_userdata('level')==0) {
+            redirect('home','refresh');
+        }
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        //Do your magic here
+        $this->load->library('Demo_library');
+        $this->load->model('My_model');
+    }
+    public function add()
+    {
+        $this->demo_library->Load_view('categories/add');
+    }
+    public function test()
+    {
+        $link   = 'https://www.thegioididong.com/dtdd';
+        $result = $this->demo_library->Get_xml($link);
+        foreach ($result as $value) {
+            $t      = str_replace('.', '', $value['price']);
+            $t = str_replace('₫', '', $t);
+            $link=implode('|',$value['link']);
+            $des    = implode('|', $value['des']);
+            $data   = array(
+                'name'        => $value['name'],
+                'price'       => $t,
+                'img'         => $value['src'],
+                'description' => $des,
+                'link' => $link,
+                'detail' => $value['detail']
+            );
+            $this->db->insert('product', $data);
+        }
+    }
+    public function test2()
+    {
+    	$link   = 'https://www.thegioididong.com/dtdd/lg-k10';
+        $result = $this->demo_library->Get_xml_1($link);
+        echo "<pre>";
+        print_r($result);
+        echo "</pre>";
+    }
+    public function fillter()
+    {
+        $this->My_model->Load_view('manager_product/list');
+    }
 
-	// // Find all images 
-	// foreach($html->find('div') as $element) 
-	// 	$tmp=$element->find('img');
- //       	echo "<pre>";
- //       	print_r($tmp);
- //       	echo "</pre>";
-		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
-
-		if ( ! $foo = $this->cache->get('foo'))
-		{
-			echo 'Saving to the cache!<br />';
-			$foo = 'foobarbdddaz!';
-			 $this->cache->save('foo', $foo, 300);
-		}
-			echo $foo;
-		}
 }
-
 /* End of file manager_product.php */
 /* Location: ./application/controllers/manager_product.php */
+?>
+

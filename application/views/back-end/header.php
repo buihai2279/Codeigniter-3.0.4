@@ -14,12 +14,16 @@
 			  $('[data-toggle="tooltip"]').tooltip()
 			})
 		</script>
+		<style>body { padding-top: 70px; }</style>
 	</head>
 	<body>
 	<div class="container-fluid">
-		<ul class="nav nav-pills" style="background: #f1f1f1;padding: 5px 25px;">
+		<ul class="nav nav-pills  navbar-fixed-top" style="background: #f1f1f1;padding: 5px 25px;">
 		  <li role="presentation" class="active"><a href="#">Backend</a></li>
-		  <li role="presentation" class="dropdown pull-right">
+			<?php if (isset($_SESSION[''])) {
+				print_r($_SESSION);
+			} ?>
+		  <li role="presentation" class="dropdown pull-right active">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i>
 			  <?php echo $_SESSION['mail']; ?><span class="caret"></span>
 		    </a>
@@ -36,6 +40,7 @@
 		    	</li>
 		    </ul>
 		  </li>
+
 		</ul>
 
 <div class="container">	
@@ -53,3 +58,8 @@
 		</a>
 	</li>
 	</ol>
+	<?php
+if (isset($_SESSION['message_tmp'])) {
+    echo $_SESSION['message_tmp'];
+}
+?>
