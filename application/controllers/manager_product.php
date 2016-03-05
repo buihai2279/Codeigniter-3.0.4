@@ -58,6 +58,12 @@ class Manager_product extends CI_Controller
     {
         $this->My_model->Load_view('manager_product/list');
     }
+    public function get_img($id)
+    {
+        $result=$this->db->select('images')->get_where('product',array('id' => $id));
+        echo "string";
+        // print_r($result);
+    }
 
 }
 /* End of file manager_product.php */
