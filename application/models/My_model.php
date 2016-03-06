@@ -67,7 +67,7 @@ class My_model extends CI_Model {
         return $query->result();
 	}
 	public function Count_table($table){
-		return $this->db->count_all('user');
+		return $this->db->count_all($table);
 	}
 	public function Get_user_by_code($code=''){
 		$query = $this->db->get_where('user',array('code' => $code));

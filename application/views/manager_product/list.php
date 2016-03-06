@@ -62,33 +62,33 @@
 		<?php foreach ($result as $value) {
    ?>
 <tr class="row_product">
-	<td><input type="checkbox" class="checkbox" value="<?php echo $value['id']; ?>" name="check[]"></td>
-	<td><?php echo $value['id']; ?></td>
-	<td style="max-width: 180px"><?php echo $value['name']; ?></td>
-	<td><?php echo $value['price']; ?></td>
+	<td><input type="checkbox" class="checkbox" value="<?php echo $value->id; ?>" name="check[]"></td>
+	<td><?php echo $value->id; ?></td>
+	<td style="max-width: 180px"><?php echo $value->name; ?></td>
+	<td><?php echo $value->price; ?></td>
 	<td>
-	<?php if($value['status']==1)echo '<i class="fa fa-check-square text-primary"></i>';
+	<?php if($value->status==1)echo '<i class="fa fa-check-square text-primary"></i>';
 			else echo '<i class="fa fa-square-o text-muted"></i>'; ?>
 	</td>
 	<td>
-	<?php if($value['top']==1)echo '<i class="fa fa-star text-success"></i>';
+	<?php if($value->top==1)echo '<i class="fa fa-star text-success"></i>';
 		 ?>
 	</td>
-	<td><img src="<?php echo $value['img']; ?>" alt="" class="images-responsive" style="max-height: 100px"></td>
-	<td style="max-width: 300px"><?php echo str_replace('|', ' ', $value['description']); ?></td>
-	<?php $arr=explode( '|',$value['link']);?>
-	<td onclick="load_img(<?php echo $value['id'] ?>)" style="position:relative;">
+	<td><img src="<?php echo $value->img; ?>" alt="" class="images-responsive" style="max-height: 100px"></td>
+	<td style="max-width: 300px"><?php echo str_replace('|', ' ', $value->description); ?></td>
+	<?php $arr=explode( '|',$value->link);?>
+	<td onclick="load_img(<?php echo $value->id ?>)" style="position:relative;">
 		<a href="#"><img data-toggle="tooltip" title="Hooray!" src="<?php echo $arr[1] ?>" class="img-responsive" style="position: relative;max-width:150px;-webkit-filter: blur(10px);filter:grayscale(100%);">
 		<span style="position: absolute;top: 40%;left: 40%;color:#fff;width: 100%;font-size: 22px; "><?php echo count($arr) ?> +</span></a>
 	</td>
 	
-	<td style=""><?php echo substr(str_replace( '|',' ',$value['detail']),0,50);
+	<td style=""><?php echo substr(str_replace( '|',' ',$value->detail),0,50);
 	?>
 	</td>
 	<td>
 		<div class="col_edit">
 			<a href=""><i class="fa fa-edit show"></i></a><br>
-			<a  href="#" class="btn-link" onclick="load_info(<?php echo $value['id']; ?>)"><i class="fa fa-eye show"></i></a><br>
+			<a  href="#" class="btn-link" onclick="load_info(<?php echo $value->id; ?>)"><i class="fa fa-eye show"></i></a><br>
 			<a href=""><i class="fa fa-trash show"></i></a>
 		</div>
 	</td>
@@ -111,7 +111,11 @@
 	<input type="hidden" name="uri_string" value="<?php echo $this->uri->uri_string; ?>">
 	<button name="submit" value="submit" class="btn btn-sm btn-primary">Submit</button>
 </form>
-
+<div class="clearfix">
+</div>
+		<div class="col-md-4 col-md-offset-4">
+			<?php echo $pag; ?>
+		</div>
 
 
 
