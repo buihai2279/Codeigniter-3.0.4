@@ -11,7 +11,14 @@ class My_model extends CI_Model {
         $this->load->view('back-end/header');
         $this->load->view($view, $data);
         $this->load->view('back-end/footer');
-	}
+	} 
+	public function Sent_message($message = 'Thao tác thành công', $link = 'home', $color = 'success')
+    {
+        $message = '<div class="alert alert-' . $color . '">' . $message . '</div>';
+        $this->session->set_flashdata('message_tmp', $message);
+        redirect($link, 'refresh');
+        die();
+    }
 	public function Get_user_by_mail($mail=''){
 		$query = $this->db->get_where('user',array('mail' => $mail));
 		if ($query->num_rows()==1)
@@ -32,7 +39,17 @@ class My_model extends CI_Model {
 		else return FALSE;
 	}
 	public function check_manager(){
-		if ($this->session->has_userdata('login')==TRUE&&$this->session->userdata('level')==2)
+		if ($this->session->has_userdata('login')==TRUE&&$this->session->userdata('level')>=1)
+			return TRUE;
+		else return FALSE;
+	}
+	public function check_user(){
+		if ($this->session->has_userdata('login')==TRUE&&$this->session->userdata('level')==0)
+			return TRUE;
+		else return FALSE;
+	}
+	public function check_guest(){
+		if ($this->session->has_userdata('login')==FALSE)
 			return TRUE;
 		else return FALSE;
 	}

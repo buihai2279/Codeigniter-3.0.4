@@ -196,6 +196,7 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
 					</select>
 				</div>
 			</div>
+			<input type="hidden" name="uri_string" value="<?php echo $this->uri->uri_string; ?>">
 			<button name="submit" value="submit" class="btn btn-sm btn-primary">Submit</button>
 			</form>
 		</div>

@@ -79,22 +79,27 @@ class Demo_library
             $tmp1 = $value->find('a img', 0)->src;
             if ($tmp1 != 'https://cdn2.tgdd.vn/v2015/Content/desktop/images/bgtran.png' && $tmp2 != 0) {
                 $tmp['src']   = $tmp1;
-                $tmp['price'] = $value->find('a strong', 0)->plaintext;
+                $price = $value->find('a strong', 0)->plaintext;
+                $price      = str_replace('.', '',$price );
+                $tmp['price'] = str_replace('₫', '', $price);
                 $tmp['href']= $value->find('a',0)->href;
                 $html1     = file_get_html('https://www.thegioididong.com'.$tmp['href']);
                 $variable1 = $html1->find('div.owl-carousel', 0);
                 $tmp3=array();
+                $caption=array();
                 $text='';
                 foreach ($variable1->find('div.item') as $value1) {
                     $tmp3[] = $value1->find('a', 0)->href;
+                    $caption[]=trim($value1->find('p', 0)->plaintext);
                 }
-                $var3= $html1->find('ul.parameter', 0);
-                foreach ($var3->find('li') as $val3) {
-                    $text.= $val3->find('span',0)->plaintext;
-                    $text.= $val3->find('div',0)->plaintext.'|';
-                }
-                $tmp['detail']=$text;
                 $tmp['link']=$tmp3;
+                $tmp['caption']=implode('|', $caption);
+                $var3= $html1->find('ul.parameter', 0);
+                $text=array();
+                foreach ($var3->find('li') as $val3) {
+                    $text[]= $val3->find('span',0)->plaintext.' '.$val3->find('div',0)->plaintext;
+                }
+                $tmp['detail']=implode('|', $text);
                 $tmp['name']  = $value->find('figure.bginfo h3', 0)->innertext;
                 $tmp['des']   = array();
                 $tmp['des'][] = $value->find('figure.bginfo span', 0)->innertext;
@@ -102,16 +107,12 @@ class Demo_library
                 $tmp['des'][] = $value->find('figure.bginfo span', 2)->innertext;
                 $tmp['des'][] = $value->find('figure.bginfo span', 3)->innertext;
                 $tmp['des'][] = $value->find('figure.bginfo span', 4)->innertext;
+                $tmp['description']=implode('|', $tmp['des']);
+                $tmp['category_id']='1';
                 $arr[]        = $tmp;
             }
         }
         return $arr;
-    }
-    public function Get_xml_1($link)
-    {
-        include 'simple_html_dom.php';
-        
-        // return $variable;
     }
 }
 
