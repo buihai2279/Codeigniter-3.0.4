@@ -4,11 +4,6 @@
       		$(".checkbox").prop('checked', $(this).prop("checked"));
       	});
 	});
-$(document).ready(function(){
-    $("#btn-fillter").click(function(){
-        $("#fillter").toggleClass("show");
-    });
-});
 </script>
 <script>
     function load_info(id){
@@ -22,11 +17,12 @@ $(document).ready(function(){
 </script>
 	
 <br>
-<div class="btn btn-info" id="btn-fillter">Fillter</div><br><br>
-<div style="display: none" id="fillter">
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<form action="<?php echo base_url('manager_user/fillter'); ?>" method="POST" class="form-inline" role="form">
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Fillter
+</a>
+<div class="collapse" id="collapseExample">
+  <div class="well">
+    <form action="<?php echo base_url('manager_user/fillter'); ?>" method="POST" class="form-inline" role="form">
 				<div class="form-group col-md-3">
 					<label for="input" class=" control-label">Sort By</label>
 						<select name="name" id="input" class="form-control" required="required">
@@ -47,8 +43,7 @@ $(document).ready(function(){
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
-		</div>
-	</div>
+  </div>
 </div>
 <?php
 $segment           = array();
@@ -84,7 +79,7 @@ if (isset($segment['3']) && isset($segment['4'])) {
 	<h3>Danh sach nguoif dung</h3>
 	<div class="table-responsive">
 		<form action="<?php echo base_url('manager_user/proccess'); ?>" method="POST">
-			<table class="table table-hover table-hover table-bordered table-striped">
+			<table class="table table-hover table-hover table-bordered table-striped" style="margin-bottom: 68px">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="selecctall"></th>
@@ -94,6 +89,7 @@ if (isset($segment['3']) && isset($segment['4'])) {
 						<th><a href="<?php echo $link_status; ?>">status</a></th>
 						<th><a href="<?php echo $link_level; ?>">level</a></th>
 						<th>Custom</th>
+						<th>View</th>
 						<th><a href="<?php echo $link_date_created; ?>">date_created</a></th>
 					</tr>
 				</thead>
@@ -139,9 +135,8 @@ if ($value->level == 0) {
 
     ?>
 						</td>
-						<td><button type="button" onclick="load_info(<?php echo $value->id; ?>)"><i class="fa fa-eye inline"></i>sd</button>
+						<td>
 							<div class="dropdown">
-
 								<button id="dLabel" class="btn btn-primary btn-xs .inline" data-toggle="dropdown">
 									Change
 									<span class="caret"></span>
@@ -176,6 +171,7 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
 							  	</ul>
 						  	</div>
 						</td>
+						<td><button type="button" class="btn btn-info btn-xs" onclick="load_info(<?php echo $value->id; ?>)"><i class="fa fa-eye inline"></i></button></td>
 						<td><?php echo $value->date_created; ?></td>
 					</tr>
 				<?php
@@ -192,7 +188,6 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
     echo '<option value="delete">Delete</option>';
 }
 ?>
-
 					</select>
 				</div>
 			</div>
@@ -203,9 +198,6 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
 		<div class="col-md-4 col-md-offset-4">
 			<?php echo $pag; ?>
 		</div>
-
-
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

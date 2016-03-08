@@ -32,7 +32,7 @@
 	display: none;
 }
 </style>
-	<a class="btn btn-large btn-info " href="<?php echo base_url('categories/add'); ?>">
+	<a class="btn btn-large btn-info " href="<?php echo base_url('manager_product/add'); ?>">
 	<i class="fa fa-plus"></i>Them San Pham</a>
 	<h3>Danh sach nguoif dung</h3>
 	<?php if (!isset($result)||$result=='') {
@@ -81,22 +81,19 @@
 		<a href="#"><img data-toggle="tooltip" title="Hooray!" src="<?php echo $arr[1] ?>" class="img-responsive" style="position: relative;max-width:150px;-webkit-filter: blur(10px);filter:grayscale(100%);">
 		<span style="position: absolute;top: 40%;left: 40%;color:#fff;width: 100%;font-size: 22px; "><?php echo count($arr) ?> +</span></a>
 	</td>
-	
 	<td style=""><?php echo substr(str_replace( '|',' ',$value->detail),0,50);
 	?>
 	</td>
 	<td>
 		<div class="col_edit">
-			<a href=""><i class="fa fa-edit show"></i></a><br>
+			<a href="<?php echo  base_url('manager_product/edit/').'/'.$value->id ?>"><i class="fa fa-edit show"></i></a><br>
 			<a  href="#" class="btn-link" onclick="load_info(<?php echo $value->id; ?>)"><i class="fa fa-eye show"></i></a><br>
-			<a href=""><i class="fa fa-trash show"></i></a>
+			<a href="<?php echo  base_url('manager_product/delete_product/').'/'.$value->id ?>"><i class="fa fa-trash show"></i></a>
 		</div>
 	</td>
 </tr>
-
    <?php 
-
-}
+	}
 } 
 ?>
 		</tbody>
@@ -111,15 +108,10 @@
 	<input type="hidden" name="uri_string" value="<?php echo $this->uri->uri_string; ?>">
 	<button name="submit" value="submit" class="btn btn-sm btn-primary">Submit</button>
 </form>
-<div class="clearfix">
+<div class="clearfix"></div>
+<div class="col-md-4 col-md-offset-4">
+	<?php echo $pag; ?>
 </div>
-		<div class="col-md-4 col-md-offset-4">
-			<?php echo $pag; ?>
-		</div>
-
-
-
-
 <div class="modal fade" id="myModal">
 	<div class="modal-dialog  modal-lg">
 		<div class="modal-content">
@@ -128,7 +120,6 @@
 			</div>
 			<div class="modal-body">
 				<div class="row"  id="content">
-					
 				</div>
 			</div>
 		</div>

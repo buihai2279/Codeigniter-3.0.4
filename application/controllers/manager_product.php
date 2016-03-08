@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Manager_product extends CI_Controller
 {
-
     public $table = 'product';
     public $limit = 6;
     public function __construct()
@@ -12,6 +10,9 @@ class Manager_product extends CI_Controller
         //Do your magic here
         $this->load->library('Demo_library');
         $this->load->model('My_model');
+        if ($this->My_model->check_manager()==FALSE) {
+            $this->My_model->Sent_message('Khong duoc quyen truy cap', 'home', 'warning');
+        }
     }
     public function index()
     {
@@ -27,10 +28,6 @@ class Manager_product extends CI_Controller
         $data['result'] = $this->My_model->get_limit($this->table, $this->limit, $segment);
         $data['pag']    = $this->My_model->create_pagination($link, $total, $segment);
         $this->My_model->Load_view('manager_product/list', $data);
-    }
-    public function add()
-    {
-        $this->demo_library->Load_view('categories/add');
     }
     public function test()
     {
@@ -67,161 +64,91 @@ class Manager_product extends CI_Controller
         $caption = explode('|', $var['caption']);
         echo "<h3 class='text-center'>Hiển thị " . count($link) . " hình ảnh<h3>";
         foreach ($link as $key => $value) {
-            // echo $key;
             echo "<div class='col-md-3 '>";
             echo "<a href='" . $value . "' target='_blank'><img src='" . $value . "' class='img-responsive ' data-toggle='tooltip' title='" . $caption[$key] . "' alt='" . $caption[$key] . "'></a>";
             echo "</div>";
         }
-
     }
     public function Edit($id = '')
     {
-        $query = $this->db->get_where('product', array('id' => $id));
-        $var   = $query->row();
-        ?>
-        <div class="col-md-12">
-             <table class="table table-bordered">
-                 <tr>
-                     <td><b>id:</b></td>
-                     <td><?php echo $var->id; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>name:</b></td>
-                     <td><?php echo $var->name; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>price:</b></td>
-                     <td><?php echo $var->price; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>category_id:</b></td>
-                     <td><?php echo $var->category_id; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>status:</b></td>
-                     <td><?php echo $var->status; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>top:</b></td>
-                     <td><?php echo $var->top; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>link:</b></td>
-                     <td><?php $arr = explode('|', $var->link);
-        foreach ($arr as $value) {
-            echo '<img src="' . $value . '" class="img-responsive" style="max-height:150px;display:inline">';
+        if (isset($_POST['submit'])&&$_POST['submit']=='ok') {
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $time = date('Y-m-d H:i:s');
+            $data=array(
+                    'name'=>$_POST['name'],
+                    'price'=>$_POST['price'],
+                    'status'=>$_POST['status'],
+                    'category_id'=>$_POST['category_id'],
+                    'top'=>$_POST['top'],
+                    'description'=>$_POST['description'],
+                    'detail'=>$_POST['detail'],
+                    'caption'=>$_POST['caption'],
+                    'last_updated'=>$time
+                );
+            $tmp=$this->My_model->Update($id,$data,$this->table);
+            if ($tmp==1) {
+                $this->My_model->Sent_message('Thao tác thành công','manager_product','success');
+            }else $this->My_model->Sent_message('Thao tác lỗi','manager_product','danger');
         }
-        ?>
-                    </td>
-                 </tr>
-                 <tr>
-                     <td><b>img:</b></td>
-                     <td><?php echo '<img src="' . $var->img . '" class="img-responsive" style="max-height:150px;display:inline">'; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>detail:</b></td>
-                     <td><?php $arr = explode('|', $var->detail);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>caption:</b></td>
-                     <td><?php $arr = explode('|', $var->caption);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>description:</b></td>
-                     <td><?php $arr = explode('|', $var->description);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>date_created:</b></td>
-                     <td><?php echo $var->date_created; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>last_updated:</b></td>
-                     <td><?php echo $var->last_updated; ?></td>
-                 </tr>
-             </table>
-        </div>
-        <?php
+
+        $query = $this->db->get_where('product', array('id' => $id));
+        $info   = $query->row();
+        $cate= $this->My_model->Get_col('id,name','category');
+        foreach ($cate as $value) {
+            $category[$value['id']]=$value['name'];
+        }
+        $data['category']=$category;
+        $data['info']=$info;
+        $this->My_model->Load_view('manager_product/edit',$data);
 }
     public function get_info($id = '')
     {
         $query = $this->db->get_where('product', array('id' => $id));
-        $var   = $query->row();
-        ?>
-        <div class="col-md-12">
-             <table class="table table-bordered">
-                 <tr>
-                     <td><b>id:</b></td>
-                     <td><?php echo $var->id; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>name:</b></td>
-                     <td><?php echo $var->name; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>price:</b></td>
-                     <td><?php echo $var->price; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>category_id:</b></td>
-                     <td><?php echo $var->category_id; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>status:</b></td>
-                     <td><?php echo $var->status; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>top:</b></td>
-                     <td><?php echo $var->top; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>link:</b></td>
-                     <td><?php $arr = explode('|', $var->link);
-        foreach ($arr as $value) {
-            echo '<img src="' . $value . '" class="img-responsive" style="max-height:150px;display:inline">';
-        }
-        ?>
-                    </td>
-                 </tr>
-                 <tr>
-                     <td><b>img:</b></td>
-                     <td><?php echo '<img src="' . $var->img . '" class="img-responsive" style="max-height:150px;display:inline">'; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>detail:</b></td>
-                     <td><?php $arr = explode('|', $var->detail);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>caption:</b></td>
-                     <td><?php $arr = explode('|', $var->caption);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>description:</b></td>
-                     <td><?php $arr = explode('|', $var->description);foreach ($arr as $value) {
-            echo $value . '<br>';}?></td>
-                 </tr>
-                 <tr>
-                     <td><b>date_created:</b></td>
-                     <td><?php echo $var->date_created; ?></td>
-                 </tr>
-                 <tr>
-                     <td><b>last_updated:</b></td>
-                     <td><?php echo $var->last_updated; ?></td>
-                 </tr>
-             </table>
-        </div>
-        <?php
-}
-    public function tesssst($id = '')
+        $data['var']   = $query->row();
+        $query1 = $this->db->get_where('category', array('id' => $data['var']->category_id));
+        $tmp   =$query1->row();
+        $category['id']=$tmp->id;
+        $category['name']=$tmp->name;
+        $data['category']=$category;
+        $this->load->view('manager_product/info',$data);
+    }
+    public function Delete_product($id)
     {
-        $tmp = $this->My_model->Get_user_by_id($id);
-        echo "<pre>";
-        print_r($tmp);
-        echo "</pre>";
+        $result = $this->My_model->delete($id, $this->table);
+        if ($result == true) {
+            $this->My_model->Sent_message('Thao tác thành công', 'manager_product', 'success');
+        } else {
+            $this->My_model->Sent_message('Thao tác Lỗi', 'manager_product', 'danger');
+        }
+    }
+    public function add()
+    {
+        $this->load->helper('form');
+        if (isset($_POST['submit'])&&$_POST['submit']=='ok') {
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_time = date('Y-m-d H:i:s');
+            $data=array(
+                'name' => $this->input->post('name'), 
+                'status' => $this->input->post('status'), 
+                'top' => $this->input->post('top'), 
+                'description' => $this->input->post('description'), 
+                'img' => $this->input->post('img'), 
+                'link' => $this->input->post('link'), 
+                'caption' => $this->input->post('caption'), 
+                'detail' => $this->input->post('detail'),
+                'date_created'=>$date_time
+                );
+            $tmp=$this->db->insert('product', $data);
+            if ($tmp==1) {
+                $this->My_model->Sent_message('Thành công', 'manager_product', 'success');
+            }
+        }
+        $cate= $this->My_model->Get_col('id,name','category');
+        foreach ($cate as $value) {
+            $list_category[$value['id']]=$value['name'];
+        }
+        $data['list_category']=$list_category;
+        $this->My_model->Load_view('manager_product/add',$data);
     }
     public function Proccess()
     {
@@ -233,7 +160,6 @@ class Manager_product extends CI_Controller
             } else {
                 $uri_string = base_url() . 'manager_product';
             }
-
             $arrayName = $this->input->post('check');
             if ($this->input->post('edit') == 'delete') {
                 foreach ($arrayName as $value) {
@@ -247,7 +173,8 @@ class Manager_product extends CI_Controller
             }
         }
     }
-
-}; /* End of file manager_product.php */; /* Location: ./application/controllers/manager_product.php */
+}
+/* End of file manager_product.php */
+/* Location: ./application/controllers/manager_product.php */
 ?>
 

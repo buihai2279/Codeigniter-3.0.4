@@ -30,9 +30,7 @@ $(document).ready(function(e) {
 				$(this).remove();
             	$( ".c1" ).click(function(e) {
 					var po=$(this).html();
-            		// alert(me);
 				 	var tmp2=$('#list2').html();
-            		// alert(tmp2);
 				 	$('#list2').html(po);
 				 	$(this).empty();
 				 	$(this).html(tmp2);
@@ -49,16 +47,16 @@ $(document).ready(function(e) {
     });
     $('#myCarousel').on('slid.bs.carousel', function () {
 		 var tmp1=$('div.active').next().html();
-		 // $('#after').empty();
+		 $('#after').empty();
 		 $('#after').prepend(tmp1);
-		 // var tmp2=$('div.active').prev().html();
-		 // alert( $('#before').html());
-		 // if ( $('#before').html()!='') {$('#before').empty();$('#before').prepend(tmp2);}
-		 // else 
-		 // $('#before').prepend(tmp2);
+		 var tmp2=$('div.active').prev().html();
+		 alert( $('#before').html());
+		 if ( $('#before').html()!='') {$('#before').empty();$('#before').prepend(tmp2);}
+		 else 
+		 $('#before').prepend(tmp2);
 	});
-		// var tmp=$('.carousel-inner').html();
-		// $('#source').append(tmp);
+		var tmp=$('.carousel-inner').html();
+		$('#source').append(tmp);
 });
 </script>
 <style>

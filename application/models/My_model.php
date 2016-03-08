@@ -96,21 +96,13 @@ class My_model extends CI_Model {
 	 	return $this->db->delete($table, array('id' => $id));
 	}
 	public function Get_all($table){
-	 	// if ($col==''&&$sort=='')
-	 		$query=$this->db->get($table);
-	 	// else
-	 		// $query=$this->db->get($table);
+ 		$query=$this->db->get($table);
 	 	return $query->result_array();
 	}
 	public function Get_col($var='',$table){
-	 	// if ($col==''&&$sort=='')
 	 	$this->db->select($var);
         $this->db->from($table);
-        // $this->db->where('id', $id); 
         $query = $this->db->get();
-		
-	 	// else
-	 		// $query=$this->db->get($table);
 	 	return $query->result_array();
 	}
 	public function Create_pagination($link,$total,$offset=1,$uri_segment=3){

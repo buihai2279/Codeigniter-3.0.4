@@ -20,9 +20,7 @@
 	<div class="container-fluid">
 		<ul class="nav nav-pills  navbar-fixed-top" style="background: #f1f1f1;padding: 5px 25px;">
 		  <li role="presentation" class="active"><a href="#">Backend</a></li>
-			<?php if (isset($_SESSION[''])) {
-				print_r($_SESSION);
-			} ?>
+			<?php if (isset($_SESSION['mail'])) { ?>
 		  <li role="presentation" class="dropdown pull-right active">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i>
 			  <?php echo $_SESSION['mail']; ?><span class="caret"></span>
@@ -40,7 +38,7 @@
 		    	</li>
 		    </ul>
 		  </li>
-
+		  <?php } ?>
 		</ul>
 
 <div class="container">	
