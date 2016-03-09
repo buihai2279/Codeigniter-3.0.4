@@ -126,35 +126,38 @@ class manager_user extends CI_Controller
             $this->Sent_message('Có lỗi xảy ra', $_POST['uri_string'], 'danger');
         } else {
             $arrayName = $this->input->post('check');
-            if (isset($_POST['uri_string'])||$this->input->post('uri_string')!='') {
-                $uri_string=$_POST['uri_string'];
-            }else $uri_string='manager_user/view_all';
+            if (isset($_POST['uri_string']) || $this->input->post('uri_string') != '') {
+                $uri_string = $_POST['uri_string'];
+            } else {
+                $uri_string = 'manager_user/view_all';
+            }
+
             if ($this->input->post('edit') == 'delete') {
                 foreach ($arrayName as $key => $value) {
                     $result = $this->My_model->delete($value, $this->table);
                 }
                 if ($result == true) {
-                    $this->Sent_message('Thao tác thành công',$uri_string, 'success');
+                    $this->Sent_message('Thao tác thành công', $uri_string, 'success');
                 } else {
-                    $this->Sent_message('Thao tác Lỗi',$uri_string, 'danger');
+                    $this->Sent_message('Thao tác Lỗi', $uri_string, 'danger');
                 }
             } else if ($this->input->post('edit') == 'block') {
                 foreach ($arrayName as $key => $value) {
                     $result = $this->My_model->block($value, $this->table);
                 }
                 if ($result == true) {
-                    $this->Sent_message('Thao tác thành công',$uri_string, 'success');
+                    $this->Sent_message('Thao tác thành công', $uri_string, 'success');
                 } else {
-                    $this->Sent_message('Thao tác Lỗi',$uri_string, 'danger');
+                    $this->Sent_message('Thao tác Lỗi', $uri_string, 'danger');
                 }
             } else if ($this->input->post('edit') == 'un_block') {
                 foreach ($arrayName as $key => $value) {
                     $result = $this->My_model->un_block($value, $this->table);
                 }
                 if ($result == true) {
-                    $this->Sent_message('Thao tác thành công',$uri_string, 'success');
+                    $this->Sent_message('Thao tác thành công', $uri_string, 'success');
                 } else {
-                    $this->Sent_message('Thao tác Lỗi',$uri_string, 'danger');
+                    $this->Sent_message('Thao tác Lỗi', $uri_string, 'danger');
                 }
             }
         }
@@ -230,10 +233,10 @@ class manager_user extends CI_Controller
      */
     public function test($id = '')
     {
-            $tmp=$this->My_model->Get_user_by_id($id);
-            echo "<pre>";
-            print_r($tmp);
-            echo "</pre>";
+        $tmp = $this->My_model->Get_user_by_id($id);
+        echo "<pre>";
+        print_r($tmp);
+        echo "</pre>";
     }
     public function test2()
     {
