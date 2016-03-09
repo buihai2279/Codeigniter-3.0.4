@@ -15,7 +15,10 @@ class Home extends CI_Controller
     }
     public function index()
     {
-        $this->Load_view('front-end/index');
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->library('cart');
+        $this->Load_view('home');
     }
 
 }

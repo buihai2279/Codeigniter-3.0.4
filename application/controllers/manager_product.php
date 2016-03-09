@@ -9,7 +9,6 @@ class Manager_product extends CI_Controller
         parent::__construct();
         //Do your magic here
         $this->load->library('Demo_library');
-        $this->load->model('My_model');
         if ($this->My_model->check_manager()==FALSE) {
             $this->My_model->Sent_message('Khong duoc quyen truy cap', 'home', 'warning');
         }
@@ -61,11 +60,10 @@ class Manager_product extends CI_Controller
         $query   = $this->db->select('link,caption')->get_where('product', array('id' => $id));
         $var     = $query->row_array();
         $link    = explode('|', $var['link']);
-        $caption = explode('|', $var['caption']);
         echo "<h3 class='text-center'>Hiển thị " . count($link) . " hình ảnh<h3>";
         foreach ($link as $key => $value) {
             echo "<div class='col-md-3 '>";
-            echo "<a href='" . $value . "' target='_blank'><img src='" . $value . "' class='img-responsive ' data-toggle='tooltip' title='" . $caption[$key] . "' alt='" . $caption[$key] . "'></a>";
+            echo "<a href='" . $value . "' target='_blank'><img src='" . $value . "' class='img-responsive ' ></a>";
             echo "</div>";
         }
     }
@@ -93,18 +91,18 @@ class Manager_product extends CI_Controller
 
         $query = $this->db->get_where('product', array('id' => $id));
         $info   = $query->row();
-        $cate= $this->My_model->Get_col('id,name','category');
-        foreach ($cate as $value) {
+        $category= $this->My_model->Get_col('id,name','category');
+        foreach ($category as $value) {
             $category[$value['id']]=$value['name'];
         }
-        $data['category']=$category;
+        $data['list_category']=$category;
         $data['info']=$info;
         $this->My_model->Load_view('manager_product/edit',$data);
 }
     public function get_info($id = '')
     {
-        $query = $this->db->get_where('product', array('id' => $id));
-        $data['var']   = $query->row();
+
+        $data['var']= $this->My_model->Get_row_by_id($id);
         $query1 = $this->db->get_where('category', array('id' => $data['var']->category_id));
         $tmp   =$query1->row();
         $category['id']=$tmp->id;

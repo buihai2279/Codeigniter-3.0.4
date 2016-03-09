@@ -21,23 +21,11 @@ class Auth extends CI_Controller
         $this->load->view($view, $data);
         $this->load->view('back-end/footer-normal');
     }
-    /**
-     * @param $message
-     * @param $link
-     * @param $color
-     */
-    public function Sent_message($message = 'Thao tác thành công', $link = 'home', $color = 'success')
-    {
-        $message = '<div class="alert alert-' . $color . '">' . $message . '</div>';
-        $this->session->set_flashdata('message_tmp', $message);
-        redirect($link, 'refresh');
-        die();
-    }
     public function register()
     {
         if ($this->check_login()) {
 //kiểm tra người dùng đang đăng nhập chuyển hướng về home
-            $this->Sent_message('Bạn đang đăng nhập', 'Home', 'danger');
+            $this->My_model->Sent_message('Bạn đang đăng nhập', 'Home', 'danger');
         }
         $this->form_validation->set_rules('mail', 'Mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]|max_length[12]');
@@ -67,13 +55,13 @@ class Auth extends CI_Controller
                 $this->load->library('demo_library');
                 if ($this->demo_library->sent_mail_active_user($mail, $code) == true) {
                     $message = 'Đăng ký thành công Check mail để kích hoạt.Hoặc nhập mã kích hoạt tại đây';
-                    $this->Sent_message($message, 'auth/active', 'success');
+                    $this->My_model->Sent_message($message, 'auth/active', 'success');
                 } else {
-                    $this->Sent_message('Có lỗi xảy ra', 'auth/register', 'danger');
+                    $this->My_model->Sent_message('Có lỗi xảy ra', 'auth/register', 'danger');
                 }
             } else {
                 $message = 'Mail đã này đã DK!!! <a href="login">Login tại đây<a>';
-                $this->Sent_message($message, 'auth/register', 'danger');
+                $this->My_model->Sent_message($message, 'auth/register', 'danger');
             }
         }
         $this->Load_view('auth_view/register', $data);
@@ -82,7 +70,7 @@ class Auth extends CI_Controller
     {
 //kiểm tra nếu người dùng đang đăng nhập thì đẩy về trang chủ
         if ($this->check_login()) {
-            $this->Sent_message('Bạn đang đăng nhập', 'Home', 'danger');
+            $this->My_model->Sent_message('Bạn đang đăng nhập', 'Home', 'danger');
         }
         $this->form_validation->set_rules('mail', 'Mail', 'required|valid_email|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]|max_length[12]');
@@ -96,7 +84,7 @@ class Auth extends CI_Controller
             $pass   = md5($this->input->post('password', true));
             $result = $this->My_model->Check_login($mail, $pass);
             if ($result == false) {
-                $this->Sent_message('Mật khẩu hoặc Mail vừa nhập không đúng', 'auth/login', 'danger');
+                $this->My_model->Sent_message('Mật khẩu hoặc Mail vừa nhập không đúng', 'auth/login', 'danger');
             }
             if ($result->status == 1) {
 //đă nhập thành công
@@ -110,10 +98,10 @@ class Auth extends CI_Controller
                 if ($level == 1 || $level == 2) //kiểm tra tài khoản đăng nhập là user hay admin
                 {
 //nếu là admin thì chuyển hướng về trang quản trị
-                    $this->Sent_message('Đăng nhập trang quản trị thành công.', 'Admin', 'info');
+                    $this->My_model->Sent_message('Đăng nhập trang quản trị thành công.', 'Admin', 'info');
                 } else {
 //nếu là user thì chuyển hướng về trang home
-                    $this->Sent_message('Đăng nhập trang người dùng thành công.', 'Home', 'success');
+                    $this->My_model->Sent_message('Đăng nhập trang người dùng thành công.', 'Home', 'success');
                 }
             } else if ($result->status == 0) {
                 $data['message'] = '<div class="alert alert-danger">Tài khoản chưa kích hoạt</div>';
@@ -127,7 +115,7 @@ class Auth extends CI_Controller
     public function logout()
     {
         if ($this->check_login() == false) {
-            $this->Sent_message('Chưa đăng nhập!!!', 'Home', 'warning');
+            $this->My_model->Sent_message('Chưa đăng nhập!!!', 'Home', 'warning');
         }
         $this->session->sess_destroy();
         redirect('Home', 'refresh');die();
@@ -136,7 +124,7 @@ class Auth extends CI_Controller
     {
         if ($this->check_login()) {
 //kiểm tra người dùng đã đăng nhập hay chưa
-            $this->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
+            $this->My_model->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
         }
         $this->form_validation->set_rules('mail', 'Mail', 'required|valid_email|trim');
         if ($this->form_validation->run() == false) {
@@ -152,9 +140,9 @@ class Auth extends CI_Controller
                     $id   = $result->id;
                     $data = array('password' => md5(123456), 'code' => $code);
                     $this->My_model->Update($id, $data, 'user');
-                    $this->Sent_message('Đã gửi mail vui lòng check mail vaf kich hoat lai tai khoan', 'auth/active', 'success');
+                    $this->My_model->Sent_message('Đã gửi mail vui lòng check mail vaf kich hoat lai tai khoan', 'auth/active', 'success');
                 } else {
-                    $this->Sent_message('Có lỗi xảy ra', 'auth/recover_password', 'danger');
+                    $this->My_model->Sent_message('Có lỗi xảy ra', 'auth/recover_password', 'danger');
                 }
             } else {
                 $data['message'] = '<div class="alert alert-danger">Không tồn tại mail</div>';
@@ -168,7 +156,7 @@ class Auth extends CI_Controller
     {
         if ($this->check_login() == false) {
 //kiểm tra người dùng đã đăng nhập hay chưa
-            $this->Sent_message('Bạn chưa đăng nhập', 'auth/login', 'warning');
+            $this->My_model->Sent_message('Bạn chưa đăng nhập', 'auth/login', 'warning');
         }
         $this->form_validation->set_rules('old-password', 'Password', 'required|trim');
         $this->form_validation->set_rules('new-password', 'new-password', 'required|trim');
@@ -181,16 +169,16 @@ class Auth extends CI_Controller
             $result       = $this->My_model->Get_user_by_mail($mail);
             $old_password = md5($this->input->post('old-password'));
             if ($old_password != $result->password) {
-                $this->Sent_message('mật khẩu bạn vừa nhập không đúng', 'auth/change_password', 'warning');
+                $this->My_model->Sent_message('mật khẩu bạn vừa nhập không đúng', 'auth/change_password', 'warning');
             }
             $new_password = md5($this->input->post('new-password'));
             if ($old_password == $new_password) {
-                $this->Sent_message('Mật khẩu mới phải khác mật khẩu cũ', 'auth/change_password', 'warning');
+                $this->My_model->Sent_message('Mật khẩu mới phải khác mật khẩu cũ', 'auth/change_password', 'warning');
             } else {
                 $id   = $result->id;
                 $data = array('password' => $new_password);
                 $this->My_model->Update($id, $data, 'user');
-                $this->Sent_message('Đổi mật khẩu thành công!!!', 'home', 'success');
+                $this->My_model->Sent_message('Đổi mật khẩu thành công!!!', 'home', 'success');
             }
         }
     }
@@ -202,13 +190,13 @@ class Auth extends CI_Controller
     {
         if ($this->check_login()) {
 //kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
-            $this->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
+            $this->My_model->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
         }
         if ($this->uri->segment(3) != '') {
             $code   = $this->uri->segment(3);
             $result = $this->My_model->Get_user_by_code($code);
             if ($result == false) {
-                $this->Sent_message('Code sai !!!', 'auth/active', 'danger');
+                $this->My_model->Sent_message('Code sai !!!', 'auth/active', 'danger');
             } else {
                 $arrayName = array('status' => 1, 'code' => '');
                 $this->My_model->Update($result->id, $arrayName, 'user');
@@ -219,7 +207,7 @@ class Auth extends CI_Controller
                 );
                 $this->session->set_userdata($array);
                 $message = 'Active tài khoản thành công. Đăng nhập thành công với tài khoản: ' . $result->mail;
-                $this->Sent_message($message, 'home', 'success');
+                $this->My_model->Sent_message($message, 'home', 'success');
             }
         }
         $this->form_validation->set_rules('code', 'Code', 'required|trim');
@@ -230,7 +218,7 @@ class Auth extends CI_Controller
             $code   = $this->input->post('code');
             $result = $this->My_model->Get_user_by_code($code);
             if ($result == false) {
-                $this->Sent_message('Code sai !!!', 'auth/active', 'danger');
+                $this->My_model->Sent_message('Code sai !!!', 'auth/active', 'danger');
             } else {
                 $arrayName = array('status' => 1, 'code' => '');
                 $this->My_model->Update($result->id, $arrayName, 'user');
@@ -241,7 +229,7 @@ class Auth extends CI_Controller
                 );
                 $this->session->set_userdata($array);
                 $message = 'Active tài khoản thành công' . $result->mail . ' Đăng nhập thành công với tài khoản: ' . $result->mail;
-                $this->Sent_message($message, 'home', 'success');
+                $this->My_model->Sent_message($message, 'home', 'success');
             }
         }
     }
@@ -249,7 +237,7 @@ class Auth extends CI_Controller
     {
         if ($this->check_login()) {
 //kiểm tra nếu người dùng đăng nhập rồi thì chuyển hướng
-            $this->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
+            $this->My_model->Sent_message('Bạn đang đăng nhập', 'Home', 'warning');
         }
         $this->form_validation->set_rules('mail', 'Mail', 'required|trim|valid_email');
         if ($this->form_validation->run() == false) {
@@ -261,9 +249,9 @@ class Auth extends CI_Controller
             if ($result->code != '') {
                 $this->load->library('demo_library');
                 $this->demo_library->sent_mail_active_user($mail, $result->code);
-                $this->Sent_message('Gửi mã thành công kiểm tra lại tài khoản', 'auth_view/re_active', 'danger');
+                $this->My_model->Sent_message('Gửi mã thành công kiểm tra lại tài khoản', 'auth_view/re_active', 'danger');
             } else {
-                $this->Sent_message('Mã kích hoạt không tồn tại!!', 'auth_view/re_active', 'danger');
+                $this->My_model->Sent_message('Mã kích hoạt không tồn tại!!', 'auth_view/re_active', 'danger');
             }
         }
     }

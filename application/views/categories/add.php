@@ -17,7 +17,7 @@
     <div class="form-group">
       <label  class="col-sm-2 control-label">Tittle</label>
       <div class="col-sm-10">
-        <input type="text" name="txt-tittle" class="form-control"  placeholder="Tittle">
+        <input type="text" name="txt-title" class="form-control"  placeholder="Tittle">
       </div>
     </div>
     <div class="form-group">
@@ -29,7 +29,8 @@
     <div class="form-group">
     	<label for="input" class="col-sm-2 control-label">Parrent ID</label>
     	<div class="col-sm-2">
-    		<select  name="parrent_id" id="input" class="form-control" required="required">
+    		<select  name="parrent_id" id="input" class="form-control">
+          <option value="0">Root</option>
     		<?php foreach ($data1 as $key => $value) {
     			?>
     				<option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>

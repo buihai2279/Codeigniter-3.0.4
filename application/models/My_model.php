@@ -33,6 +33,13 @@ class My_model extends CI_Model {
 		else
 			return FALSE;
 	}
+	public function Get_row_by_id($id=''){
+		$query = $this->db->get_where($this->table,array('id' => $id));
+		if ($query->num_rows()==1)
+			return $query->row();
+		else
+			return FALSE;
+	}
 	public function check_admin(){
 		if ($this->session->has_userdata('login')==TRUE&&$this->session->userdata('level')==2)
 			return TRUE;

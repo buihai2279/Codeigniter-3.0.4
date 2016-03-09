@@ -78,7 +78,11 @@
 	<td style="max-width: 300px"><?php echo str_replace('|', ' ', $value->description); ?></td>
 	<?php $arr=explode( '|',$value->link);?>
 	<td onclick="load_img(<?php echo $value->id ?>)" style="position:relative;">
-		<a href="#"><img data-toggle="tooltip" title="Hooray!" src="<?php echo $arr[1] ?>" class="img-responsive" style="position: relative;max-width:150px;-webkit-filter: blur(10px);filter:grayscale(100%);">
+		<a href="#">
+		<img data-toggle="tooltip" title="Hooray!" src="<?php echo $arr['1'] ?>" 
+		class="img-responsive" 
+		style="position: relative;max-width:150px;-webkit-filter: blur(10px);filter:grayscale(100%);"
+		>
 		<span style="position: absolute;top: 40%;left: 40%;color:#fff;width: 100%;font-size: 22px; "><?php echo count($arr) ?> +</span></a>
 	</td>
 	<td style=""><?php echo substr(str_replace( '|',' ',$value->detail),0,50);

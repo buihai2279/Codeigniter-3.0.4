@@ -33,7 +33,7 @@
                 <div class="col-sm-2">
                     <select name="category_id" class="form-control input-sm">
                     <?php 
-                        foreach ($category as $key => $value) { 
+                        foreach ($list_category as $key => $value) { 
                             if($id!=$key)
                                 echo '<option value="'.$key.'">'.$value.'</option>';
                             else 
