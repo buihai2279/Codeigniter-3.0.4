@@ -12,9 +12,15 @@ class My_model extends CI_Model {
         $this->load->view($view, $data);
         $this->load->view('back-end/footer');
 	} 
+	public function Load_front_end($view='',$data='')
+	{
+        $this->load->view('front-end/header');
+        $this->load->view($view, $data);
+        $this->load->view('front-end/footer');
+	} 
 	public function Sent_message($message = 'Thao tác thành công', $link = 'home', $color = 'success')
     {
-        $message = '<div class="alert alert-' . $color . '">' . $message . '</div>';
+        $message = '<div class="alert alert-' . $color . ' no_margin">' . $message . '</div>';
         $this->session->set_flashdata('message_tmp', $message);
         redirect($link, 'refresh');
         die();

@@ -1,0 +1,258 @@
+*{
+	font-family: 'Open Sans', sans-serif;
+}
+body{
+  	background: #E9EAED;
+}
+header{
+	border: 0;
+  	background: #fff;
+	padding: 0;
+	margin: 0 ;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+	border-radius: 0  ;
+}
+@media (max-width: 768px) {
+	.search-box,.cart{
+		margin-top: 5px;
+	}
+}
+.button-menu{
+	margin: 5px 5px 5px 0;}
+.menutop{
+	width: 100%;
+	border-top: solid 1px #f0f0f0;
+	border-bottom: solid 1px #f0f0f0;
+	margin: 15px 0 0 0 ;
+	/*padding: 0 10px;*/
+}
+.item_menu{
+	color: #2C3E50;
+	border-left: 1px solid #E9EAED; 
+	padding: 8px 10px;
+}
+.list_menu:hover .item_menu:hover{
+	color: #3498DB;
+	background: url('../images/bg.png');
+}
+@media (max-width: 768px) {
+	.item_menu{
+		border-left: none; 
+	}
+}
+@media (min-width: 769px) {
+	.list_menu:hover ul{
+	    display: block;
+	}
+}
+.list_menu .open .item_menu,
+.sub-menu li a:hover{
+	color: #3498DB;
+	background: url('../images/bg.png');
+}
+.no_margin{
+	margin: 0;
+	border: none;
+}
+.box_slide{
+	padding: 0px;
+}
+.row1{
+	height: 320px;
+}
+.news{
+	padding: 0;
+	/*max-height: 300px;*/
+	height: 100%;
+	overflow: hidden;
+	/*height: 300px;*/
+	border-radius:0 0 4px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	background: url('../images/bg.png');
+	border: none;
+}
+.heading-news{
+	background: #3498DB;	
+	border: none;
+	border-radius: 0;
+}
+.heading-news h3{
+	color: #fff;
+}
+.news > div.panel-body > ul > li > a{
+	color: #2C3E50;
+	font-weight: 400;
+	padding: 0;
+}
+.news > div.panel-body > ul > li > a:hover{
+	color: #3498DB;
+}
+.news > div.panel-body > ul{
+	padding-left: 20px;
+}
+.news > div.panel-body > ul > li{
+	list-style-type: none;
+}
+.heading-cate{
+	padding: 0;
+	background: #3498DB;	
+	border: none;
+	border-radius:  4px 4px 0 0;
+	margin: 0;
+}
+div.heading-cate > div.navbar-header > a,
+li,
+div.navbar-collapse.collapse.nav-tittle > ul > li > a{
+	color: #fff;
+}
+div.heading-cate > div.navbar-header > a:hover,
+div.navbar-collapse.collapse.nav-tittle > ul > li > a:hover{
+	background: #2980B9;
+	color: #fff;
+}
+.bg_img{
+	background: url('../images/bg.png');
+}
+.panel-pro{
+	border: none;
+	/*overflow: hidden;*/
+	border-radius: 4px;
+}
+.product{
+  	background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+@media (min-width: 669px) {
+	.item{
+		position: relative;
+		/*height: 300px;*/
+		overflow: hidden;
+	}
+	.description{
+		position: absolute;
+		z-index: 10;
+		bottom: 0px;
+		height: 9%;
+		width: 100%;
+		margin: 0;
+		color: #fff;
+		padding: 5px;
+		background: rgba(0,0,0,0.5);
+	}
+	.description a{
+		color: #fff;
+		text-decoration: none;
+	}
+	.description a:hover{
+		color: #f1f1f1;
+	}
+}
+@media (max-width: 768px) {
+	.item img{
+		margin: 0 auto;
+		overflow: hidden;
+		width: 100%;
+	}
+	.carousel-caption{
+		display: none;
+	}
+	.description{
+		display: none;
+	}
+}
+@media (min-width: 769px) {
+	.item img{
+		/*max-height: 300px;*/
+		/*min-height: 300px;*/
+		margin: 0 auto;
+		overflow: hidden;
+	}
+}
+.well{
+	padding: 0;
+	overflow: hidden;
+	border: none;
+	background-color: #fff;
+	/*background: url('../images/bg.png');*/
+	box-shadow: 0px 2px 3px rgba(0,0,0,0.1);
+}
+.info{
+	position: relative;
+	padding: 0;
+}
+.info:hover span{
+	display: block;
+	background-color: rgba(0,0,0,0.7);
+	color: #fff;
+}
+.info span{
+	display: none;
+	position: absolute;
+	top:0;
+	padding: 5%;
+	width: 100%;
+	height: 100%;
+}
+.price{
+	margin-top: 4px;
+	float: left;
+	margin-left: 15%;
+	color: #f83c29;
+	font-weight: 600;
+}
+.detail{
+	float: right;
+	width: 100%;
+	margin: 2% 0;
+}
+.info img{
+	margin: 0 auto;
+	max-height: 230px;
+	min-height: 230px;
+}
+div.detail>hr{
+	margin:0 5%;
+	border-color: #fff;
+}
+.name {
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0 0 6px 0;
+}
+.view{
+	margin-top: 4px;
+	color: #3498DB;
+	float: right;
+	margin-right: 15%;
+}
+.view small{
+	color: #3498DB;
+}
+.name:hover a{
+	text-decoration: underline;
+}
+.name a{
+	color: #3498DB;
+	text-decoration: none;
+}
+.button_menu{
+	background: url('../images/bg.png');
+}
+footer{
+	padding-bottom: 20px;
+	height: auto;
+	outline: hidden;
+	padding: 0 5px 15px 5px;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+	border-radius: 3px;
+	background: #fff;
+}
+footer form{
+	margin-top: 10px
+}
+footer form input{
+	margin: 5px;
+}
+footer li{
+	list-style: none;
+}

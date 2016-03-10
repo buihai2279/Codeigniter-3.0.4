@@ -102,11 +102,16 @@ class Demo_library
                 $tmp['detail']=implode('|', $text);
                 $tmp['name']  = $value->find('figure.bginfo h3', 0)->innertext;
                 $tmp['des']   = array();
-                $tmp['des'][] = $value->find('figure.bginfo span', 0)->innertext;
-                $tmp['des'][] = $value->find('figure.bginfo span', 1)->innertext;
-                $tmp['des'][] = $value->find('figure.bginfo span', 2)->innertext;
-                $tmp['des'][] = $value->find('figure.bginfo span', 3)->innertext;
-                $tmp['des'][] = $value->find('figure.bginfo span', 4)->innertext;
+                $tex1 = $value->find('figure.bginfo span', 0)->innertext;
+                if (strlen($tex1)>40) {
+                    continue;
+                }else {
+                    $tmp['des'][] = $value->find('figure.bginfo span', 0)->innertext;
+                    $tmp['des'][] = $value->find('figure.bginfo span', 1)->innertext;
+                    $tmp['des'][] = $value->find('figure.bginfo span', 2)->innertext;
+                    $tmp['des'][] = $value->find('figure.bginfo span', 3)->innertext;
+                    $tmp['des'][] = $value->find('figure.bginfo span', 4)->innertext;
+                }
                 $tmp['description']=implode('|', $tmp['des']);
                 $tmp['category_id']='1';
                 $arr[]        = $tmp;

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Manager_product extends CI_Controller
 {
     public $table = 'product';
-    public $limit = 6;
+    public $limit = 12;
     public function __construct()
     {
         parent::__construct();
@@ -17,7 +17,7 @@ class Manager_product extends CI_Controller
     {
         $segment    = (int) $this->uri->segment(3);
         $total = $this->My_model->Count_table($this->table);
-        if ($segment >= $total) {
+        if ($segment >= $total&&$total>0) {
             $segment = $total - $limit;
         }
         if ($segment < 0) {
@@ -30,7 +30,7 @@ class Manager_product extends CI_Controller
     }
     public function test()
     {
-        $link   = 'https://www.thegioididong.com/dtdd';
+        $link   = 'https://www.thegioididong.com/laptop';
         $result = $this->demo_library->Get_xml($link);
         foreach ($result as $value) {
             $link = implode('|', $value['link']);
@@ -103,8 +103,8 @@ class Manager_product extends CI_Controller
     {
 
         $data['var']= $this->My_model->Get_row_by_id($id);
-        $query1 = $this->db->get_where('category', array('id' => $data['var']->category_id));
-        $tmp   =$query1->row();
+        $result = $this->db->get_where('category', array('id' => $data['var']->category_id));
+        $tmp   =$result->row();
         $category['id']=$tmp->id;
         $category['name']=$tmp->name;
         $data['category']=$category;
