@@ -30,7 +30,7 @@ class Manager_product extends CI_Controller
     }
     public function test()
     {
-        $link   = 'https://www.thegioididong.com/laptop';
+        $link   = 'https://www.thegioididong.com/dtdd';
         $result = $this->demo_library->Get_xml($link);
         foreach ($result as $value) {
             $link = implode('|', $value['link']);
@@ -39,6 +39,7 @@ class Manager_product extends CI_Controller
             $data      = array(
                 'name'         => $value['name'],
                 'price'        => $value['price'],
+                'slug'        => str_replace('/dtdd/', '', $value['href']),
                 'img'          => $value['src'],
                 'category_id'  => $value['category_id'],
                 'description'  => $value['description'],
@@ -50,6 +51,11 @@ class Manager_product extends CI_Controller
             $this->db->insert('product', $data);
         }
         $this->My_model->Sent_message('Thao tác Thành công', 'manager_product', 'success');
+    }
+    public function test1()
+    {
+        $tmp=$this->demo_library->Get_xml_1();
+        print_r($tmp);
     }
     public function fillter()
     {
@@ -114,10 +120,31 @@ class Manager_product extends CI_Controller
     {
         $result = $this->My_model->delete($id, $this->table);
         if ($result == true) {
-            $this->My_model->Sent_message('Thao tác thành công', 'manager_product', 'success');
+            $this->My_model->Sent_message('Thao tác thành công','manager_product','success');
         } else {
-            $this->My_model->Sent_message('Thao tác Lỗi', 'manager_product', 'danger');
+            $this->My_model->Sent_message('Thao tác Lỗi','manager_product','danger');
         }
+    }
+    public function get_slug()
+    {
+        if(isset($_POST['slug'])){
+            $tmp=$this->My_model->check_slug($_POST['slug']);
+            if ($tmp==FALSE) {
+               echo $this->My_model->utf8_to_url($_POST['slug']);
+            }else {
+                $_POST['slug']=$_POST['slug'].'-'.rand(1,1000);
+                echo $this->My_model->utf8_to_url($_POST['slug']);
+            }
+        }
+    }
+    public function tmp()
+    {
+       $tmp=$this->My_model->check_slug('Samsung Gadlaxy S6 Edge Plus');
+       if ($tmp==FALSE) {
+           echo "string";
+       }
+       // $tmp=$this->db->like('name', ,'none')->get('product');
+       // print_r($tmp->result()) ;
     }
     public function add()
     {
@@ -127,6 +154,7 @@ class Manager_product extends CI_Controller
             $date_time = date('Y-m-d H:i:s');
             $data=array(
                 'name' => $this->input->post('name'), 
+                'slug' => $this->input->post('txtslug'), 
                 'status' => $this->input->post('status'), 
                 'top' => $this->input->post('top'), 
                 'description' => $this->input->post('description'), 

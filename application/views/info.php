@@ -1,24 +1,55 @@
+<script src="<?php echo base_url('bootstrap')?>/js/owl.carousel.min.js"></script>
+<link href="<?php echo base_url('bootstrap')?>/css/owl.carousel.css" rel="stylesheet">
+<link href="<?php echo base_url('bootstrap')?>/css/owl.theme.css" rel="stylesheet">
+<link href="<?php echo base_url('bootstrap')?>/css/owl.transitions.css" rel="stylesheet">
+<script>
+    $(document).ready(function() {
+      $("#slide-info").owlCarousel({
+        autoPlay : 3000,
+        stopOnHover : true,
+        paginationNumbers: true,
+        paginationSpeed : 1000,
+        goToFirstSpeed : 2000,
+        singleItem : true,
+        autoHeight : true,
+        transitionStyle:"fade"
+      });
+});
+</script>
+<style>
+    #slide-info .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+</style>
 <?php 
 $list_img=explode('|',$result->link);
 $list_caption=explode('|',$result->caption);
-// print_r($list_img);
-// print_r($list_caption);
 ?>
+    <div class="row">
+        <h1><?php echo $result->name ?></h1><h3><?php echo $result->price; ?></h3>
+    </div>
+    
+    <div class="col-md-8 box_slide">       
+        <div id="slide-info" class="owl-carousel owl-theme">
+            <?php foreach ($list_img as $key => $value): ?>
+            <div class="item">
+                <a href="">
+                    <img src="<?php echo $value?>" class="img-responsive" alt="The Last of us">
+                </a>
+                <p class="description text-center">
+                    <a href=""><?php echo $list_caption[$key]; ?></a>
+                </p>
+            </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Thông số kỹ thuật</h3>
+        <?php echo $result->detail; ?>
+    </div>
 
-<div class="col-lg-8 col-md-8 box_slide">       
-    <div id="owl-demo" class="owl-carousel owl-theme">
-    <?php foreach ($list_img as $key => $value): ?>
-    <div class="item">
-        <a href="">
-            <img src="<?php echo $value?>" class="img-responsive" alt="The Last of us">
-        </a>
-        <p class="description text-center">
-            <a href=""><?php echo $list_caption[$key]; ?></a>
-        </p>
-    </div>
-    <?php endforeach ?>
-    </div>
-</div>
 <div class="clearfix"></div>
 <div class="panel panel-pro">
 <div class="panel-heading  navbar-default heading-cate">
@@ -41,6 +72,9 @@ $list_caption=explode('|',$result->caption);
         </ul>
 </div>
 </div>
+
+
+
 <div class="panel-body product" >
 <!-- result -->
 <div class="col-sm-6 col-md-3 ">

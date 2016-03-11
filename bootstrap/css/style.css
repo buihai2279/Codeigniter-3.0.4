@@ -2,7 +2,7 @@
 	font-family: 'Open Sans', sans-serif;
 }
 body{
-  	background: #E9EAED;
+  	background: #fafafa;
 }
 header{
 	border: 0;
@@ -24,7 +24,6 @@ header{
 	border-top: solid 1px #f0f0f0;
 	border-bottom: solid 1px #f0f0f0;
 	margin: 15px 0 0 0 ;
-	/*padding: 0 10px;*/
 }
 .item_menu{
 	color: #2C3E50;
@@ -62,10 +61,8 @@ header{
 }
 .news{
 	padding: 0;
-	/*max-height: 300px;*/
 	height: 100%;
 	overflow: hidden;
-	/*height: 300px;*/
 	border-radius:0 0 4px 0;
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	background: url('../images/bg.png');
@@ -115,17 +112,15 @@ div.navbar-collapse.collapse.nav-tittle > ul > li > a:hover{
 }
 .panel-pro{
 	border: none;
-	/*overflow: hidden;*/
 	border-radius: 4px;
 }
 .product{
-  	background: #fff;
+  	background: url('../bootstrap/images/bg.png');
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
 @media (min-width: 669px) {
 	.item{
 		position: relative;
-		/*height: 300px;*/
 		overflow: hidden;
 	}
 	.description{
@@ -162,8 +157,6 @@ div.navbar-collapse.collapse.nav-tittle > ul > li > a:hover{
 }
 @media (min-width: 769px) {
 	.item img{
-		/*max-height: 300px;*/
-		/*min-height: 300px;*/
 		margin: 0 auto;
 		overflow: hidden;
 	}
@@ -173,7 +166,6 @@ div.navbar-collapse.collapse.nav-tittle > ul > li > a:hover{
 	overflow: hidden;
 	border: none;
 	background-color: #fff;
-	/*background: url('../images/bg.png');*/
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.1);
 }
 .info{
@@ -256,3 +248,4 @@ footer form input{
 footer li{
 	list-style: none;
 }
+/*===============================info==============================*/

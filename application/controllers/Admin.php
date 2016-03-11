@@ -12,22 +12,13 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('level') == 0) {
-            $message = '<div class="alert alert-danger">Bạn KHÔNG	có quyền truy cập</div>';
-            $this->session->set_flashdata('message_tmp', $message);
-            redirect('Home', 'refresh');
-            die();
+        if ($this->My_model->check_user('level')) {
+            $this->My_model->Sent_message('Bạn KHÔNG có quyền truy cập','home','danger');
         }
-    }
-    public function Load_view($view, $data = null)
-    {
-        $this->load->view('back-end/header');
-        $this->load->view($view, $data);
-        $this->load->view('back-end/footer');
     }
     public function index()
     {
-        $this->Load_view('auth_view/index');
+        $this->My_model->Load_view('auth_view/index');
     }
 
 }

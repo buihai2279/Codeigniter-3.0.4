@@ -14,13 +14,9 @@
 		<link rel="stylesheet" href="<?php echo base_url('bootstrap')?>/css/style.css">
 		<script src="<?php echo base_url('bootstrap')?>/js/jquery.min.js"></script>
 		<script src="<?php echo base_url('bootstrap')?>/js/bootstrap.min.js"></script>
-	    <script src="<?php echo base_url('bootstrap')?>/js/owl.carousel.min.js"></script>
-        <link href="<?php echo base_url('bootstrap')?>/css/owl.carousel.css" rel="stylesheet">
-		<link href="<?php echo base_url('bootstrap')?>/css/owl.theme.css" rel="stylesheet">
-		<link href="<?php echo base_url('bootstrap')?>/css/owl.transitions.css" rel="stylesheet">
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$("#owl-demo").owlCarousel({
+				$("#slide-home").owlCarousel({
 				      // navigation : true, // Show next and prev buttons
 				      slideSpeed : 400,
 				      autoPlay: 5500,
@@ -28,6 +24,7 @@
 				      paginationSpeed : 5000,
 				      paginationNumbers: true,
 				      stopOnHover : true,
+                      autoHeight : true,
 				      transitionStyle: "backSlide",
 				      // navigationText : ["Trước","Tiếp"],
 				      singleItem:true,
@@ -37,56 +34,54 @@
 	</head>
 <body>
 <div class="container-fluid">
-
-        <header class="row">
-                <br class="hidden-xs">
-                <div class="col-md-3 col-lg-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0">
-                <img class="img-responsive" src="<?php echo base_url('bootstrap')?>/images/logo.png" alt="Logo">
+    <header class="row">
+        <br class="hidden-xs">
+        <div class="col-md-3 col-lg-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0">
+            <img class="img-responsive" src="<?php echo base_url('bootstrap')?>/images/logo.png" alt="Logo">
+        </div>
+        <div class="col-md-7 col-lg-7 col-xs-12 col-sm-6">
+            <div class="input-group search-box ">
+                <input type="text" class="form-control search-input" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn search-button btn-info" type="button">Search!</button>
+                </span>
             </div>
-            <div class="col-md-7 col-lg-7 col-xs-12 col-sm-6">
-                <div class="input-group search-box ">
-                            <input type="text" class="form-control search-input" placeholder="Search for...">
-                        <span class="input-group-btn">
-                                <button class="btn search-button btn-info" type="button">Search!</button>
-                            </span>
+        </div>
+            <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
+            <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7"  data-toggle="modal" data-target="#cart">
+                <i class="glyphicon glyphicon-shopping-cart"></i> 5 Giỏ hàng
+            </button>
+            </div>
+            <div class="navbar no_margin" role="navigation">
+                <div class="navbar-header">
+                    <div class="col-xs-6">
+                        <button type="button" class=" col-xs-12 navbar-toggle button_menu" data-toggle="collapse" data-target=".menutop">
+                            <span class="icon-toggle pull-left">Menu</span>
+                            <i class="glyphicon glyphicon-list pull-right"></i>
+                        </button>
                     </div>
+                </div>
+            <div class="col-md-12 col-xs-12 collapse navbar-collapse menutop ">
+                <ul class="nav navbar-nav">
+                    <li class="list_menu">
+                        <a class='item_menu'class="dropdown-toggle" data-toggle="dropdown">
+                        Danh muc san pham <i class="glyphicon glyphicon-chevron-down"></i></a>
+                        <ul class="dropdown-menu sub-menu" >
+                            <li><a href=" ">Category 1</a></li>
+                            <li><a href=" ">Category 2</a></li>
+                            <li><a href=" ">Category 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="list_menu"><a class='item_menu' href="">San pham moi</a></li>
+                    <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li class="list_menu"><a class='item_menu'data-toggle="modal" data-target="#myModal2" href="">Đăng ký / Đăng Nhập</a></li>
+                </ul>
+                    </div><!-- /end menu -->
             </div>
-                <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
-                <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7"  data-toggle="modal" data-target="#cart">
-                    <i class="glyphicon glyphicon-shopping-cart"></i> 5 Giỏ hàng
-                </button>
-                </div>
-        
-                <div class="navbar no_margin" role="navigation">
-                        <div class="navbar-header">
-                                <div class="col-xs-6">
-                                    <button type="button" class=" col-xs-12 navbar-toggle button_menu" data-toggle="collapse" data-target=".menutop">
-                                        <span class="icon-toggle pull-left">Menu</span>
-                                        <i class="glyphicon glyphicon-list pull-right"></i>
-                                    </button>
-                                </div>
-                        </div>
-                <div class="col-md-12 col-xs-12 collapse navbar-collapse menutop ">
-                    <ul class="nav navbar-nav">
-                        <li class="list_menu">
-                                                <a class='item_menu'class="dropdown-toggle" data-toggle="dropdown">
-                                Danh muc san pham <i class="glyphicon glyphicon-chevron-down"></i></a>
-                                <ul class="dropdown-menu sub-menu" >
-                                    <li><a href=" ">Category 1</a></li>
-                                    <li><a href=" ">Category 2</a></li>
-                                    <li><a href=" ">Category 3</a></li>
-                                </ul>
-                        </li>
-                        <li class="list_menu"><a class='item_menu' href="">San pham moi</a></li>
-                        <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right ">
-                        <li class="list_menu"><a class='item_menu'data-toggle="modal" data-target="#myModal2" href="">Đăng ký / Đăng Nhập</a></li>
-                    </ul>
-                        </div><!-- /end menu -->
-                </div>
-                <!-- . Navbar -->
-                </header>
+            <!-- . Navbar -->
+            </header>
 <?php
 if (isset($_SESSION['message_tmp'])) {
 echo $_SESSION['message_tmp'];

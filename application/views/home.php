@@ -1,6 +1,10 @@
+<script src="<?php echo base_url('bootstrap')?>/js/owl.carousel.min.js"></script>
+<link href="<?php echo base_url('bootstrap')?>/css/owl.carousel.css" rel="stylesheet">
+<link href="<?php echo base_url('bootstrap')?>/css/owl.theme.css" rel="stylesheet">
+<link href="<?php echo base_url('bootstrap')?>/css/owl.transitions.css" rel="stylesheet">
 <div class="row1">
 <div class="col-lg-8 col-md-8 box_slide">       
-    <div id="owl-demo" class="owl-carousel owl-theme">
+    <div id="slide-home" class="owl-carousel owl-theme">
       <div class="item"><a href=""><img src="<?php echo base_url('bootstrap')?>/images/fullimage1.jpg" class="img-responsive" alt="The Last of us"></a>
             <p class="description text-center"><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></p>
       </div>
