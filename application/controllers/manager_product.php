@@ -127,24 +127,7 @@ class Manager_product extends CI_Controller
     }
     public function get_slug()
     {
-        if(isset($_POST['slug'])){
-            $tmp=$this->My_model->check_slug($_POST['slug']);
-            if ($tmp==FALSE) {
-               echo $this->My_model->utf8_to_url($_POST['slug']);
-            }else {
-                $_POST['slug']=$_POST['slug'].'-'.rand(1,1000);
-                echo $this->My_model->utf8_to_url($_POST['slug']);
-            }
-        }
-    }
-    public function tmp()
-    {
-       $tmp=$this->My_model->check_slug('Samsung Gadlaxy S6 Edge Plus');
-       if ($tmp==FALSE) {
-           echo "string";
-       }
-       // $tmp=$this->db->like('name', ,'none')->get('product');
-       // print_r($tmp->result()) ;
+       echo $this->My_model->utf8_to_url($_POST['slug']);
     }
     public function add()
     {
@@ -166,7 +149,7 @@ class Manager_product extends CI_Controller
                 );
             $tmp=$this->db->insert('product', $data);
             if ($tmp==1) {
-                $this->My_model->Sent_message('Thành công', 'manager_product', 'success');
+                // $this->My_model->Sent_message('Thành công', 'manager_product', 'success');
             }
         }
         $cate= $this->My_model->Get_col('id,name','category');

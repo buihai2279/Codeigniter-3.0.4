@@ -39,6 +39,13 @@ class My_model extends CI_Model {
 		else
 			return FALSE;
 	}
+	public function get_row_by_slug($slug=''){
+		$query = $this->db->get_where($this->table,array('slug' => $slug));
+		if ($query->num_rows()==1)
+			return $query->row();
+		else
+			return FALSE;
+	}
 	public function Get_row_by_id($id=''){
 		$query = $this->db->get_where($this->table,array('id' => $id));
 		if ($query->num_rows()==1)
@@ -161,19 +168,17 @@ class My_model extends CI_Model {
         $str = str_replace( "ß", "ss", $str);
         $str = str_replace( "%", "", $str);
         $str = preg_replace("/[^_a-zA-Z0-9 -]/", "",$str);
+        $str = str_replace("-"," ",$str);
         $str =trim($str);
-        $str = str_replace(array('%20',' ','_'), '-', $str);
+        $str = str_replace(array('%20',' ','_','.',','), '-', $str);
         $str = str_replace("----","-",$str);
         $str = str_replace("---","-",$str);
         $str = str_replace("--","-",$str);
-        return $str;
-    }
-    public function check_slug($slug)
-    {
-    	$tmp=$this->db->like('name', $slug,'none')->get('product');
+        $tmp=$this->db->like('name', $str,'none')->get('product');
     	if ($tmp->num_rows()>0) {
-    	 	return TRUE;
-    	 }
+    	 	return $str=$str.'-'.rand(1,1000);
+    	}else return $str;
+        
     }
 }
 

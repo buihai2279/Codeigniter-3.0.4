@@ -53,4 +53,6 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['product/laptop/(:any)'] = 'user/view/$1';
-$route['product/dtdd/(:any)'] = 'user/view/$1';
+$route['dtdd/(:any)'] = 'user/slug/$1';
+$route['laptop/(:any)'] = 'user/slug/$1';
+$route['phu-kien/(:any)'] = 'user/slug/$1';

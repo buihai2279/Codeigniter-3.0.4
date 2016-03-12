@@ -19,6 +19,14 @@ label{width: 80px;}</style>
         });
     });
 </script>
+<script src="<?php echo base_url('bootstrap/js/jquery.number.min.js')?>"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#price').number(true,2);
+    });
+// <?php $number = preg_replace( '/([^0-9\.])/', '', $_POST['price'] )?>
+    
+</script>
 <form class="form-inline" action="#" method="POST" >
     <div class="clearfix"></div><hr>
     <div class="form-group form-group-lg col-lg-12">
@@ -26,23 +34,27 @@ label{width: 80px;}</style>
         <input type="text" class="form-control" name='name' id='txtname' value="<?php echo set_value("name"); ?>" placeholder="Jane Doe" style='width: 80%;'>
     </div>
     <div class="clearfix"></div><hr>
-    <div class="form-group">
+    <div class="form-group col-md-5">
         <label>price</label>
         <div class="input-group">
             <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" value="<?php echo set_value("name"); ?>" placeholder="Amount">
+                <input type="text" name="price" id="price" class="form-control" value="<?php echo set_value("price"); ?>" placeholder="Amount">
             <div class="input-group-addon">VND</div>
         </div>
     </div>
-    <!-- <div class="clearfix"></div><hr> -->
-    <div class="form-group">
-        <label>Slug</label>
-        <div class="input-group">
+    <div class="form-group col-md-7 pull-right">
+        <label class=" col-sm-2">Slug</label>
+        <div class="input-group col-sm-10">
             <div class="input-group-addon">/dttd/</div>
                 <input type="text" class="form-control" id='txtslug' name='txtslug' value="<?php echo set_value('txtslug'); ?>" placeholder="Amount">
         </div>
     </div>
     <div class="clearfix"></div><hr>
+    <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
     <div class="form-group col-md-4">
         <label>Category Name</label>
         <select name="category_id" class="form-control input-sm">

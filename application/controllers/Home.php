@@ -18,7 +18,7 @@ class Home extends CI_Controller
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->library('cart');
-        $query = $this->db->query("SELECT name,img,price,description FROM product");
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product");
         $data['result']=$query->result_array();
         $this->Load_view('home',$data);
     }
