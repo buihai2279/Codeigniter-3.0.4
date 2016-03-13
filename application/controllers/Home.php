@@ -25,20 +25,53 @@ class Home extends CI_Controller
     public function cart_detail()
     {
         $this->load->helper('form');
-        $this->load->view('front-end/cart_detail');
+        $this->My_model->Load_front_end('front-end/pay');
     }
     public function update_cart()
     {
-        if (isset($_POST)) {
+        if (isset($_POST['update'])) {
             $data = $_POST;
             $this->cart->update($data);
             $this->My_model->Sent_message('Cập nhật thành công','home/pay','success');
-        }else $this->My_model->Sent_message('Có lỗi xảy ra','home','danger');
+        }else
+            $this->My_model->Sent_message('Có lỗi xảy ra','home','danger');
     }
     public function pay()
     {
-        $this->load->helper('form');
-        $this->My_model->Load_front_end('front-end/pay');
+        if (isset($_POST)) {
+            if ($this->session->has_userdata('mail')) {
+                $user=$this->session->userdata('mail');
+            } else {
+                $user='';
+            }
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_time = date('Y-m-d H:i:s');
+            $data = array(
+                    'user' => $user, 
+                    'date_order' => $date_time, 
+                    'date_ship' => $_POST['date_ship'], 
+                    'receiver_name' => $_POST['receiver_name'], 
+                    'contact' => $_POST['phone'], 
+                    'note' => $_POST['note'], 
+                    'status' => '0', 
+                );
+            $this->db->insert('order',$data);
+            $id_order=$this->db->insert_id();
+            foreach ($this->cart->contents() as $key => $value) {
+                $data = array(
+                        'id_order' => $id_order, 
+                        'id_product' => $value['id'], 
+                        'qty' => $value['qty'], 
+                        'price' => $value['price'], 
+                        'subtotal' => $value['subtotal'], 
+                    );
+                $this->db->insert('order',$data);
+                $id_order=$this->db->insert_id();
+            }
+        } else {
+            echo "string";
+        }
+        
     }
     public function count_cart()
     {

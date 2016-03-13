@@ -5,7 +5,7 @@
         <?php if (count($this->cart->contents())>0){ ?>
                            
           
-<?php echo form_open('home/update_cart'); ?>
+<form action="<?php echo base_url('home/update_cart')?>"  method='POST'>
 <table cellpadding="6" cellspacing="1" style="width:100%" border="0">
 <tr>
         <th>IMG</th>
@@ -30,14 +30,46 @@
 <?php $i++; ?>
 <?php endforeach; ?>
 <tr>
-        <td colspan="2"><?php echo form_submit(array('class'=>'btn btn-primary'), 'Update your Cart'); ?></td>
+        <td colspan="2">
+                <?php echo form_submit(array('class'=>'btn btn-info','name'=>'update'), 'Update'); ?>
+        </td>
         <td class="pull-left"><strong>Total</strong></td>
-        <td colspan="2" class="pull-right"><?php echo $this->cart->format_number($this->cart->total()); ?> VNĐ</td>
+        <td class="pull-right"><?php echo $this->cart->format_number($this->cart->total()); ?> VNĐ</td>
 </tr>
 </table>
-
-<div class="clearfix">
-</div>
+</form>
+<div class="clearfix"></div>
+<form action="<?php echo base_url('home/pay')?>" method='POST'>
+<table>
+        <tbody>
+                <tr>
+                        <td>Name</td>
+                        <td><input type="text" name="receiver_name"></td>
+                </tr>
+                <tr>
+                        <td>Address</td>
+                        <td><input type="text" name="address"></td>
+                </tr>
+                <tr>
+                        <td>Date ship</td>
+                        <td><input type="text" name="date_ship"></td>
+                </tr>
+                <tr>
+                        <td>Note</td>
+                        <td><input type="text" name="note"></td>
+                </tr>
+                <tr>
+                        <td>Phone </td>
+                        <td><input type="text" name="phone"></td>
+                </tr>
+                <tr>
+                        <td colspan="2">
+                                <button type="submit" class="btn btn-success" name='pay' value="ok">Pay</button>
+                        </td>
+                </tr>
+        </tbody>
+</table>
+</form>
 <?php }else{
         echo '<div class="alert alert-warning">Không có sản phẩm nào trong giỏ hàng</div>';
         } ?>
