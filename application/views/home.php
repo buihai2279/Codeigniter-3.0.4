@@ -2,6 +2,29 @@
 <link href="<?php echo base_url('bootstrap')?>/css/owl.carousel.css" rel="stylesheet">
 <link href="<?php echo base_url('bootstrap')?>/css/owl.theme.css" rel="stylesheet">
 <link href="<?php echo base_url('bootstrap')?>/css/owl.transitions.css" rel="stylesheet">
+<script>
+    $(document).ready(function() {
+$( "#cart" ).click(function() {
+  alert(2);
+        // $.ajax({
+        //         type : "post",
+        //         data : {
+        //                 id : id,
+        //                 qty : 1,
+        //                 price : price,
+        //                 name : name
+        //                 },
+        //         dateType:"text",
+        //         url: "<?php echo base_url('user/Add_to_cart')?>",
+        //         success: function(result){
+        //             $('#content_cart').html(result);
+        //             $('#add_cart').modal('show');
+        //         }
+        //     });
+      });
+});
+</script>
+
 <div class="row1">
 <div class="col-lg-8 col-md-8 box_slide">       
     <div id="slide-home" class="owl-carousel owl-theme">

@@ -77,7 +77,7 @@ $list_caption=explode('|',$result->caption);
               js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=868245903223472";
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
-            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true" width='200px'></div>
+            <div class="fb-like" data-href="<?php echo current_url() ?>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true" width='200px'></div>
 
 
             <h3 class="text-danger"><?php echo number_format($result->price)?></h3>
@@ -87,10 +87,13 @@ $list_caption=explode('|',$result->caption);
                 <li class="text-primary">Bảo hành chính hãng 12 tháng.</li>
             </ul>
             <button type="button" class="btn btn-info" id='cart'><i class="fa fa-cart-arrow-down"></i> Add to cart</button>
-
         </div>
         <div class="clearfix"></div><hr>
     </div>
+
+
+            
+
     <div class="col-md-8 box_slide">    
         <h3 class="text-center">Điểm nổi bật</h3>
         <hr>
@@ -107,9 +110,8 @@ $list_caption=explode('|',$result->caption);
             <?php endforeach ?>
         </div>
     </div>
-    <div class="visible-xs"><div class="clear-fixed"></div><hr></div><div class="clearfix">
-    
-    </div>
+
+    <div class="visible-xs"><br><div class="clear-fixed"></div><hr></div>
     <div class="col-md-4 list_parameter">
         <h3 class="text-center">Thông số kỹ thuật</h3>
         <hr>
@@ -128,7 +130,39 @@ $list_caption=explode('|',$result->caption);
         ?>
         </table>
     </div>
-    <div class="col-md-6"><div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="4" width='100%'></div></div>
+    <script>
+    $(document).ready(function() {
+        $('#collapseExample').collapse('show');
+    });
+    </script>
+    <div class="clearfix"></div>
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Video Review
+        </a>
+    </div>
+
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
+      <div class="panel-body">
+            <div class="col-md-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/kykU9rgmtLs"></iframe>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/l60E4njGGn8"></iframe>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+<div class="clearfix"></div>
+
+    <div class="col-md-6"><div class="fb-comments" data-href="<?php echo current_url()?>" data-numposts="4" width='100%'></div></div>
     <div class="col-md-6">Video Suggest</div>
     
 

@@ -34,6 +34,34 @@
 		</script>
 	</head>
 <body>
+
+
+<div class="modal fade" id="modal_cart">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" id="content_cart1">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#cart_list').click(function(){
+        $.ajax({
+                dateType:"text",
+                url: "<?php echo base_url('home/cart_detail')?>",
+                success: function(result){
+                    $('#content_cart1').html(result);
+                    $('#modal_cart').modal('show');
+                }
+            });
+    })
+});
+</script>
+
 <div class="container-fluid">
     <header class="row">
         <br class="hidden-xs">
@@ -49,9 +77,9 @@
             </div>
         </div>
             <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
-            <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7"  data-toggle="modal" data-target="#cart">
-                <i class="glyphicon glyphicon-shopping-cart"></i> 5 Giỏ hàng
-            </button>
+                <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7" id="cart_list">
+                    <span>5 Giỏ hàng</span> 
+                </button>
             </div>
             <div class="navbar no_margin" role="navigation">
                 <div class="navbar-header">
@@ -77,9 +105,28 @@
                     <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right ">
-                    <li class="list_menu"><a class='item_menu'data-toggle="modal" data-target="#myModal2" href="">Đăng ký / Đăng Nhập</a></li>
-                </ul>
-                    </div><!-- /end menu -->
+
+                        <?php if (isset($_SESSION['login'])) {
+                            ?>
+                    <li class="list_menu">
+                        <a id="dLabel" class="item_menu" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $_SESSION['mail'];?>
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu sub-menu" aria-labelledby="dLabel">
+                            <li><a href="<?php echo base_url('admin')?>">Vào trang quản trị</a></li>
+                            <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
+                            <li><a href="">Lịch sử mua hàng</a></li>
+                            <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+
+                       <?php  }else{
+                        ?>
+                        <li class="list_menu"><a class='item_menu' href="<?php echo base_url('auth')?>">Đăng ký / Đăng Nhập</a></li>
+                    <?php
+                        } ?>
+                </div><!-- /end menu -->
             </div>
             <!-- . Navbar -->
             </header>
