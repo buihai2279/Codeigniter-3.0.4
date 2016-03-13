@@ -3,9 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
+    public $table='product';
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('cart');
     }
     public function Load_view($view, $data = null)
     {
@@ -15,43 +17,55 @@ class Home extends CI_Controller
     }
     public function index()
     {
-        $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->library('cart');
         $query = $this->db->query("SELECT name,slug,img,price,description FROM product");
         $data['result']=$query->result_array();
         $this->Load_view('home',$data);
     }
     public function cart_detail()
     {
-        $this->load->library('cart');
-        ?>
-              <div class="row">
-                <div class="pull-left col-sm-5 col-md-4 ">
-                  <img src="<?php echo base_url() ?>/bootstrap/images/fullimage1.jpg" style="max-width: 200px" class="img-responsive">
-                  </div>
-                <div class="pull-right col-sm-6 col-md-7">
-                  <p>Name</p>
-                  <p>Price</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="pull-left col-sm-5 col-md-4 ">
-                  <img src="<?php echo base_url() ?>/bootstrap/images/fullimage1.jpg" style="max-width: 200px" class="img-responsive">
-                  </div>
-                <div class="pull-right col-sm-6 col-md-7">
-                  <p>Name</p>
-                  <p>Price</p>
-                </div>
-              </div>
-              <hr>
-              <div class="pull-left col-sm-6 col-md-6 "><b>Total</b></div><div class="pull-right col-sm-6 col-md-6">35$</div>
-              <hr>
-        <?php
-        // echo "<pre>";
-        // print_r($this->cart->contents());
-        // echo "</pre>";
+        $this->load->helper('form');
+        $this->load->view('front-end/cart_detail');
+    }
+    public function update_cart()
+    {
+        if (isset($_POST)) {
+            $data = $_POST;
+            $this->cart->update($data);
+            $this->My_model->Sent_message('Cập nhật thành công','user/pay','success');
+        }else $this->My_model->Sent_message('Có lỗi xảy ra','home','danger');
+    }
+    public function pay()
+    {
+        $this->load->helper('form');
+        $this->My_model->Load_front_end('front-end/pay');
+    }
+    public function count_cart()
+    {
+        $this->load->library('session');
+        $this->session->set_userdata('count_cart',count($this->cart->contents()));
+        echo $_SESSION['count_cart'];
+    }
+    public function Add_to_cart()
+    {
+        $data = array(
+                    'id'      => $_POST['id'],
+                    'qty'     => $_POST['qty'],
+                    'price'   => $_POST['price'],
+                    'img'   => $_POST['img'],
+                    'name'    => $_POST['name']
+                );
+        $this->cart->insert($data);
+        echo "<pre>";
+        print_r(count($this->cart->contents()));
+        echo "</pre>";
+    }
+    public function slug($slug)
+    {
+        $data['result']=$this->My_model->get_row_by_slug($slug);
+        if ($data['result']!=false) {
+            $this->My_model->Load_front_end('info',$data);
+        }else $this->My_model->Sent_message('Bạn đang truy cập vào đường link không tồn tại','home/index','danger');
     }
 
 }

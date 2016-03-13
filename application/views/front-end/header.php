@@ -66,7 +66,7 @@ $(document).ready(function() {
     <header class="row">
         <br class="hidden-xs">
         <div class="col-md-3 col-lg-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0">
-            <img class="img-responsive" src="<?php echo base_url('bootstrap')?>/images/logo.png" alt="Logo">
+            <a href="<?php echo base_url()?>"><img class="img-responsive" src="<?php echo base_url('bootstrap')?>/images/logo.png" alt="Logo"></a>
         </div>
         <div class="col-md-7 col-lg-7 col-xs-12 col-sm-6">
             <div class="input-group search-box ">
@@ -78,7 +78,12 @@ $(document).ready(function() {
         </div>
             <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
                 <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7" id="cart_list">
-                    <span>5 Giỏ hàng</span> 
+                    <span><i class="fa fa-cart-plus"></i> Giỏ hàng</span> 
+                    <span class="badge" id="count_cart">
+                    <?php if(isset($_SESSION['count_cart']))
+                        echo $_SESSION['count_cart'];
+                        else echo 0;
+                     ?></span>
                 </button>
             </div>
             <div class="navbar no_margin" role="navigation">
@@ -109,7 +114,7 @@ $(document).ready(function() {
                         <?php if (isset($_SESSION['login'])) {
                             ?>
                     <li class="list_menu">
-                        <a id="dLabel" class="item_menu" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a id="dLabel" class="item_menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <?php echo $_SESSION['mail'];?>
                         <span class="caret"></span>
                         </a>

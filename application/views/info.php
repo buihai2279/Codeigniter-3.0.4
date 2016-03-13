@@ -18,30 +18,33 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('#add_cart').on('show.bs.modal', function (e) {
-          setTimeout(function(){
-              $('#add_cart').modal('hide');
-            }, 10000);
-        });
-    });
-    $(document).ready(function() {
         $( "#cart" ).click(function() {
             var id=$('#id_name').val();
             var name=$('#name').val();
             var price=$('#price').val();
+            var img=$('#img').val();
             $.ajax({
                     type : "post",
                     data : {
                                 id : id,
                                 qty : 1,
                                 price : price,
-                                name : name
+                                name : name,
+                                img : img
                             },
                     dateType:"text",
-                    url: "<?php echo base_url('user/Add_to_cart')?>",
+                    url: "<?php echo base_url('home/Add_to_cart')?>",
                     success: function(result){
                         $('#content_cart').html(result);
                         $('#add_cart').modal('show');
+                    }
+            });
+            $.ajax({
+                    type : "post",
+                    dateType:"text",
+                    url: "<?php echo base_url('home/count_cart')?>",
+                    success: function(result){
+                        $('#count_cart').html(result);
                     }
             });
     });
@@ -171,6 +174,7 @@ $list_caption=explode('|',$result->caption);
     <input type="text" id="id_name" hidden="hidden" value="<?php echo $result->id?>">
     <input type="text" id="name" hidden="hidden" value="<?php echo $result->name?>">
     <input type="text" id="price" hidden="hidden" value="<?php echo $result->price?>">
+    <input type="text" id="img" hidden="hidden" value="<?php echo $result->img?>">
     <input type="text" id="qty" hidden="hidden" value="1">
 </form>
 

@@ -117,8 +117,12 @@ class Auth extends CI_Controller
         if ($this->check_login() == false) {
             $this->My_model->Sent_message('Chưa đăng nhập!!!', 'Home', 'warning');
         }
-        $this->session->sess_destroy();
-        redirect('Home', 'refresh');die();
+        unset($_SESSION['login']);
+        unset($_SESSION['mail']);
+        unset($_SESSION['level']);
+        unset($_SESSION['count_cart']);
+        unset($_SESSION['cart_contents']);
+        $this->My_model->Sent_message('Đăng xuất!!!', 'Home', 'success');
     }
     public function recover_password()
     {
