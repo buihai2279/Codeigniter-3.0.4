@@ -32,7 +32,7 @@ class Home extends CI_Controller
         if (isset($_POST)) {
             $data = $_POST;
             $this->cart->update($data);
-            $this->My_model->Sent_message('Cập nhật thành công','user/pay','success');
+            $this->My_model->Sent_message('Cập nhật thành công','home/pay','success');
         }else $this->My_model->Sent_message('Có lỗi xảy ra','home','danger');
     }
     public function pay()
@@ -64,6 +64,8 @@ class Home extends CI_Controller
     {
         $data['result']=$this->My_model->get_row_by_slug($slug);
         if ($data['result']!=false) {
+            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get($this->table);
+            $data['suggest']=$query->result_array();
             $this->My_model->Load_front_end('info',$data);
         }else $this->My_model->Sent_message('Bạn đang truy cập vào đường link không tồn tại','home/index','danger');
     }

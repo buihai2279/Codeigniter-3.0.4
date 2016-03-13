@@ -81,7 +81,7 @@ $(document).ready(function() {
                     <span><i class="fa fa-cart-plus"></i> Giỏ hàng</span> 
                     <span class="badge" id="count_cart">
                     <?php if(isset($_SESSION['count_cart']))
-                        echo $_SESSION['count_cart'];
+                        echo ' '.$_SESSION['count_cart'].' ';
                         else echo 0;
                      ?></span>
                 </button>
@@ -119,7 +119,11 @@ $(document).ready(function() {
                         <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu sub-menu" aria-labelledby="dLabel">
-                            <li><a href="<?php echo base_url('admin')?>">Vào trang quản trị</a></li>
+                            <?php if($_SESSION['level']>0){
+                                ?>
+                                <li><a href="<?php echo base_url('admin')?>">Vào trang quản trị</a></li>
+                                <?php 
+                                } ?>
                             <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
                             <li><a href="">Lịch sử mua hàng</a></li>
                             <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>

@@ -166,8 +166,39 @@ $list_caption=explode('|',$result->caption);
 <div class="clearfix"></div>
 
     <div class="col-md-6"><div class="fb-comments" data-href="<?php echo current_url()?>" data-numposts="4" width='100%'></div></div>
-    <div class="col-md-6">Video Suggest</div>
-    
+    <div class="col-md-5">
+        <h3>Sản phẩm có thể bạn quan tâm</h3>
+        <?php foreach ($suggest as $value) {
+            ?>
+        <div class="box_suggest">
+            <div class="col-sm-3 col-xs-10">
+                <a href="<?php echo base_url('dtdd').'/'.$value['slug']?>">
+                <img class="media-object img-responsive" src="<?php echo $value['img']?>">
+                </a> 
+            </div> 
+            <div class="col-sm-8 col-xs-12"> 
+                <h4><a href="<?php echo base_url('dtdd').'/'.$value['slug']?>"><?php echo $value['name']?></a></h4>
+                <p><span class="text-danger"><?php echo number_format($value['price'])?> VND</span><br>
+                <?php echo str_replace('|', ', ', $value['description'])?></p>
+            </div>
+        </div>
+            <?php 
+        } ?>
+    </div>
+   <div class="clearfix"></div><hr>
+   <h3 style="text-align: center">Sản phẩm cùng chuyên mục</h3>
+   <?php foreach ($suggest as $key => $value) {
+       ?>
+   <div class="col-md-2 col-sm-5 block-center box_suggest" style="text-align: center;overflow: hidden;">
+        <img src="<?php echo $value['img']?>" class="img-responsive" style="height: 150px"><div class="clearfix">
+        </div>
+        <a href="<?php echo base_url('dtdd').'/'.$value['slug']?>">
+        <?php echo $value['name']?>
+        </a><br>
+        <span class="text-danger"><?php echo number_format($value['price'])?></span>
+    </div>
+       <?php 
+   } ?>
 
 <div class="clearfix"></div>
 <form>
