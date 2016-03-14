@@ -6,9 +6,8 @@
 </head>
 <body>	
 <?php
-include('config.php');	
-include('include/NL_Checkoutv3.php');
-$nlcheckout= new NL_CheckOutV3(MERCHANT_ID,MERCHANT_PASS,RECEIVER,URL_API);
+include('NL_Checkoutv3.php');
+$nlcheckout= new NL_CheckOutV3('45525', '2daa09faf06829a2d97bcde3b8ee2003', 'buihai2603@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
 $nl_result = $nlcheckout->GetTransactionDetail($_GET['token']);
 if($nl_result){
 	$nl_errorcode           = (string)$nl_result->error_code;
@@ -28,3 +27,4 @@ if($nl_result){
 ?>
 </body>	
 </html>		
+<!-- http://localhost/Codeigniter-Project/home/pay_thank?order_code=ACEMVDWA_1457968979&error_code=00&token=1010012-641c9dcf6127f9bc63f5c661ab0e68fa -->

@@ -1,6 +1,5 @@
 <?php if (count($this->cart->contents())>0) {
 ?>        
-
 <?php echo form_open('home/update_cart'); ?>
 <table cellpadding="6" cellspacing="1" style="width:100%" border="0">
 <tr>
@@ -38,7 +37,7 @@
         <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
 </tr>
 </table>
-<p><?php echo form_submit(array('class'=>'btn btn-primary'), 'Update your Cart'); ?></p>
+<p><?php echo form_submit(array('class'=>'btn btn-primary','name'=>'update'), 'Update your Cart'); ?></p>
 
   <?php       
 } else {

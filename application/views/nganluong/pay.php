@@ -20,7 +20,7 @@
 <?php $i++;?>
 <?php endforeach;?>
 <tr><td colspan="2">
-            <?php echo form_submit(array('class' => 'btn btn-info', 'name' => 'update'), 'Update'); ?>
+    <?php echo form_submit(array('class' => 'btn btn-info', 'name' => 'update'), 'Update'); ?>
     </td>
     <td class="pull-left"><strong>Total</strong></td>
     <td class="pull-right"><?php echo $this->cart->format_number($this->cart->total()); ?> VNĐ</td></tr>
@@ -35,26 +35,30 @@
 </div>
 
 <?php
-
 if (@$_POST['nlpayment']) {
-	$user=(isset($_SESSION['mail'])) ? $_SESSION['mail'] : '' ;
-    date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $date_time = date('Y-m-d H:i:s');
-    $code              = substr(str_shuffle("ABCDEFGHABCDEFGHIKLMNOPQRABCDEFGHSTUVWXYZ"), 0, 8);
-    $order_code        = $code.'_'. time();
-    $data = array(
-			'user'=> $user,
-			'date_order'=> $date_time,
-			'order_code'=>$order_code,
-			'date_ship'=>$_POST['date_ship'],
-			'receiver_name'=> $_POST['buyer_fullname'],
-			'contact'=> $_POST['buyer_mobile'],
-			'mail'=>$_POST['buyer_email'],
-			'note'=> $_POST['order_description'],
-			'status'=> 0
-    );
+        $user=(isset($_SESSION['mail'])) ? $_SESSION['mail'] : '' ;
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_time = date('Y-m-d H:i:s');
+            $code              = substr(str_shuffle("ABCDEFGHABCDEFGHIKLMNOPQRABCDEFGHSTUVWXYZ"), 0, 8);
+            $order_code        = $code.'_'. time();
+            $data = array(
+                        'user'=> $user,
+                        'date_order'=> $date_time,
+                        'order_code'=>$order_code,
+                        'date_ship'=>$_POST['date_ship'],
+                        'receiver_name'=> $_POST['buyer_fullname'],
+                        'contact'=> $_POST['buyer_mobile'],
+                        'mail'=>$_POST['buyer_email'],
+                        'note'=> $_POST['order_description'],
+                        'status'=> 0,
+                        'fee_shipping'=>'',
+                        'bank_code'=>'',
+                        'transaction_id'=>'',
+                        'tax_amount'=>'',
+                        'discount_amount'=>''
+                );
     $result = $this->db->insert('order', $data);
-    include 'include/NL_Checkoutv3.php';
+    include 'NL_Checkoutv3.php';
     $nlcheckout     = new NL_CheckOutV3('45525', '2daa09faf06829a2d97bcde3b8ee2003', 'buihai2603@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
     $total_amount   = $_POST['total_amount'];
     $array_items[0] = array('item_name1' => 'Product name',
@@ -69,7 +73,7 @@ if (@$_POST['nlpayment']) {
     $order_description = 'order_description';
     $tax_amount        = 0;
     $fee_shipping      = 0;
-    $return_url        = base_url('home/pay_thank?order_code=' . $order_code);
+    $return_url        = base_url('home/save');
 
     $cancel_url     = urlencode(base_url('home/pay_cancel/?order_code=' . $order_code));
     $buyer_fullname = $_POST['buyer_fullname'];
@@ -92,10 +96,10 @@ if (@$_POST['nlpayment']) {
     }
     if ($nl_result->error_code == '00') {; //Cập nhât order với token  $nl_result->token để sử dụng check hoàn thành sau này
         ?>
-	  <script type="text/javascript">
-  		window.location = "<?php echo (string) $nl_result->checkout_url; ?>"
-	  </script>
-	  <?php
+          <script type="text/javascript">
+                window.location = "<?php echo (string) $nl_result->checkout_url; ?>"
+          </script>
+          <?php
 } else {
         echo $nl_result->error_message;
     }

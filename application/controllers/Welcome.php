@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('nganluong/index');
+		$this->load->library('cart');
+		$this->load->helper('form');
+		$this->My_model->Load_front_end('nganluong/index');
 	}
 }

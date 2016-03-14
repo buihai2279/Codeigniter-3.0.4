@@ -2,9 +2,9 @@
   class NL_CheckOutV3
   {
 	        public $url_api ='https://www.nganluong.vn/checkout.api.nganluong.post.php';  
-			public $merchant_id = '';
-			public $merchant_password = '';
-			public $receiver_email = '';
+			public $merchant_id = '45525';
+			public $merchant_password = '2daa09faf06829a2d97bcde3b8ee2003';
+			public $receiver_email = 'buihai2603@gmail.com';
 			public $cur_code = 'vnd';
 			function __construct($merchant_id, $merchant_password, $receiver_email,$url_api)
 			{				
