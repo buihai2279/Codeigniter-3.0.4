@@ -12,7 +12,6 @@ class Slide extends CI_Controller {
     public function index()
     {
         $data['result'] = $this->My_model->get_all($this->table);
-        // print_r($data['result'] );
         $this->My_model->Load_view('slide/list',$data);
     }
     public function edit($id='')

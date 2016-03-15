@@ -16,42 +16,6 @@
       });
 });
 </script>
-<script>
-    $(document).ready(function() {
-        $( "#cart" ).click(function() {
-            var id=$('#id_name').val();
-            var name=$('#name').val();
-            var price=$('#price').val();
-            var img=$('#img').val();
-            $.ajax({
-                    type : "post",
-                    data : {
-                                id : id,
-                                qty : 1,
-                                price : price,
-                                name : name,
-                                img : img
-                            },
-                    dateType:"text",
-                    url: "<?php echo base_url('home/Add_to_cart')?>",
-                    success: function(result){
-                        $('#content_cart').html(result);
-                        $('#add_cart').modal('show');
-                    }
-            });
-            $.ajax({
-                    type : "post",
-                    dateType:"text",
-                    url: "<?php echo base_url('home/count_cart')?>",
-                    success: function(result){
-                        $('#count_cart').html(result);
-                    }
-            });
-    });
-
-});
-    
-</script>
 <style>
     #slide-info .item img{
         display: block;
@@ -94,6 +58,52 @@ $list_caption=explode('|',$result->caption);
         <div class="clearfix"></div><hr>
     </div>
 
+
+<script>
+    $(document).ready(function() {
+        $( "#cart" ).click(function() {
+            var id=$('#id_name').val();
+            var name=$('#name').val();
+            var price=$('#price').val();
+            var img=$('#img').val();
+            $.ajax({
+                    type : "post",
+                    data : {
+                                id : id,
+                                qty : 1,
+                                price : price,
+                                name : name,
+                                img : img
+                            },
+                    dateType:"text",
+                    url: "<?php echo base_url('home/Add_to_cart')?>",
+                    success: function(result){
+                        $('#noti_cart').html(result);
+                        $('#add_cart').modal('show');
+                    }
+            });
+            $.ajax({
+                    type : "post",
+                    dateType:"text",
+                    url: "<?php echo base_url('home/count_cart')?>",
+                    success: function(result){
+                        $('#count_cart').html(result);
+                    }
+            });
+    });
+});
+</script>
+<div class="modal fade" id="add_cart">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" id="noti_cart">
+            </div>
+        </div>
+    </div>
+</div>
 
             
 
@@ -209,19 +219,3 @@ $list_caption=explode('|',$result->caption);
     <input type="text" id="qty" hidden="hidden" value="1">
 </form>
 
-<div class="modal fade" id="add_cart">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body" id="content_cart">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>

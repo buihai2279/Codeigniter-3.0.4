@@ -22,6 +22,5 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->library('cart');
 		$this->load->helper('form');
-		$this->My_model->Load_front_end('nganluong/index');
 	}
 }

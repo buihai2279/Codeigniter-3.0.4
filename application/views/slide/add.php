@@ -41,3 +41,30 @@
       </div>
     </div>
 </form> 
+
+
+
+<button id="ckfinder-modal" class="button-a button-a-background" style="float: left">Open Modal</button>
+<script src="<?php echo base_url('public/ckfinder/ckfinder.js')?>"></script>
+<script>
+  var button = document.getElementById( 'ckfinder-modal' );
+  button.onclick = function() {
+    CKFinder.modal( {
+      chooseFiles: true,
+      width: 800,
+      height: 600,
+      onInit: function( finder ) {
+        finder.on( 'files:choose', function( evt ) {
+          var file = evt.data.files.first();
+          var output = document.getElementById( 'output' );
+          output.innerHTML = 'Selected: ' + file.get( 'name' ) + '<br>URL: ' + file.getUrl();
+        } );
+        finder.on( 'file:choose:resizedImage', function( evt ) {
+          var output = document.getElementById( 'output' );
+          output.innerHTML = 'Selected resized image: ' + evt.data.file.get( 'name' ) + '<br>url: ' + evt.data.resizedUrl;
+        } );
+      }
+    } );
+  };
+</script>
+<div id="output"></div>

@@ -8,8 +8,8 @@
   <a class="list-group-item" href="<?php echo base_url('manager_product'); ?>"><i class="fa fa-pencil fa-fw"></i>&nbsp; QL San Pham</a>
   <a class="list-group-item" href="<?php echo base_url('slide'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Ql Slide</a>
   <a class="list-group-item" href="<?php echo base_url('news'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; QL tin tức</a>
-  <a class="list-group-item" href="<?php echo base_url('setting'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Gui Mail Khach Hang</a>
-  <a class="list-group-item" href="<?php echo base_url('setting'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Thong ke</a>
+  <a class="list-group-item" href="<?php echo base_url('list_mail/index'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Gui Mail Khach Hang</a>
+  <a class="list-group-item" href="<?php echo base_url(''); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Thong ke</a>
   <a class="list-group-item" href="<?php echo base_url('contact'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Contact</a>
   <a class="list-group-item" href="<?php echo base_url('setting'); ?>"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>
 </div>	

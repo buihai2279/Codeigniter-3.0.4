@@ -2,29 +2,23 @@
 <link href="<?php echo base_url('bootstrap')?>/css/owl.carousel.css" rel="stylesheet">
 <link href="<?php echo base_url('bootstrap')?>/css/owl.theme.css" rel="stylesheet">
 <link href="<?php echo base_url('bootstrap')?>/css/owl.transitions.css" rel="stylesheet">
-<script>
+<script type="text/javascript">
     $(document).ready(function() {
-$( "#cart" ).click(function() {
-  alert(2);
-        // $.ajax({
-        //         type : "post",
-        //         data : {
-        //                 id : id,
-        //                 qty : 1,
-        //                 price : price,
-        //                 name : name
-        //                 },
-        //         dateType:"text",
-        //         url: "<?php echo base_url('user/Add_to_cart')?>",
-        //         success: function(result){
-        //             $('#content_cart').html(result);
-        //             $('#add_cart').modal('show');
-        //         }
-        //     });
-      });
-});
+        $("#slide-home").owlCarousel({
+              // navigation : true, // Show next and prev buttons
+              slideSpeed : 400,
+              autoPlay: 5500,
+              lazyLoad : true,
+              paginationSpeed : 5000,
+              paginationNumbers: true,
+              stopOnHover : true,
+              autoHeight : true,
+              transitionStyle: "backSlide",
+              // navigationText : ["Trước","Tiếp"],
+              singleItem:true,
+        });
+    });
 </script>
-
 <div class="row1">
 <div class="col-lg-8 col-md-8 box_slide">       
     <div id="slide-home" class="owl-carousel owl-theme">
@@ -40,18 +34,55 @@ $( "#cart" ).click(function() {
     </div>
 </div>
 <div class="clearfix hidden-lg hidden-md"></div>
-    <div class="panel col-lg-4 col-md-4 news">
-      <div class="panel-heading heading-news">
-        <h3 class="panel-title"><a href="">Tin tuc</a></h3>
-      </div>
-      <div class="panel-body">
-               <ul>
-                    <li><a href="#">Tin tuc 1</a></li>
-                    <li><a href="#">Tin tuc 2</a></li>
-                    <li><a href="#">Tin tuc 3</a></li>
-              </ul>
+  <div class="panel col-lg-4 col-md-4 news">
+    <div class="panel-heading heading-news">
+      <h3 class="panel-title"><a href="">Tin tuc</a></h3>
+    </div>
+    <div class="panel-body">
+             <ul>
+             <?php foreach ($news as $value) { ?>
+                <li><a href="#" data-value="<?php echo $value['id']?>" class="news_view">
+                  <?php echo $value['title']; ?>
+                </a></li>
+            <?php } ?>
+            </ul>
+            <?php if (count($news)==0) {
+              echo "Không có tin tức";
+            } ?>
+    </div>
+  </div>
+
+<script>
+    $(document).ready(function() {
+        $( ".news_view" ).click(function() {
+            var id=$(this).attr("data-value");
+            $.ajax({
+                    type : "post",
+                    data : {
+                                id : id,
+                            },
+                    dateType:"text",
+                    url: "<?php echo base_url('news/view')?>",
+                    success: function(result){
+                        $('#content_news').html(result);
+                        $('#modal_news').modal('show');
+                    }
+            });
+    });
+        
+});
+</script>
+  <div class="modal fade" id="modal_news">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body" id ='content_news'style="overflow: hidden;">
+        </div>
       </div>
     </div>
+  </div>
 </div>
     <div class="clearfix"></div>
         <div class="panel panel-pro bg_img">

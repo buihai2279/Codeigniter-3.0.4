@@ -27,7 +27,6 @@
 </table>
 </form>
 <div class="clearfix"></div>
-
 <?php } else {
     echo '<div class="alert alert-warning">Không có sản phẩm nào trong giỏ hàng</div>';
 }?>
@@ -53,18 +52,24 @@ if (@$_POST['nlpayment']) {
                         'status'=> 0,
                         'fee_shipping'=>'',
                         'bank_code'=>'',
+                        'address_ship'=>$_POST['address'],
                         'transaction_id'=>'',
                         'tax_amount'=>'',
                         'discount_amount'=>''
                 );
-    $result = $this->db->insert('order', $data);
+    $this->db->insert('order', $data);
     include 'NL_Checkoutv3.php';
     $nlcheckout     = new NL_CheckOutV3('45525', '2daa09faf06829a2d97bcde3b8ee2003', 'buihai2603@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
     $total_amount   = $_POST['total_amount'];
-    $array_items[0] = array('item_name1' => 'Product name',
-        'item_quantity1'                     => 1,
-        'item_amount1'                       => $total_amount,
-        'item_url1'                          => 'http://nganluong.vn/');
+    foreach ($this->cart->contents() as $key => $value) {
+            $array_items[$key] = array(
+                        'item_name'.$key+1 => $value['name'],
+                        'item_quantity'.$key+1                    => $value['qty'],
+                        'item_amount'.$key+1                     => $total_amount,
+                        'id'.$key+1                           => $value['id'],
+                        'link'=> $value['link']
+                );
+        }
     $array_items       = array();
     $payment_method    = $_POST['option_payment'];
     $bank_code         = @$_POST['bankcode'];
@@ -124,7 +129,7 @@ if (@$_POST['nlpayment']) {
   <tr><td>Address: </td>
    <td><input type="text" style="width:270px" id="fullname" name="address" class="field-check " value=""></td></tr>
   <tr><td>Date ship: </td>
-   <td><input type="text" style="width:270px" id="fullname" name="date_ship" class="field-check " value=""></td></tr>
+   <td><input type="text" style="width:270px" id="fullname" name="date_ship" class="field-check " value="<?php echo time()?>"></td></tr>
    
 
 

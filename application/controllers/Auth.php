@@ -17,7 +17,6 @@ class Auth extends CI_Controller
     {
 //Hàm load
         $this->load->view('back-end/header-normal');
-        // $this->load->view('back-end/breadcrumb');
         $this->load->view($view, $data);
         $this->load->view('back-end/footer-normal');
     }

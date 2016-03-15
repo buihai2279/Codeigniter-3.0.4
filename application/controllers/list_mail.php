@@ -8,6 +8,11 @@ class List_mail extends CI_Controller
     {
         parent::__construct();
     }
+    public function index()
+    {
+        $data['result'] = $this->My_model->get_all($this->table);
+        $this->My_model->Load_view('list_mail/list',$data);
+    }
     public function add()
     {
         if (isset($_POST['mail'])&&strlen($_POST['mail'])>12) {
@@ -37,6 +42,20 @@ class List_mail extends CI_Controller
         } else {
             $this->My_model->Sent_message('Thao tác Lỗi', 'home', 'danger');
         }
+    }
+    public function delete_by_manager($id='')
+    {
+        $result =$this->db->delete($this->table, array('id' => $id));
+        if ($result == true) {
+            $this->My_model->Sent_message('Thao tác thành công', 'list_mail', 'success');
+        } else {
+            $this->My_model->Sent_message('Thao tác Lỗi', 'list_mail', 'danger');
+        }
+    }
+    public function Sent()
+    {
+        $array=array();
+        echo "sent";
     }
 }
 /* End of file categories.php */

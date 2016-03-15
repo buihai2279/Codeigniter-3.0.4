@@ -15,52 +15,9 @@
 		<link rel="stylesheet" href="<?php echo base_url('bootstrap')?>/css/font-awesome.min.css">
 		<script src="<?php echo base_url('bootstrap')?>/js/jquery.min.js"></script>
         <script src="<?php echo base_url('bootstrap')?>/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#slide-home").owlCarousel({
-				      // navigation : true, // Show next and prev buttons
-				      slideSpeed : 400,
-				      autoPlay: 5500,
-				      lazyLoad : true,
-				      paginationSpeed : 5000,
-				      paginationNumbers: true,
-				      stopOnHover : true,
-                      autoHeight : true,
-				      transitionStyle: "backSlide",
-				      // navigationText : ["Trước","Tiếp"],
-				      singleItem:true,
-				});
-			});
-		</script>
 	</head>
 <body>
 
-
-<div class="modal fade" id="modal_cart">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body" id="content_cart1">
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-$(document).ready(function() {
-    $('#cart_list').click(function(){
-        $.ajax({
-                dateType:"text",
-                url: "<?php echo base_url('home/cart_detail')?>",
-                success: function(result){
-                    $('#content_cart1').html(result);
-                    $('#modal_cart').modal('show');
-                }
-            });
-    })
-});
-</script>
 
 <div class="container-fluid">
     <header class="row">
@@ -86,6 +43,34 @@ $(document).ready(function() {
                      ?></span>
                 </button>
             </div>
+
+<div class="modal fade" id="modal_cart">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" id="content_list_cart">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#cart_list').click(function(){
+        $.ajax({
+                dateType:"text",
+                url: "<?php echo base_url('home/cart_detail')?>",
+                success: function(result){
+                    $('#content_list_cart').html(result);
+                    $('#modal_cart').modal('show');
+                }
+            });
+    })
+});
+</script>
+
+
             <div class="navbar no_margin" role="navigation">
                 <div class="navbar-header">
                     <div class="col-xs-6">
