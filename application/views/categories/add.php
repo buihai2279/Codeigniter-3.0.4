@@ -1,18 +1,40 @@
 <?php if (validation_errors()!=NULL) {
   ?>
-  <div class="alert alert-warning">
-      <?php echo validation_errors(); ?>
-  </div>
+<div class="alert alert-warning"> <?php echo validation_errors(); ?> </div>
 <?php 
 } ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $( "#txtname" ).change(function() {
+            var slug = $(this).val();
+            $.ajax({
+                type : "post",
+                data : {
+                            slug : slug
+                        },
+                dateType:"text",
+                url: "<?php echo base_url('manager_product/get_slug')?>",
+                success: function(result){
+                    $("#txtslug").val(result);
+                }
+            });
+        });
+    });
+</script>
 <br>
 	<h3>Danh sach nguoif dung</h3>
 	<form class="form-horizontal" method="POST" action="#">
    <div class="form-group">
       <label  class="col-sm-2 control-label">Name</label>
       <div class="col-sm-10">
-        <input type="text" name="txt-name" class="form-control" placeholder="Name">
+        <input type="text" name="txt-name" class="form-control" id="txtname" placeholder="Name">
       </div>
+    </div>
+    <div class="form-group">
+        <label class=" control-label col-sm-2">Slug</label>
+        <div class="col-sm-10">
+                <input type="text" class="form-control" id='txtslug' name='txtslug' value="<?php echo set_value('txtslug'); ?>" placeholder="Amount">
+        </div>
     </div>
     <div class="form-group">
       <label  class="col-sm-2 control-label">Tittle</label>

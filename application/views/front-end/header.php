@@ -17,8 +17,6 @@
         <script src="<?php echo base_url('bootstrap')?>/js/bootstrap.min.js"></script>
 	</head>
 <body>
-
-
 <div class="container-fluid">
     <header class="row">
         <br class="hidden-xs">
@@ -33,17 +31,16 @@
                 </span>
             </div>
         </div>
-            <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
-                <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7" id="cart_list">
-                    <span><i class="fa fa-cart-plus"></i> Giỏ hàng</span> 
-                    <span class="badge" id="count_cart">
-                    <?php if(isset($_SESSION['count_cart']))
-                        echo ' '.$_SESSION['count_cart'].' ';
-                        else echo 0;
-                     ?></span>
-                </button>
-            </div>
-
+        <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
+            <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7" id="cart_list">
+                <span><i class="fa fa-cart-plus"></i> Giỏ hàng</span> 
+                <span class="badge" id="count_cart">
+                <?php if(isset($_SESSION['count_cart']))
+                    echo ' '.$_SESSION['count_cart'].' ';
+                    else echo 0;
+                 ?></span>
+            </button>
+        </div>
 <div class="modal fade" id="modal_cart">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -69,61 +66,60 @@ $(document).ready(function() {
     })
 });
 </script>
-
-
-            <div class="navbar no_margin" role="navigation">
-                <div class="navbar-header">
-                    <div class="col-xs-6">
-                        <button type="button" class=" col-xs-12 navbar-toggle button_menu" data-toggle="collapse" data-target=".menutop">
-                            <span class="icon-toggle pull-left">Menu</span>
-                            <i class="glyphicon glyphicon-list pull-right"></i>
-                        </button>
-                    </div>
-                </div>
-            <div class="col-md-12 col-xs-12 collapse navbar-collapse menutop ">
-                <ul class="nav navbar-nav">
-                    <li class="list_menu">
-                        <a class='item_menu'class="dropdown-toggle" data-toggle="dropdown">
-                        Danh muc san pham <i class="glyphicon glyphicon-chevron-down"></i></a>
-                        <ul class="dropdown-menu sub-menu" >
-                            <li><a href=" ">Category 1</a></li>
-                            <li><a href=" ">Category 2</a></li>
-                            <li><a href=" ">Category 3</a></li>
-                        </ul>
-                    </li>
-                    <li class="list_menu"><a class='item_menu' href="">San pham moi</a></li>
-                    <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right ">
-
-                        <?php if (isset($_SESSION['login'])) {
-                            ?>
-                    <li class="list_menu">
-                        <a id="dLabel" class="item_menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $_SESSION['mail'];?>
-                        <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu sub-menu" aria-labelledby="dLabel">
-                            <?php if($_SESSION['level']>0){
-                                ?>
-                                <li><a href="<?php echo base_url('admin')?>">Vào trang quản trị</a></li>
-                                <?php 
-                                } ?>
-                            <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
-                            <li><a href="">Lịch sử mua hàng</a></li>
-                            <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>
-                        </ul>
-                    </li>
-
-                       <?php  }else{
-                        ?>
-                        <li class="list_menu"><a class='item_menu' href="<?php echo base_url('auth')?>">Đăng ký / Đăng Nhập</a></li>
-                    <?php
-                        } ?>
-                </div><!-- /end menu -->
+    <div class="navbar no_margin" role="navigation">
+        <div class="navbar-header">
+            <div class="col-xs-6">
+                <button type="button" class=" col-xs-12 navbar-toggle button_menu" data-toggle="collapse" data-target=".menutop">
+                    <span class="icon-toggle pull-left">Menu</span>
+                    <i class="glyphicon glyphicon-list pull-right"></i>
+                </button>
             </div>
-            <!-- . Navbar -->
-            </header>
+        </div>
+    <div class="col-md-12 col-xs-12 collapse navbar-collapse menutop ">
+        <ul class="nav navbar-nav">
+            <li class="list_menu">
+                <a class='item_menu'class="dropdown-toggle" data-toggle="dropdown">
+                Danh muc san pham <i class="glyphicon glyphicon-chevron-down"></i></a>
+                <ul class="dropdown-menu sub-menu" >
+                <?php foreach ($menu as $value) {
+                    ?>
+                    <li><a href="<?php echo $value['slug']?>"><?php echo $value['name']?></a></li>
+                    <?php 
+                } ?>
+                </ul>
+            </li>
+            <li class="list_menu"><a class='item_menu' href="">San pham moi</a></li>
+            <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right ">
+                <?php if (isset($_SESSION['login'])) {
+                    ?>
+            <li class="list_menu">
+                <a id="dLabel" class="item_menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <?php echo $_SESSION['mail'];?>
+                <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu sub-menu" aria-labelledby="dLabel">
+                    <?php if($_SESSION['level']>0){
+                        ?>
+                        <li><a href="<?php echo base_url('admin')?>">Vào trang quản trị</a></li>
+                        <?php 
+                        } ?>
+                    <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
+                    <li><a href="">Lịch sử mua hàng</a></li>
+                    <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>
+                </ul>
+            </li>
+
+               <?php  }else{
+                ?>
+                <li class="list_menu"><a class='item_menu' href="<?php echo base_url('auth')?>">Đăng ký / Đăng Nhập</a></li>
+            <?php
+                } ?>
+        </div><!-- /end menu -->
+    </div>
+    <!-- . Navbar -->
+    </header>
 <?php
 if (isset($_SESSION['message_tmp'])) {
 echo $_SESSION['message_tmp'];

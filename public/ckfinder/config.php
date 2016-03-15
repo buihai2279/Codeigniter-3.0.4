@@ -62,11 +62,10 @@ $config['images'] = array(
 
 /*=================================== Backends ========================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_backends
-
 $config['backends'][] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => 'Codeigniter-Project/Uploads/userfiles/',
+    'baseUrl'      => 'http://localhost/Codeigniter-Project/Uploads/userfiles/',
 //  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,

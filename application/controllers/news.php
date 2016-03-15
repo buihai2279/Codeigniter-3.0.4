@@ -19,11 +19,13 @@ class News extends CI_Controller {
             $this->form_validation->set_rules('txt-content', 'Content', 'required');
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $time = date('Y-m-d H:i:s');
+            $content=$this->input->post('txt-content');
+            $content=str_replace('<img ','<img class="img-responsive" style="max-width:100%"', $content);
             if ($this->form_validation->run() == true) {
                 $data = array(
                     'title'             => $this->input->post('txt-title'),
                     'description'        => $this->input->post('txt-description'),
-                    'content'         => $this->input->post('txt-content'),
+                    'content'         => $content,
                     'date_created'         => $time,
                     'last_update'         => $time
                 );

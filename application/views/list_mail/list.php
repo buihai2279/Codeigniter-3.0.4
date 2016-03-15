@@ -1,7 +1,10 @@
 <h3>Danh sach nguoif dung</h3>
-<textarea>
-	
-</textarea>
+
+<textarea type="text" name="txt-content"id="editor1"  class="form-control" ><?php echo $result['content']; ?></textarea>
+<script>
+CKEDITOR.replace( 'editor1' );
+CKFinder.setupCKEditor();
+</script>
 <button type="button" class="btn btn-success">Sent</button>
 <div class="table-responsive">
 	<table class="table table-hover">

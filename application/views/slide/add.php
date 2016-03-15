@@ -21,50 +21,38 @@
       </div>
     </div>
     <div class="form-group">
-      <label  class="col-sm-2 control-label">Images</label>
+      <label  class="col-sm-2">
+          <input type="button" id="ckfinder-modal" class="form-control btn btn-info" value="Upload IMG">
+      </label>
       <div class="col-sm-10">
-        <input type="text" name="img" class="form-control">
+        <img src="" class='img-responsive' style='max-height: 150px'id='output'>
+        <input type="text" name="img" id='img' class="form-control" readonly>
       </div>
     </div>
-    <div class="form-group">
-    	<label for="input" class="col-sm-2 control-label">Status</label>
-    	<div class="col-sm-2">
-    		<select  name="status" id="input" class="form-control">
-          <option value="0">Protected</option>
-    		  <option value="1" selected>Public</option>
-    		</select>
-    	</div>
-    </div>
+      
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" name="submit" value="ok" class="btn btn-default">Add</button>
       </div>
     </div>
 </form> 
-
-
-
-<button id="ckfinder-modal" class="button-a button-a-background" style="float: left">Open Modal</button>
-<script src="<?php echo base_url('public/ckfinder/ckfinder.js')?>"></script>
 <script>
-  var button = document.getElementById( 'ckfinder-modal' );
-  button.onclick = function() {
-    CKFinder.modal( {
+  $( "#ckfinder-modal" ).click(function() {
+      CKFinder.modal({
       chooseFiles: true,
       width: 800,
       height: 600,
       onInit: function( finder ) {
         finder.on( 'files:choose', function( evt ) {
           var file = evt.data.files.first();
-          var output = document.getElementById( 'output' );
-          output.innerHTML = 'Selected: ' + file.get( 'name' ) + '<br>URL: ' + file.getUrl();
+          $('#output').attr( "src",file.getUrl());
+          $('#img').val(file.getUrl());
         } );
         finder.on( 'file:choose:resizedImage', function( evt ) {
-          var output = document.getElementById( 'output' );
-          output.innerHTML = 'Selected resized image: ' + evt.data.file.get( 'name' ) + '<br>url: ' + evt.data.resizedUrl;
-        } );
+          $('#output').attr("src",evt.data.resizedUrl);
+          $('#img').val(evt.data.resizedUrl);
+        });
       }
-    } );
-  };
+    });
+  });
 </script>
-<div id="output"></div>

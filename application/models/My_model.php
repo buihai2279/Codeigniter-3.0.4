@@ -8,13 +8,15 @@ class My_model extends CI_Model {
 	}
 	public function Load_view($view='',$data='')
 	{
-        $this->load->view('back-end/header');
+        $this->load->view('back-end/header',$data);
         $this->load->view($view, $data);
         $this->load->view('back-end/footer');
 	} 
 	public function Load_front_end($view='',$data='')
 	{
-        $this->load->view('front-end/header');
+        $menu = $this->db->query("SELECT name,slug FROM category WHERE parrent_id=0 LIMIT 6 ");
+        $data['menu']=$menu->result_array();
+        $this->load->view('front-end/header',$data);
         $this->load->view($view, $data);
         $this->load->view('front-end/footer');
 	} 

@@ -6,7 +6,6 @@
 <?php 
 } ?>
 <br>
-	<h3>Danh sach nguoif dung</h3>
 	<form class="form-horizontal" method="POST" action="#">
    <div class="form-group">
       <label  class="col-sm-2 control-label">Title</label>
@@ -17,15 +16,19 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Description</label>
       <div class="col-sm-10">
-        <textarea type="text" name="txt-description" class="form-control" >Description</textarea>
+        <textarea type="text" name="txt-description"class="form-control" >Description</textarea>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Content</label>
+      <label class="col-sm-2 control-label" >Content</label>
       <div class="col-sm-10">
-        <textarea type="text" name="txt-content" class="form-control" ></textarea>
+        <textarea type="text" name="txt-content"id="editor1"  class="form-control" ></textarea>
       </div>
     </div>
+      <script>
+          CKEDITOR.replace( 'editor1' );
+          CKFinder.setupCKEditor();
+      </script>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Add</button>

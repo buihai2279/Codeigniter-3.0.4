@@ -22,15 +22,15 @@
 <div class="row1">
 <div class="col-lg-8 col-md-8 box_slide">       
     <div id="slide-home" class="owl-carousel owl-theme">
-      <div class="item"><a href=""><img src="<?php echo base_url('bootstrap')?>/images/fullimage1.jpg" class="img-responsive" alt="The Last of us"></a>
-            <p class="description text-center"><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></p>
-      </div>
-      <div class="item"><a href=""><img src="<?php echo base_url('bootstrap')?>/images/fullimage2.jpg" class="img-responsive" alt="The Last of us"></a>
-            <p class="description text-center"><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></p>
-      </div>
-      <div class="item"><a href=""><img src="<?php echo base_url('bootstrap')?>/images/fullimage3.jpg" class="img-responsive" alt="The Last of us"></a>
-            <p class="description text-center"><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></p>
-      </div>
+      <?php foreach ($slide as $value) { ?>
+        <div class="item">
+        <img src="<?php echo $value['img']?>" class="img-responsive" alt="<?php echo $value['caption']?>" style='max-height: 300px'>
+              <p class="description text-center">
+              <a href="<?php echo base_url().$value['link'];?>"><?php echo $value['caption']?></a>
+              </p>
+        </div>
+      <?php 
+      } ?>
     </div>
 </div>
 <div class="clearfix hidden-lg hidden-md"></div>
@@ -51,7 +51,6 @@
             } ?>
     </div>
   </div>
-
 <script>
     $(document).ready(function() {
         $( ".news_view" ).click(function() {

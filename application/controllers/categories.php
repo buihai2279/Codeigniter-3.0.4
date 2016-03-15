@@ -48,6 +48,10 @@ class Categories extends CI_Controller
             $this->My_model->Sent_message('Thao tác Lỗi', 'categories', 'danger');
         }
     }
+    public function get_slug()
+    {
+       echo $this->My_model->utf8_to_url($_POST['slug']);
+    }
     public function add()
     {
         $this->load->library('form_validation');
@@ -62,6 +66,7 @@ class Categories extends CI_Controller
                     'title'             => $this->input->post('txt-title'),
                     'description'        => $this->input->post('txt-description'),
                     'parrent_id'         => $this->input->post('parrent_id'),
+                    'slug' => $this->input->post('txtslug'), 
                 );
                 $result = $this->db->insert('category', $data);
                 if (isset($result) && $result != '') {

@@ -19,8 +19,10 @@ class Home extends CI_Controller
         $this->load->helper('form');
         $query = $this->db->query("SELECT name,slug,img,price,description FROM product");
         $data['result']=$query->result_array();
-        $news = $this->db->query("SELECT id,title FROM news LIMIT 4");
+        $news = $this->db->query("SELECT id,title FROM news ORDER BY last_update DESC LIMIT 6");
         $data['news']=$news->result_array();
+        $slide = $this->db->query("SELECT link,img,caption FROM slide ORDER BY top LIMIT 6 ");
+        $data['slide']=$slide->result_array();
         $this->My_model->Load_front_end('home',$data);
     }
     public function cart_detail()

@@ -21,17 +21,15 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Content</label>
+      <label class="col-sm-2 control-label" >Content</label>
       <div class="col-sm-10">
-        <textarea type="text" name="txt-content" class="form-control" ><?php echo $result['content']; ?></textarea>
+        <textarea type="text" name="txt-content"id="editor1"  class="form-control" ><?php echo $result['content']; ?></textarea>
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Keyword</label>
-      <div class="col-sm-10">
-        <textarea type="text" name="txt-keyword" class="form-control" ><?php echo $result['keywords']; ?></textarea>
-      </div>
-    </div>
+      <script>
+          CKEDITOR.replace( 'editor1' );
+          CKFinder.setupCKEditor();
+      </script>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" name="submit" class="btn btn-default">Update</button>

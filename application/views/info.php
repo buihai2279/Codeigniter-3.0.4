@@ -45,8 +45,6 @@ $list_caption=explode('|',$result->caption);
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
             <div class="fb-like" data-href="<?php echo current_url() ?>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true" width='200px'></div>
-
-
             <h3 class="text-danger"><?php echo number_format($result->price)?></h3>
             <ul>
                 <li class="text-primary">Giao hàng trong 30 phút, đổi trả 1 tháng (nếu lỗi).</li>
@@ -57,8 +55,6 @@ $list_caption=explode('|',$result->caption);
         </div>
         <div class="clearfix"></div><hr>
     </div>
-
-
 <script>
     $(document).ready(function() {
         $( "#cart" ).click(function() {

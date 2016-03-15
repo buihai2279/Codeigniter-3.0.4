@@ -7,8 +7,9 @@
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
-				<th>Parrent_id</th>
 				<th>Tittle</th>
+				<th>Slug</th>
+				<th>Parrent_id</th>
 				<th>Description</th>
 				<th>Custom</th>
 			</tr>
@@ -19,8 +20,9 @@
 			<tr>
 				<td><?php echo $value['id']; ?></td>
 				<td><?php echo $value['name']; ?></td>
-				<td><?php echo $value['parrent_id']; ?></td>
 				<td><?php echo $value['title']; ?></td>
+				<td><?php echo $value['slug']; ?></td>
+				<td><?php echo $value['parrent_id']; ?></td>
 				<td><?php echo $value['description']; ?></td>
 				<td>
 					<a href="<?php echo base_url('categories/edit').'/'.$value['id'] ?>">Edit</a>
