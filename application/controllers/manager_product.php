@@ -52,11 +52,6 @@ class Manager_product extends CI_Controller
         }
         $this->My_model->Sent_message('Thao tác Thành công', 'manager_product', 'success');
     }
-    public function test1()
-    {
-        $tmp=$this->demo_library->Get_xml_1();
-        print_r($tmp);
-    }
     public function fillter()
     {
         $this->My_model->Load_view('manager_product/list');
@@ -149,7 +144,7 @@ class Manager_product extends CI_Controller
                 );
             $tmp=$this->db->insert('product', $data);
             if ($tmp==1) {
-                // $this->My_model->Sent_message('Thành công', 'manager_product', 'success');
+                $this->My_model->Sent_message('Thành công', 'manager_product', 'success');
             }
         }
         $cate= $this->My_model->Get_col('id,name','category');
@@ -181,6 +176,11 @@ class Manager_product extends CI_Controller
                 }
             }
         }
+    }
+    public function Get_laptop()
+    {
+        $tmp=$this->demo_library->get_laptop();
+        print_r($tmp);
     }
 }
 /* End of file manager_product.php */

@@ -147,14 +147,77 @@ class Demo_library
         }
         return $arr;
     }
-    public function Get_xml_1($link)
+    public function Get_laptop()
     {
         include 'simple_html_dom.php';
-        $html     = file_get_html($link);
-        $variable = $html->find('ul.mobilecate', 0)->innertext;
-        return $variable;
+        $html     = file_get_html('file:///F:/Xampp/htdocs/ex.html');
+        $tmp=array();
+        $tmp['name']=$html->find('ul.laptopcate li a h3',0)->plaintext;
+        $tmp['price']=$html->find('ul.laptopcate li a strong', 0)->plaintext;
+        $tmp['slug']=$html->find('ul.laptopcate li a', 0)->href;
+        $tmp['img']=$html->find('ul.laptopcate li a img', 0)->src;
+        $info=$html->find('ul.laptopcate li figure.bginfo', 0);
+        foreach ($info->find('span') as $value) {
+            $span[]=$value->plaintext;
+        }
+        $tmp['info']=implode('|', $span);
+        $html1     = file_get_html('https://www.thegioididong.com'.$tmp['slug']);
+        return $variable1 = $html1->find(' div#own-demo div.item', 0)->plaintext;
+
+
+
+
+        // return $tmp; 
+        // foreach ($variable->find('li') as $value) {
+        //     $tmp['slug']=$value->find('a',0)->href;
+        //     $info=$value->find('figure.bginfo');
+        //     foreach ($info->find('span') as $val) {
+        //         $tmp['info'].=$val;
+        //     }
+        //     return $tmp;
+        //     break;
+        // }
     }
 }
 
 /* End of file My_sentmail.php */
 /* Location: ./application/libraries/My_sentmail.php */
+?>
+<!-- HP Stream 13 N2840/2GB/32GB/Win8.1/Xanh
+<li class="notbuy">
+    <a href="/laptop/hp-stream-13" title="HP Stream 13 N2840">
+        <img width="150" height="150" src="https://cdn1.tgdd.vn/Products/Images/44/72316/hp-stream-13-200x200.jpg">
+        <h6 class="textkm">Hết hàng tạm thời</h6>                
+        <h3>HP Stream 13 N2840</h3>
+        <strong>4.990.000₫</strong>
+    </a>
+    <figure class="bginfo">
+        <span>Màn hình: 13.3”, 1366x768</span>
+        <span>CPU: Intel Celeron, 2.16GHz</span>
+        <span>RAM: 2GB/ HDD: 32GB eMMC</span>
+        <span>VGA: Intel HD Graphics</span>
+        <span>HĐH: Windows 8.1 Bing</span>
+        <span>Pin: 3 cell/ DVD: Không</span>
+    </figure>
+</li>
+<li >
+    <a href="/laptop/acer-es1-311-n2840-2gb-500gb-win81" title="Acer ES1 311 N2840/2GB/500GB/Win8.1">
+        <img width="150" height="150" src="https://cdn3.tgdd.vn/Products/Images/44/74398/acer-es1-311-n2840-2gb-500gb-win81-300-200x200.jpg" />
+        <h3>Acer ES1 311 N2840/2GB/500GB/Win8.1</h3>
+        <strong>5.490.000₫</strong>
+        <div class="km">
+            <span>Tặng Chuột không dây</span>                            
+            <span>Tặng USB 8GB</span>                            
+        </div>
+    </a>
+    <a href="/them-vao-gio-hang?ProductId=74398" class="buy">Mua</a>    
+    <figure class="bginfo">
+        <span>Màn hình: 14”, 1366x768</span>
+        <span>CPU: Intel Celeron, 2.16GHz</span>
+        <span>RAM: 2GB/ HDD: 500GB</span>
+        <span>VGA: Intel HD Graphics</span>
+        <span>HĐH: Windows 8.1 Bing</span>
+        <span>Pin: 3 cell/ DVD: Không</span>
+    </figure>
+</li>
+ -->
