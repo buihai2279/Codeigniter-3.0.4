@@ -108,10 +108,12 @@
                 <div class="panel-body product" >
                         <!-- result -->
 <?php foreach ($result as $value): ?>
-<div class="col-sm-6 col-md-3 ">
+<div class="col-sm-6 col-md-3" style='height: 320px'>
     <div class="well text-center well-sm">
         <div class="info">
-            <img src="<?php echo $value['img'] ?>" class="img-responsive " alt="">
+            <img src="<?php echo $value['img'] ?>" class="img-responsive" alt="">
+            <?php if ($value['description']!='') {
+              ?>
                 <span class="text-left">
                     <ul>
                         <?php $tmp= explode('|', $value['description']);
@@ -120,6 +122,8 @@
                          } ?>
                     </ul>
                 </span>
+              <?php 
+            } ?>
         </div>
         <div class="detail">
             <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>

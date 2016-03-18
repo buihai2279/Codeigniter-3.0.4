@@ -31,7 +31,6 @@
     echo '<div class="alert alert-warning">Không có sản phẩm nào trong giỏ hàng</div>';
 }?>
 <br><hr><br>
-</div>
 
 <?php
 if (@$_POST['nlpayment']) {
@@ -62,13 +61,13 @@ if (@$_POST['nlpayment']) {
     $nlcheckout     = new NL_CheckOutV3('45525', '2daa09faf06829a2d97bcde3b8ee2003', 'buihai2603@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
     $total_amount   = $_POST['total_amount'];
     foreach ($this->cart->contents() as $key => $value) {
-            $array_items[$key] = array(
-                        'item_name'.$key+1 => $value['name'],
-                        'item_quantity'.$key+1                    => $value['qty'],
-                        'item_amount'.$key+1                     => $total_amount,
-                        'id'.$key+1                           => $value['id'],
-                        'link'=> $value['link']
-                );
+        $array_items[$key] = array(
+                    'item_name'.$key+1 => $value['name'],
+                    'item_quantity'.$key+1                    => $value['qty'],
+                    'item_amount'.$key+1                     => $total_amount,
+                    'id'.$key+1                           => $value['id'],
+                    'link'=> $value['link']
+            );
         }
     $array_items       = array();
     $payment_method    = $_POST['option_payment'];
@@ -117,7 +116,7 @@ if (@$_POST['nlpayment']) {
  <table style="clear:both;width:500px;padding-left:46px;">
   <tr><td colspan="2"><p><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span> Bạn nhập đầy đủ thông tin sau </td></tr>
   <tr><td>Số tiền thanh toán: </td>
-   <td><input type="text" style="width:270px" id="total_amount" name="total_amount" class="field-check " value=""></td></tr>
+   <td><?php echo $this->cart->format_number($this->cart->total()); ?></td></tr>
   <tr><td>Họ Tên: </td>
    <td><input type="text" style="width:270px" id="fullname" name="buyer_fullname" class="field-check " value=""></td></tr>
   <tr><td>Email: </td>
@@ -133,7 +132,8 @@ if (@$_POST['nlpayment']) {
    
 
 
- </table><ul class="list-content"><li class="active"><label><input type="radio" value="NL" name="option_payment" selected="true">Thanh toán bằng Ví điện tử NgânLượng</label><div class="boxContent"><p>Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều hình thức tiện lợi khác. Được bảo hộ & cấp phép bởi NGÂN HÀNG NHÀ NƯỚC, ví điện tử duy nhất được cộng đồng ƯA THÍCH NHẤT 2 năm liên tiếp, Bộ Thông tin Truyền thông trao giải thưởng Sao Khuê <br/>Giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a></p></div></li><li><label><input type="radio" value="ATM_ONLINE" name="option_payment">Thanh toán online bằng thẻ ngân hàng nội địa</label><div class="boxContent"><p><i><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.</i></p><ul class="cardList clearfix"><li class="bank-online-methods "><label for="vcb_ck_on"><i class="BIDV" title="Ngân hàng TMCP Đầu tư &amp; Phát triển Việt Nam"></i><input type="radio" value="BIDV" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vcb_ck_on"><i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i><input type="radio" value="VCB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_mb_ck_on"><i class="MB" title="Ngân hàng Quân Đội"></i><input type="radio" value="MB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_vtb_ck_on"><i class="ICB" title="Ngân hàng Công Thương Việt Nam"></i><input type="radio" value="ICB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_acb_ck_on"><i class="ACB" title="Ngân hàng Á Châu"></i><input type="radio" value="ACB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_vpb_ck_on"><i class="VPB" title="Ngân Hàng Việt Nam Thịnh Vượng"></i><input type="radio" value="VPB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="bnt_atm_pgb_ck_on"><i class="PGB" title="Ngân hàng Xăng dầu Petrolimex"></i><input type="radio" value="PGB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="bnt_atm_agb_ck_on"><i class="AGB" title="Ngân hàng Nông nghiệp &amp; Phát triển nông thôn"></i><input type="radio" value="AGB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_bab_ck_on"><i class="SHB" title="Ngân hàng TMCP Sài Gòn - Hà Nội (SHB)"></i><input type="radio" value="SHB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_bab_ck_on"><i class="OJB" title="Ngân hàng TMCP Đại Dương (OceanBank)"></i><input type="radio" value="OJB" name="bankcode" ></label></li></ul></div></li><div class="clearfix"></div><li><label><input type="radio" value="IB_ONLINE" name="option_payment">Thanh toán bằng IB</label><div class="boxContent"><p><i><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.</i></p><ul class="cardList clearfix"><li class="bank-online-methods "><label for="vcb_ck_on"><i class="BIDV" title="Ngân hàng TMCP Đầu tư &amp; Phát triển Việt Nam"></i><input type="radio" value="BIDV" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vcb_ck_on"><i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i><input type="radio" value="VCB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vnbc_ck_on"><i class="DAB" title="Ngân hàng Đông Á"></i><input type="radio" value="DAB" name="bankcode" ></label></li></ul></div></li>
+ </table>
+ <ul class="list-content"><li class="active"><label><input type="radio" value="NL" name="option_payment" selected="true">Thanh toán bằng Ví điện tử NgânLượng</label><div class="boxContent"><p>Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều hình thức tiện lợi khác. Được bảo hộ & cấp phép bởi NGÂN HÀNG NHÀ NƯỚC, ví điện tử duy nhất được cộng đồng ƯA THÍCH NHẤT 2 năm liên tiếp, Bộ Thông tin Truyền thông trao giải thưởng Sao Khuê <br/>Giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a></p></div></li><li><label><input type="radio" value="ATM_ONLINE" name="option_payment">Thanh toán online bằng thẻ ngân hàng nội địa</label><div class="boxContent"><p><i><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.</i></p><ul class="cardList clearfix"><li class="bank-online-methods "><label for="vcb_ck_on"><i class="BIDV" title="Ngân hàng TMCP Đầu tư &amp; Phát triển Việt Nam"></i><input type="radio" value="BIDV" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vcb_ck_on"><i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i><input type="radio" value="VCB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_mb_ck_on"><i class="MB" title="Ngân hàng Quân Đội"></i><input type="radio" value="MB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_vtb_ck_on"><i class="ICB" title="Ngân hàng Công Thương Việt Nam"></i><input type="radio" value="ICB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_acb_ck_on"><i class="ACB" title="Ngân hàng Á Châu"></i><input type="radio" value="ACB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_vpb_ck_on"><i class="VPB" title="Ngân Hàng Việt Nam Thịnh Vượng"></i><input type="radio" value="VPB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="bnt_atm_pgb_ck_on"><i class="PGB" title="Ngân hàng Xăng dầu Petrolimex"></i><input type="radio" value="PGB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="bnt_atm_agb_ck_on"><i class="AGB" title="Ngân hàng Nông nghiệp &amp; Phát triển nông thôn"></i><input type="radio" value="AGB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_bab_ck_on"><i class="SHB" title="Ngân hàng TMCP Sài Gòn - Hà Nội (SHB)"></i><input type="radio" value="SHB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="sml_atm_bab_ck_on"><i class="OJB" title="Ngân hàng TMCP Đại Dương (OceanBank)"></i><input type="radio" value="OJB" name="bankcode" ></label></li></ul></div></li><div class="clearfix"></div><li><label><input type="radio" value="IB_ONLINE" name="option_payment">Thanh toán bằng IB</label><div class="boxContent"><p><i><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.</i></p><ul class="cardList clearfix"><li class="bank-online-methods "><label for="vcb_ck_on"><i class="BIDV" title="Ngân hàng TMCP Đầu tư &amp; Phát triển Việt Nam"></i><input type="radio" value="BIDV" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vcb_ck_on"><i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i><input type="radio" value="VCB" name="bankcode" ></label></li><li class="bank-online-methods "><label for="vnbc_ck_on"><i class="DAB" title="Ngân hàng Đông Á"></i><input type="radio" value="DAB" name="bankcode" ></label></li></ul></div></li>
 </ul>
 <table style="clear:both;width:500px;padding-left:46px;">
   <tr><td></td>
@@ -146,3 +146,5 @@ if (@$_POST['nlpayment']) {
  $(this).parent().parent('li').addClass('active');
  });
 </script>
+
+</div>

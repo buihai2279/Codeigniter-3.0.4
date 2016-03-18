@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2016 at 07:39 PM
+-- Generation Time: Mar 16, 2016 at 03:57 PM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `title` varchar(255) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `slug` varchar(200) NOT NULL,
   `description` varchar(255) NOT NULL,
   `parrent_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -38,8 +39,11 @@ CREATE TABLE `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `title`, `description`, `parrent_id`) VALUES
-(20, 'fsf', 'sdfsd', 'Description', 0);
+INSERT INTO `category` (`id`, `name`, `title`, `slug`, `description`, `parrent_id`) VALUES
+(20, 'fsf', '', '', 'Description', 0),
+(21, 'Name', 'sad', '', 'Description', 0),
+(22, 'máy tính sách tay', 'may-tinh-sach-tay', 'may-tinh-sach-tay', 'Description', 0),
+(23, 'Name---Name', 'TittleTittleTittleTittle', 'name-name', 'DescriptionTittle', 0);
 
 -- --------------------------------------------------------
 
@@ -85,15 +89,9 @@ CREATE TABLE `list_mail` (
 --
 
 INSERT INTO `list_mail` (`id`, `mail`, `code`, `date_created`) VALUES
-(6, 'buihai2603@gmail.com', 'GytOJgZduCHSLlMVvEin', '2016-03-12 23:31:05'),
-(7, 'buiha@gmail.com', 'hEDeFpOStlqLkXUMKAjd', '2016-03-12 23:34:54'),
-(8, 'qwergt@gmail.com', 'CrbLevdXYWnxmFBjlqQO', '2016-03-12 23:35:21'),
-(9, 'adsfg@gmail.com', 'dZNLIPGjxQgtzpTvqurK', '2016-03-12 23:36:04'),
-(10, 'dfdsfsdsfghjklkjhgfds', 'rxfjRODNWdbovVkquyHe', '2016-03-12 23:40:01'),
-(11, 'fsdfssdfghjjhgfdsa', 'MDyfqaAFYOgkvoBLHPQK', '2016-03-12 23:41:05'),
-(12, 'sádfadsfghjkl', 'VkHqMTUcaEnJervdFjfC', '2016-03-12 23:41:32'),
-(13, 'asdfghjkl;'';lkjhgfd', 'vfqhgkuEJcXxVYGbyjRC', '2016-03-12 23:42:57'),
-(14, 'adefgdthjklsdfgh', 'jNPySTxHlpgiOXFcdBJR', '2016-03-12 23:43:09');
+(15, 'http://localhost/Codeigniter-Project/bootstrap/images/certify.png', 'ZzhDonajyfuidLJRWOlb', '2016-03-15 21:48:09'),
+(16, 'qwergt@gmail.com', 'QncxGOTvUiSYZobuzlkM', '2016-03-15 21:48:20'),
+(17, 'sdfggd@gmail.com', 'VIUgoNLlGbZeQRdBrpSn', '2016-03-15 22:48:53');
 
 -- --------------------------------------------------------
 
@@ -106,9 +104,21 @@ CREATE TABLE `news` (
   `title` varchar(200) NOT NULL,
   `description` varchar(300) NOT NULL,
   `content` varchar(10000) NOT NULL,
+  `post_by` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL,
   `last_update` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `title`, `description`, `content`, `post_by`, `date_created`, `last_update`) VALUES
+(10, ' hiển thị quảng cáo phù hợp hơn ', 'Description hiển thị quảng cáo phù hợp hơn ', '<p>ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong s<img alt="" src="http://localhost/Codeigniter-Project/Uploads/userfiles/images/BpL8pVt.jpg" style="height:1070px; width:1600px" />ố c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;ếu t&iacute;nh tỉ lệ dung lượng pin/gi&aacute; th&igrave; Zenfone Max c&oacute; lẽ l&agrave; chiếc điện thoại v&ocirc; địch trong số c&aacute;c m&aacute;y ch&iacute;nh h&atilde;</p>\r\n', '', '2016-03-15 23:07:15', '2016-03-15 23:07:15'),
+(11, '$content', 'Description$content$content$content', '<p>$content$content$content$content$content$content$content$content$content$content$content<img class="img-responsive"alt="" src="http://localhost/Codeigniter-Project/Uploads/userfiles/images/BpL8pVt.jpg" style="height:1070px; width:1600px" /></p>\r\n', '', '2016-03-15 23:14:59', '2016-03-15 23:14:59'),
+(12, 'Description', 'Description', '<p><img class="img-responsive" style="max-height:300px"alt="" src="http://localhost/Codeigniter-Project/Uploads/userfiles/images/BpL8pVt.jpg" style="height:1070px; width:1600px" /></p>\r\n', '', '2016-03-15 23:16:18', '2016-03-15 23:16:18'),
+(13, 'DescriptionDescription', 'Description', '<p><img class="img-responsive" style="max-width:100%"alt="" src="http://localhost/Codeigniter-Project/Uploads/userfiles/images/BpL8pVt.jpg" style="height:1070px; width:1600px" /></p>\r\n', '', '2016-03-15 23:17:25', '2016-03-15 23:17:25'),
+(14, 'Description', 'Description', '<p><img class="img-responsive" style="max-width:100%"alt="" src="http://localhost/Codeigniter-Project/Uploads/userfiles/images/635932907291537326_GalaxyS7-H1.jpg" style="height:300px; width:680px" /></p>\r\n', '', '2016-03-15 23:19:21', '2016-03-15 23:19:21');
 
 -- --------------------------------------------------------
 
@@ -151,7 +161,11 @@ INSERT INTO `order` (`id`, `order_code`, `user`, `mail`, `date_order`, `total`, 
 (58, 'EBMGGQAS_1457977989', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 00:53:09', 0, '0000-00-00 00:00:00', '', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 20853155, 0, 'VTB', 0, 0, 0),
 (59, 'BWRHVFGZ_1457978261', 'buihai2603@gmail.com', '', '2016-03-15 00:57:41', 0, '0000-00-00 00:00:00', '', '', '', '', 0, 0, '', 0, 0, 0),
 (60, 'LORHFBNC_1457978288', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 00:58:08', 0, '0000-00-00 00:00:00', '', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 0, 0, '', 0, 0, 0),
-(61, 'FECDHQKG_1457978884', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 01:08:04', 0, '0000-00-00 00:00:00', 'Phu Dien', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 0, 0, '', 0, 0, 0);
+(61, 'FECDHQKG_1457978884', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 01:08:04', 0, '0000-00-00 00:00:00', 'Phu Dien', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 0, 0, '', 0, 0, 0),
+(62, 'FHTEDBPD_1458007581', '', 'buihai2603@gmail.com', '2016-03-15 09:06:21', 2000, '0000-00-00 00:00:00', 'Phu Dien', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 20856433, 0, 'NL', 0, 0, 0),
+(63, 'DFHZCGTX_1458008101', '', '', '2016-03-15 09:15:01', 0, '0000-00-00 00:00:00', '', '', '', '', 0, 0, '', 0, 0, 0),
+(64, 'HBGQLAGR_1458008132', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 09:15:32', 0, '0000-00-00 00:00:00', 'Phu Dien', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 0, 0, '', 0, 0, 3),
+(65, 'VFYGBHQS_1458059419', 'buihai2603@gmail.com', 'buihai2603@gmail.com', '2016-03-15 23:30:19', 2000, '0000-00-00 00:00:00', 'Phu Dien', 'Bui Van Hai', '+841664872279', 'ưedrfghj', 20874784, 0, 'NL', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -253,10 +267,10 @@ INSERT INTO `product` (`id`, `name`, `slug`, `price`, `sold`, `total`, `status`,
 
 CREATE TABLE `slide` (
   `id` int(11) NOT NULL,
-  `caption` int(150) NOT NULL,
-  `img` varchar(100) NOT NULL,
-  `status` int(1) NOT NULL,
-  `link` varchar(100) NOT NULL,
+  `caption` varchar(300) NOT NULL,
+  `img` varchar(10000) NOT NULL,
+  `top` int(2) NOT NULL,
+  `link` varchar(1000) NOT NULL,
   `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -355,7 +369,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `contact`
 --
@@ -365,17 +379,17 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `list_mail`
 --
 ALTER TABLE `list_mail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `order_detail`
 --

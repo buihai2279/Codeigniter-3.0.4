@@ -85,6 +85,7 @@ class My_model extends CI_Model {
 	public function Get_limit($table,$limit=15,$offset=10){
 		$this->db->from($table);
         $this->db->limit($limit,$offset);
+        $this->db->order_by('date_created', 'DESC');
         $query = $this->db->get();
         return $query->result();
 	}

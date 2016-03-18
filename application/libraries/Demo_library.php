@@ -97,127 +97,133 @@ class Demo_library
             return true;
         }
     }
-    public function Get_xml($link)
-    {
-        include 'simple_html_dom.php';
-        $html     = file_get_html($link);
-        $variable = $html->find('ul.mobilecate', 0);
-        foreach ($variable->find('li') as $value) {
-            $tmp2 = $value->find('a strong', 0)->plaintext;
-            $tmp1 = $value->find('a img', 0)->src;
-            if ($tmp1 != 'https://cdn2.tgdd.vn/v2015/Content/desktop/images/bgtran.png' && $tmp2 != 0) {
-                $tmp['src']   = $tmp1;
-                $price = $value->find('a strong', 0)->plaintext;
-                $price      = str_replace('.', '',$price );
-                $tmp['price'] = str_replace('₫', '', $price);
-                $tmp['href']= $value->find('a',0)->href;
-                $html1     = file_get_html('https://www.thegioididong.com'.$tmp['href']);
-                $variable1 = $html1->find('div.owl-carousel', 0);
-                $tmp3=array();
-                $caption=array();
-                $text='';
-                foreach ($variable1->find('div.item') as $value1) {
-                    $tmp3[] = $value1->find('a', 0)->href;
-                    $caption[]=trim($value1->find('p', 0)->plaintext);
-                }
-                $tmp['link']=$tmp3;
-                $tmp['caption']=implode('|', $caption);
-                $var3= $html1->find('ul.parameter', 0);
-                $text=array();
-                foreach ($var3->find('li') as $val3) {
-                    $text[]= $val3->find('span',0)->plaintext.' '.$val3->find('div',0)->plaintext;
-                }
-                $tmp['detail']=implode('|', $text);
-                $tmp['name']  = $value->find('figure.bginfo h3', 0)->innertext;
-                $tmp['des']   = array();
-                $tex1 = $value->find('figure.bginfo span', 0)->innertext;
-                if (strlen($tex1)>40) {
-                    continue;
-                }else {
-                    $tmp['des'][] = $value->find('figure.bginfo span', 0)->innertext;
-                    $tmp['des'][] = $value->find('figure.bginfo span', 1)->innertext;
-                    $tmp['des'][] = $value->find('figure.bginfo span', 2)->innertext;
-                    $tmp['des'][] = $value->find('figure.bginfo span', 3)->innertext;
-                    $tmp['des'][] = $value->find('figure.bginfo span', 4)->innertext;
-                }
-                $tmp['description']=implode('|', $tmp['des']);
-                $tmp['category_id']='1';
-                $arr[]        = $tmp;
-            }
-        }
-        return $arr;
-    }
     public function Get_laptop()
     {
         include 'simple_html_dom.php';
-        $html     = file_get_html('file:///F:/Xampp/htdocs/ex.html');
+        $html     = file_get_html('file:///F:/Xampp/htdocs/Codeigniter-Project/import/laptop.html');
         $tmp=array();
-        $tmp['name']=$html->find('ul.laptopcate li a h3',0)->plaintext;
-        $tmp['price']=$html->find('ul.laptopcate li a strong', 0)->plaintext;
-        $tmp['slug']=$html->find('ul.laptopcate li a', 0)->href;
-        $tmp['img']=$html->find('ul.laptopcate li a img', 0)->src;
-        $info=$html->find('ul.laptopcate li figure.bginfo', 0);
-        foreach ($info->find('span') as $value) {
-            $span[]=$value->plaintext;
+        $result=array();
+        $q=$html->find('ul.laptopcate',0);
+        foreach ($q->find('li') as $value) {
+            $tmp['name']=$value->find(' a h3',0)->plaintext;
+            $tmp['price']=$value->find(' a strong', 0)->plaintext;
+            $tmp['slug']=$value->find(' a', 0)->href;
+            $tmp['img']=$value->find(' a img', 0)->src;
+            $info=$value->find('figure.bginfo', 0);
+            $span=array();
+            foreach ($info->find('span') as $va) {
+                $span[]=$va->plaintext;
+            }
+            $tmp['info']=$span;
+            $html1     = file_get_html('https://www.thegioididong.com'.$tmp['slug']);
+            $ul= $html1->find('ul.parameter', 0);
+            $detail=array();
+            foreach ($ul->find('li') as $li) {
+                $detail[]= $li->find('span',0)->plaintext.':'.$li->find('div',0)->plaintext;
+            }
+            $tmp['detail']=$detail;
+            $variable1 = $html1->find('div.owl-carousel', 0);
+            $slide=array();
+            foreach ($variable1->find('div.item') as $value1) {
+                $slide[] = $value1->find('img', 0)->getAttribute('data-src');
+            }
+            $tmp['link']=$slide;
+            $result[]=$tmp;
         }
-        $tmp['info']=implode('|', $span);
-        $html1     = file_get_html('https://www.thegioididong.com'.$tmp['slug']);
-        return $variable1 = $html1->find(' div#own-demo div.item', 0)->plaintext;
-
-
-
-
-        // return $tmp; 
-        // foreach ($variable->find('li') as $value) {
-        //     $tmp['slug']=$value->find('a',0)->href;
-        //     $info=$value->find('figure.bginfo');
-        //     foreach ($info->find('span') as $val) {
-        //         $tmp['info'].=$val;
-        //     }
-        //     return $tmp;
-        //     break;
-        // }
+        return $result;
+    }
+    public function Get_phukien()
+    {
+        include 'simple_html_dom.php';
+        $html     = file_get_html('file:///F:/Xampp/htdocs/Codeigniter-Project/import/phukien.html');
+        $result=array();
+        $tmp=$html->find('ul#lstproduct',0);
+        foreach ( $tmp->find('li') as $v) {
+            $tmp1['name'] =$v->find('h3',0)->plaintext;
+            $tmp1['price']= $v->find('strong',0)->plaintext;
+            $tmp1['img'] =$v->find('img',0)->src;
+            $slide=array();
+            $s=array();
+            foreach ($v->find('aside img') as $valu) {
+                $s[]=$valu->src;
+            }
+            $tmp1['slide']=$s;
+            $tmp1['slug']=$v->find('a',0)->href;
+            $result[]=$tmp1;
+        }
+        return $result;
+    }
+    public function Get_tablet()
+    {
+        include 'simple_html_dom.php';
+        $html     = file_get_html('file:///F:/Xampp/htdocs/Codeigniter-Project/import/tablet.html');
+        $result=array();
+        $tmp=$html->find('div.mobilecate',0);
+        foreach ( $tmp->find('div.cell') as $v) {
+            $tmp1['name'] =$v->find('a h3',0)->plaintext;
+            $tmp1['price']= $v->find('strong',0)->plaintext;
+            $tmp1['slug']=$v->find('a', 0)->href;
+            $link=$tmp1['slug'];
+            $tmp1['img'] =$v->find('img',0)->src;
+            $info=$v->find(' figure.bginfo', 0);
+            $span=array();
+            foreach ($info->find('span') as $va) {
+                $span[]=$va->plaintext;
+            }
+            $tmp1['info']=$span;
+            $html1     = file_get_html('https://www.thegioididong.com'.$tmp1['slug']);
+            $variable1 = $html1->find('div.owl-carousel', 0);
+            $tmp3=array();
+            $caption=array();
+            foreach ($variable1->find('div.item') as $value1) {
+                $tmp3[] = $value1->find('a', 0)->href;
+                $caption[]=trim($value1->find('p', 0)->plaintext);
+            }
+            $tmp1['slide']=$tmp3;
+            $tmp1['caption']=$caption;
+            $result[]=$tmp1;
+        }
+        return $result;
+    }
+    public function Get_smartphone()
+    {
+        include 'simple_html_dom.php';
+        $html     = file_get_html('file:///F:/Xampp/htdocs/Codeigniter-Project/import/smartphone.html');
+        $variable = $html->find('div.mobilecate', 0);
+        foreach ($variable->find('div.cell') as $value) {
+            $tmp['name'] =$value->find('a h3',0)->plaintext;
+            $array1=array('Samsung Galaxy S7','Samsung Galaxy S7 Edge','LG G5','Samsung Galaxy A3 2016','OPPO F1','Samsung Galaxy J1 (2016)','ZTE Blade Wave 3','Huawei G Play Mini','Huawei GR5');
+            if(in_array($tmp['name'], $array1)) continue;
+            $tmp['img'] =$value->find('a img',0)->src;
+            $tmp['price'] =$value->find('a strong',0)->plaintext;
+            $info=$value->find(' figure.bginfo', 0);
+            $span=array();
+            foreach ($info->find('span') as $va) {
+                $span[]=$va->plaintext;
+            }
+            $tmp['slug']=$value->find('a',0)->href;
+            $html1     = file_get_html('https://www.thegioididong.com'.$tmp['slug']);
+            $var3= $html1->find('ul.parameter', 0);
+            $tmp['info']=$span;
+            $text=array();
+            foreach ($var3->find('li') as $val3) {
+                $text[]= $val3->find('span',0)->plaintext.' '.$val3->find('div',0)->plaintext;
+            }
+            $tmp['detail']=implode('|', $text);
+            $variable1 = $html1->find('div.owl-carousel', 0);
+            $tmp3=array();
+            $caption=array();
+            foreach ($variable1->find('div.item') as $value1) {
+                $tmp3[] = $value1->find('a', 0)->href;
+                $caption[]=$value1->find('p', 0)->plaintext;
+            }
+            $tmp['slide']=$tmp3;
+            $tmp['caption']=$caption;
+            $result[]=$tmp;
+        }
+        return $result;
     }
 }
-
 /* End of file My_sentmail.php */
 /* Location: ./application/libraries/My_sentmail.php */
 ?>
-<!-- HP Stream 13 N2840/2GB/32GB/Win8.1/Xanh
-<li class="notbuy">
-    <a href="/laptop/hp-stream-13" title="HP Stream 13 N2840">
-        <img width="150" height="150" src="https://cdn1.tgdd.vn/Products/Images/44/72316/hp-stream-13-200x200.jpg">
-        <h6 class="textkm">Hết hàng tạm thời</h6>                
-        <h3>HP Stream 13 N2840</h3>
-        <strong>4.990.000₫</strong>
-    </a>
-    <figure class="bginfo">
-        <span>Màn hình: 13.3”, 1366x768</span>
-        <span>CPU: Intel Celeron, 2.16GHz</span>
-        <span>RAM: 2GB/ HDD: 32GB eMMC</span>
-        <span>VGA: Intel HD Graphics</span>
-        <span>HĐH: Windows 8.1 Bing</span>
-        <span>Pin: 3 cell/ DVD: Không</span>
-    </figure>
-</li>
-<li >
-    <a href="/laptop/acer-es1-311-n2840-2gb-500gb-win81" title="Acer ES1 311 N2840/2GB/500GB/Win8.1">
-        <img width="150" height="150" src="https://cdn3.tgdd.vn/Products/Images/44/74398/acer-es1-311-n2840-2gb-500gb-win81-300-200x200.jpg" />
-        <h3>Acer ES1 311 N2840/2GB/500GB/Win8.1</h3>
-        <strong>5.490.000₫</strong>
-        <div class="km">
-            <span>Tặng Chuột không dây</span>                            
-            <span>Tặng USB 8GB</span>                            
-        </div>
-    </a>
-    <a href="/them-vao-gio-hang?ProductId=74398" class="buy">Mua</a>    
-    <figure class="bginfo">
-        <span>Màn hình: 14”, 1366x768</span>
-        <span>CPU: Intel Celeron, 2.16GHz</span>
-        <span>RAM: 2GB/ HDD: 500GB</span>
-        <span>VGA: Intel HD Graphics</span>
-        <span>HĐH: Windows 8.1 Bing</span>
-        <span>Pin: 3 cell/ DVD: Không</span>
-    </figure>
-</li>
- -->

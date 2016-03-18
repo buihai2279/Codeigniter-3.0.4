@@ -16,7 +16,7 @@ class Home extends CI_Controller
     }
     public function index()
     {
-        $this->load->helper('form');
+        // $this->load->helper('form');
         $query = $this->db->query("SELECT name,slug,img,price,description FROM product");
         $data['result']=$query->result_array();
         $news = $this->db->query("SELECT id,title FROM news ORDER BY last_update DESC LIMIT 6");
@@ -47,7 +47,15 @@ class Home extends CI_Controller
     }
     public function pay()
     {
-        if (isset($_POST)) {
+
+        $this->load->library('form_validation');
+        if (isset($_POST['nlpayment'])) {
+            $this->form_validation->set_rules('buyer_fullname', 'Buyer fullname', 'required');
+            $this->form_validation->set_rules('buyer_email', 'Buyer email', 'required');
+            $this->form_validation->set_rules('buyer_mobile', 'Buyer mobile', 'required');
+            if ($this->form_validation->run() == false) {
+                $this->My_model->Load_front_end('nganluong/pay');die();
+            }
             if ($this->session->has_userdata('mail')) {
                 $user=$this->session->userdata('mail');
             } else {
@@ -139,7 +147,10 @@ class Home extends CI_Controller
             }
         }
     }
-
+    public function History()
+    {
+        echo "string";
+    }
 
 
     protected  function GetTransactionDetail($token){    

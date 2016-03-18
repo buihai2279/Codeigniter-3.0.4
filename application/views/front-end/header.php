@@ -64,6 +64,17 @@ $(document).ready(function() {
                 }
             });
     })
+    $('#history').click(function(){
+        $.ajax({
+                dateType:"text",
+                url: "<?php echo base_url('home/history')?>",
+                success: function(result){
+                    $('#content_history').html(result);
+                    $('#history_modal').modal('show');
+                }
+            });
+    })
+
 });
 </script>
     <div class="navbar no_margin" role="navigation">
@@ -106,11 +117,21 @@ $(document).ready(function() {
                         <?php 
                         } ?>
                     <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
-                    <li><a href="">Lịch sử mua hàng</a></li>
+                    <li id="history"><a>Lịch sử mua hàng</a></li>
                     <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>
                 </ul>
             </li>
-
+            <div class="modal fade" id="history_modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body" id="content_history">
+                        </div>
+                    </div>
+                </div>
+            </div>
                <?php  }else{
                 ?>
                 <li class="list_menu"><a class='item_menu' href="<?php echo base_url('auth')?>">Đăng ký / Đăng Nhập</a></li>

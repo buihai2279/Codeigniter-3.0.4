@@ -13,13 +13,12 @@
 }
 p.title_news{
 	font-size: 16px;
-	margin-left: 20px;
+	text-align: center;
 }
 </style>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<p class="title_news "><b><?php echo $result['title']; ?></b></p>
-		<img src="https://www.thegioididong.com/images/42/73705/Slider/iphone-6s-slider-04.jpg" class="img-responsive">
+		<p class="title_news"><b><?php echo $result['title']; ?></b></p>
 	</div>
 </div>
 <hr>

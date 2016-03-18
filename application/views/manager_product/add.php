@@ -45,16 +45,10 @@ label{width: 80px;}</style>
     <div class="form-group col-md-7 pull-right">
         <label class=" col-sm-2">Slug</label>
         <div class="input-group col-sm-10">
-            <div class="input-group-addon">/dttd/</div>
-                <input type="text" class="form-control" id='txtslug' name='txtslug' value="<?php echo set_value('txtslug'); ?>" placeholder="Amount">
+            <input type="text" class="form-control" id='txtslug' name='txtslug' value="<?php echo set_value('txtslug'); ?>" placeholder="Amount">
         </div>
     </div>
     <div class="clearfix"></div><hr>
-    <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div>
     <div class="form-group col-md-4">
         <label>Category Name</label>
         <select name="category_id" class="form-control input-sm">
@@ -89,8 +83,8 @@ label{width: 80px;}</style>
     </div>
     <div class="clearfix"></div><hr>
     <div class="form-group col-md-6">
-        <label>link</label>
-        <textarea class="form-control" name="link" rows="4"></textarea>
+        <label>slide</label>
+        <textarea class="form-control" name="slide" rows="4"></textarea>
     </div>
     <div class="form-group col-md-6">
         <label>caption</label>

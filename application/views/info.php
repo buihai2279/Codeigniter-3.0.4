@@ -24,8 +24,6 @@
     }
 </style>
 <?php 
-$list_img=explode('|',$result->link);
-$list_caption=explode('|',$result->caption);
 ?>
     <div class="col-lg-12 box_info" style="background: #fff;" >
         <div class="clearfix"></div><hr>
@@ -101,43 +99,47 @@ $list_caption=explode('|',$result->caption);
     </div>
 </div>
 
-            
-
     <div class="col-md-8 box_slide">    
         <h3 class="text-center">Điểm nổi bật</h3>
         <hr>
-        <div id="slide-info" class="owl-carousel owl-theme">
-            <?php foreach ($list_img as $key => $value): ?>
-            <div class="item">
-                <a href="">
-                    <img src="<?php echo $value?>" class="img-responsive img-rounded" alt="The Last of us">
-                </a>
-                <p class="description text-center">
-                    <a href=""><?php echo $list_caption[$key]; ?></a>
-                </p>
-            </div>
-            <?php endforeach ?>
-        </div>
+
+        <?php if ($result->slide!='') {
+            $list_img=explode('|',$result->slide);
+           ?>
+                <div id="slide-info" class="owl-carousel owl-theme">
+                    <?php foreach ($list_img as $key => $value): ?>
+                    <div class="item">
+                            <img src="<?php echo $value?>" class="img-responsive img-rounded">
+                        <?php if(trim($result->caption)!=''){ ?>
+                        <p class="description text-center">
+                            <?php 
+                            $list_caption=explode('|',$result->caption); 
+                            echo $list_caption[$key];
+                            ?>
+                        </p>
+                        <?php } ?>
+                    </div>
+                    <?php 
+                    endforeach ?>
+                </div>
+           <?php 
+        } else {
+            echo "Không có slide";
+        }
+         ?>
     </div>
 
     <div class="visible-xs"><br><div class="clear-fixed"></div><hr></div>
     <div class="col-md-4 list_parameter">
         <h3 class="text-center">Thông số kỹ thuật</h3>
-        <hr>
-        <table>
+        <hr><p>
         <?php 
-        $array=explode('|',$result->detail);
-        foreach ($array as $value) {
-            $tmp=explode(':', $value)
-            ?>
-           <tr>
-               <td class="left_parameter"><?php echo $tmp['0']?></td>
-               <td><?php echo $tmp['1']?></td>
-           </tr>
-            <?php        
-             } 
-        ?>
-        </table>
+        if (trim($result->detail)!='') {
+             echo $result->detail;
+        } else {
+            echo "Đang cập nhật";
+        }
+        ?></p>
     </div>
     <script>
     $(document).ready(function() {
@@ -195,7 +197,7 @@ $list_caption=explode('|',$result->caption);
    <h3 style="text-align: center">Sản phẩm cùng chuyên mục</h3>
    <?php foreach ($suggest as $key => $value) {
        ?>
-   <div class="col-md-2 col-sm-5 block-center box_suggest" style="text-align: center;overflow: hidden;">
+   <div class="col-md-2 col-sm-5 block-center box_suggest" style="text-align: center;overflow: hidden;height: 240px">
         <img src="<?php echo $value['img']?>" class="img-responsive" style="height: 150px"><div class="clearfix">
         </div>
         <a href="<?php echo base_url('dtdd').'/'.$value['slug']?>">
