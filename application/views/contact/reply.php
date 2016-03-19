@@ -5,9 +5,8 @@
   </div>
 <?php 
 } ?>
-<?php print_r($result); ?>
 <br>
-	<h3>Danh sach nguoif dung</h3>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 	<form class="form-horizontal" method="POST" action="#">
     <div class="form-group">
       <label class="col-sm-2 control-label">Mail</label>
@@ -24,7 +23,13 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Content</label>
       <div class="col-sm-10">
-        <textarea type="text" name="txt-content" value="<?php echo set_value('txt-content')?>" class="form-control"></textarea>
+      <textarea type="text" name="txt-content"id="editor1"  class="form-control" >
+      <?php echo set_value('txt-content')?>
+      </textarea>
+      <script>
+      CKEDITOR.replace( 'editor1' );
+      CKFinder.setupCKEditor();
+      </script>
       </div>
     </div>
     <div class="form-group">

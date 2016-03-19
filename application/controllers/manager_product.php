@@ -27,7 +27,7 @@ class Manager_product extends CI_Controller
         $link           = 'http://localhost/Codeigniter-Project/manager_product/index/';
         if(!$tmp=$this->cache->get('list')){
             $tmp=$this->My_model->get_limit($this->table,$this->limit,$segment);
-            $this->cache->save('list', $tmp, 3600*2);
+            $this->cache->save('list', $tmp, 30);
         }
         $data['result'] = $this->cache->get('list');
         $data['pag']    = $this->My_model->create_pagination($link, $total, $segment);

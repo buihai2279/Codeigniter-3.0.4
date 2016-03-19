@@ -159,12 +159,12 @@
       <div class="panel-body">
             <div class="col-md-6">
                 <div class="embed-responsive embed-responsive-16by9">
-                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/kykU9rgmtLs"></iframe>
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/23lDcWLW45M"></iframe>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="embed-responsive embed-responsive-16by9">
-                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/l60E4njGGn8"></iframe>
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0I7vbYCVkj4"></iframe>
                 </div>
             </div>
       </div>

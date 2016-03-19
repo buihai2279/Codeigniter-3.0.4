@@ -1,6 +1,7 @@
-<h3>Danh sach nguoif dung</h3>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
+<textarea type="text" name="txt-content"id="editor1"  class="form-control" >
 
-<textarea type="text" name="txt-content"id="editor1"  class="form-control" ><?php echo $result['content']; ?></textarea>
+</textarea>
 <script>
 CKEDITOR.replace( 'editor1' );
 CKFinder.setupCKEditor();

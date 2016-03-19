@@ -8,7 +8,7 @@
 <script>
     function load_info(id){
         $.ajax({
-        	url: "<?php echo base_url('Manager_user/test'); ?>"+'/'+id,
+        	url: "<?php echo base_url('Manager_user/view_one'); ?>"+'/'+id,
             success: function(result){
                 $("#content").html(result);
                 $('#myModal').modal('show');
@@ -17,6 +17,7 @@
 </script>
 	
 <br>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
   Fillter
 </a>
@@ -202,8 +203,7 @@ if ($_SESSION['level'] > $value->level && $_SESSION['level'] == 2) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <span class="modal-title pull-left" id="myModalLabel">Modal title</span>
-        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body" id="content">
 

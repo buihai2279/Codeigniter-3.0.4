@@ -10,8 +10,6 @@ class Import extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('demo_library');
-		// echo $this->date_time;
-		//Do your magic here
 	}
 	public function import_cate()
 	{
@@ -35,7 +33,7 @@ class Import extends CI_Controller {
 		    	'total'=> rand(10,100),
 		    	'status'=> 1,
 		    	'description'=> 'info',
-		    	'category_id'=> 0,
+		    	'category_id'=> 2,
 		    	'img'=> $value['img'],
 		    	'slide'=> $slide,
 		    	'date_created'=> $date_time,
@@ -60,7 +58,7 @@ class Import extends CI_Controller {
 		    	'price'=> $price,
 		    	'total'=> rand(10,100),
 		    	'status'=> 1,
-		    	'category_id'=> 0,
+		    	'category_id'=> 1,
 		    	'img'=> $value['img'],
 		    	'slide'=> $slide,
 		    	'date_created'=> $date_time,
@@ -86,7 +84,7 @@ class Import extends CI_Controller {
 		    	'price'=> $price,
 		    	'total'=> rand(10,100),
 		    	'status'=> 1,
-		    	'category_id'=> 0,
+		    	'category_id'=> 3,
 		    	'img'=> $value['img'],
 		    	'slide'=> $slide,
 		    	'caption'=> $caption,
@@ -116,7 +114,7 @@ class Import extends CI_Controller {
 		    	'price'=> $price,
 		    	'total'=> rand(10,100),
 		    	'status'=> 1,
-		    	'category_id'=> 0,
+		    	'category_id'=> 4,
 		    	'img'=> $value['img'],
 		    	'slide'=> $slide,
 		    	'date_created'=> $date_time,

@@ -41,8 +41,8 @@ class My_model extends CI_Model {
 		else
 			return FALSE;
 	}
-	public function get_row_by_slug($slug=''){
-		$query = $this->db->get_where($this->table,array('slug' => $slug));
+	public function get_row_by_slug($slug='',$table=''){
+		$query = $this->db->get_where($table,array('slug' => $slug));
 		if ($query->num_rows()==1)
 			return $query->row();
 		else

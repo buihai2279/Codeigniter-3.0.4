@@ -9,6 +9,11 @@ class Home extends CI_Controller
     public $merchant_password = '2daa09faf06829a2d97bcde3b8ee2003';
     public $receiver_email = 'buihai2603@gmail.com';
     public $cur_code = 'vnd';
+    public $fee_shipping=30000;
+    public $discount_amount=0;
+    public $tax_amount=10;
+    public $title_main='Techshop sự lựa chọn cho tương lai';
+    public $description_main='Techshop sự lựa chọn cho tương lai';
     public function __construct()
     {
         parent::__construct();
@@ -16,9 +21,23 @@ class Home extends CI_Controller
     }
     public function index()
     {
-        // $this->load->helper('form');
-        $query = $this->db->query("SELECT name,slug,img,price,description FROM product");
-        $data['result']=$query->result_array();
+        $data['title']='Trang chủ';
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1 AND category_id=1 ORDER BY top DESC LIMIT 12");
+
+        $data['mobie']=$query->result_array();
+
+        $query1 = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1 AND category_id=2 ORDER BY top DESC LIMIT 12");
+
+        $data['laptop']=$query1->result_array();
+
+        $query2 = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1 AND category_id=3 ORDER BY top DESC LIMIT 12");
+
+        $data['tablet']=$query2->result_array();
+
+        $query3 = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1 AND category_id=4 ORDER BY top DESC LIMIT 12");
+
+        $data['phukien']=$query3->result_array();
+
         $news = $this->db->query("SELECT id,title FROM news ORDER BY last_update DESC LIMIT 6");
         $data['news']=$news->result_array();
         $slide = $this->db->query("SELECT link,img,caption FROM slide ORDER BY top LIMIT 6 ");
@@ -32,6 +51,7 @@ class Home extends CI_Controller
     }
     public function edit()
     {
+        $data['title']='Cập nhật thông tin nhận hàng';
         $this->load->helper('form');
         $this->My_model->Load_front_end('nganluong/pay');
     }
@@ -45,9 +65,15 @@ class Home extends CI_Controller
         }else
             $this->My_model->Sent_message('Có lỗi xảy ra','home','danger');
     }
+    public function delete_cart($rowid='')
+    {
+        unset($_SESSION['cart_contents'][$rowid]);
+        // unset($_SESSION['count_cart']);
+        $_SESSION['count_cart']=count($this->cart->contents());
+        $this->My_model->Sent_message('Cập nhật thành công','home/edit','success');
+    }
     public function pay()
     {
-
         $this->load->library('form_validation');
         if (isset($_POST['nlpayment'])) {
             $this->form_validation->set_rules('buyer_fullname', 'Buyer fullname', 'required');
@@ -93,12 +119,24 @@ class Home extends CI_Controller
     }
     public function slug($slug)
     {
-        $data['result']=$this->My_model->get_row_by_slug($slug);
+        $data['result']=$this->My_model->get_row_by_slug($slug,'product');
         if ($data['result']!=false) {
             $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get($this->table);
             $data['suggest']=$query->result_array();
+
+            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get_where($this->table,array('category_id'=>$data['result']->category_id));
+            $data['phukien']=$query->result_array();
+
             $this->My_model->Load_front_end('info',$data);
         }else $this->My_model->Sent_message('Bạn đang truy cập vào đường link không tồn tại','home/index','danger');
+    }
+    public function slug_category($slug)
+    {
+        $data['result']=$this->My_model->get_row_by_slug($slug,'category');
+        $id=$data['result']->id;
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1 AND category_id=$id ORDER BY top DESC");
+         $data['list']=$query->result_array();
+        $this->My_model->Load_front_end('front-end/view_cate',$data);
     }
     public function count_cart()
     {
@@ -107,7 +145,9 @@ class Home extends CI_Controller
     }
     public function feedback()
     {
-        $this->My_model->Load_front_end('front-end/feedback');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->My_model->Load_front_end('contact/add');
     }
     public function pay_thank()
     {
@@ -150,42 +190,72 @@ class Home extends CI_Controller
     public function History()
     {
         echo "string";
+        $this->load->view('1');
+    }
+    public function New_product()
+    {
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1  ORDER BY date_created DESC");
+        $data['list']=$query->result_array();
+        $this->My_model->Load_front_end('front-end/view_new',$data);
+    }
+    public function Sell()
+    {
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product WHERE status=1  ORDER BY sold DESC");
+        $data['list']=$query->result_array();
+        $this->My_model->Load_front_end('front-end/view_sold',$data);
+    }
+    public function Search_product($search='')
+    {
+        if (isset($_GET['search'])) {
+            $search=$_GET['search'];
+        } else {
+            $search='';
+        }
+        $query = $this->db->query("SELECT name,slug,img,price,description FROM product  WHERE name LIKE %$search% ESCAPE '!'");
+        $data['list']=$query->result_array();
+        $this->My_model->Load_front_end('front-end/search',$data);
+    }
+    public function page_not_found()
+    {
+        $this->load->view('front-end/header');
+        echo "Truy cập vào đường link sai ";
+        $this->load->view('front-end/footer');
     }
 
 
     protected  function GetTransactionDetail($token){    
                 ###################### BEGIN #####################
-                        $params = array(
-                            'merchant_id'       => $this->merchant_id ,
-                            'merchant_password' => MD5($this->merchant_password),
-                            'version'           => '3.1',
-                            'function'          => 'GetTransactionDetail',
-                            'token'             => $token
-                        );                      
-                        $post_field = '';
-                        foreach ($params as $key => $value){
-                            if ($post_field != '') $post_field .= '&';
-                            $post_field .= $key."=".$value;
-                        }
-                        $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_URL,$this->url_api);
-                        curl_setopt($ch, CURLOPT_ENCODING , 'UTF-8');
-                        curl_setopt($ch, CURLOPT_VERBOSE, 1);
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        curl_setopt($ch, CURLOPT_POST, 1);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field);
-                        $result = curl_exec($ch);
-                        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE); 
-                        $error = curl_error($ch);
-                        if ($result != '' && $status==200){
-                            $nl_result  = simplexml_load_string($result);                       
-                            return $nl_result;
-                        }
-                        return false;
-                ###################### END #####################
-          } 
+        $params = array(
+            'merchant_id'       => $this->merchant_id ,
+            'merchant_password' => MD5($this->merchant_password),
+            'version'           => '3.1',
+            'function'          => 'GetTransactionDetail',
+            'token'             => $token
+        );                      
+        $post_field = '';
+        foreach ($params as $key => $value){
+            if ($post_field != '') $post_field .= '&';
+            $post_field .= $key."=".$value;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$this->url_api);
+        curl_setopt($ch, CURLOPT_ENCODING , 'UTF-8');
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field);
+        $result = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE); 
+        $error = curl_error($ch);
+        if ($result != '' && $status==200){
+            $nl_result  = simplexml_load_string($result);                       
+            return $nl_result;
+        }
+        return false;
+            ###################### END #####################
+    } 
 }
 
 /* End of file Home.php */

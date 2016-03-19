@@ -1,4 +1,4 @@
-<h3>Danh sach nguoif dung</h3>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 <a class="btn btn-large btn-info" href="<?php echo base_url('news/add'); ?>">
 <i class="fa fa-plus"></i>Add news</a>
 <div class="table-responsive">

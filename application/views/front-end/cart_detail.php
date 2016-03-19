@@ -37,7 +37,7 @@
     <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
 </tr>
 </table>
-<p><?php echo form_submit(array('class'=>'btn btn-primary','name'=>'update'), 'Update your Cart'); ?></p>
+<p><?php echo form_submit(array('class'=>'btn btn-primary','name'=>'update'), 'Update Cart and Pay'); ?></p>
 <a href=""></a>
 
   <?php       

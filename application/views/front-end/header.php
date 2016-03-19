@@ -2,10 +2,12 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Techshop.com.vn - ĐTDD, Laptop, Máy tính bảng </title>
-		<meta name="title" content="Amazon.com.vn - ĐTDD, Laptop," />
-	    <meta name="description text-center" content="Hàng 100% chính hãng được phân p   " />
-	    <meta name="keywords" content="điện thoại di dộng, máy tính bảng,  " />
+		<title><?php echo (isset($title)) ? $title.' - '.$this->title_main : $this->title_main; ?></title>
+        <meta content="INDEX,FOLLOW" name="robots"/>
+		<meta name="title" content="<?php echo (isset($description)) ? $description.' - '.$this->description_main : $this->description_main; ?>" />
+        <meta name="copyright" content="Website thương mại điện tử" />
+	    <meta name="description" content="<?php echo (isset($title)) ? $title.' - '.$this->title_main : $this->title_main; ?>" />
+	    <meta name="keywords" content="điện thoại di dộng, máy tính bảng" />
 		<meta name="copyright" content="Nhóm 5 : Nguyễn Trang,Trần Lộc, Bùi Hải">
 		<meta name="author" content="PHP Team 5">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
@@ -24,19 +26,21 @@
             <a href="<?php echo base_url()?>"><img class="img-responsive" src="<?php echo base_url('bootstrap')?>/images/logo.png" alt="Logo"></a>
         </div>
         <div class="col-md-7 col-lg-7 col-xs-12 col-sm-6">
+            <form action="<?php echo base_url('home/Search_product'); ?>" method='GET'>
             <div class="input-group search-box ">
-                <input type="text" class="form-control search-input" placeholder="Search for...">
+                <input type="text" name='search' class="form-control search-input" placeholder="Search for...">
                 <span class="input-group-btn">
-                    <button class="btn search-button btn-info" type="button">Search!</button>
+                    <input class="btn search-button btn-info" type="submit" >Search!</button>
                 </span>
             </div>
+            </form>
         </div>
         <div class="col-md-2 col-lg-2 col-xs-6 col-sm-2 cart">
             <button type="button" class="btn btn-info col-xs-12 col-md-12 col-lg-7" id="cart_list">
                 <span><i class="fa fa-cart-plus"></i> Giỏ hàng</span> 
                 <span class="badge" id="count_cart">
-                <?php if(isset($_SESSION['count_cart']))
-                    echo ' '.$_SESSION['count_cart'].' ';
+                <?php if(isset($_SESSION['cart_contents']))
+                    echo ' '.count($this->cart->contents()).' ';
                     else echo 0;
                  ?></span>
             </button>
@@ -90,7 +94,7 @@ $(document).ready(function() {
         <ul class="nav navbar-nav">
             <li class="list_menu">
                 <a class='item_menu'class="dropdown-toggle" data-toggle="dropdown">
-                Danh muc san pham <i class="glyphicon glyphicon-chevron-down"></i></a>
+                Danh mục sản phẩm <i class="glyphicon glyphicon-chevron-down"></i></a>
                 <ul class="dropdown-menu sub-menu" >
                 <?php foreach ($menu as $value) {
                     ?>
@@ -99,8 +103,8 @@ $(document).ready(function() {
                 } ?>
                 </ul>
             </li>
-            <li class="list_menu"><a class='item_menu' href="">San pham moi</a></li>
-            <li class="list_menu"><a class='item_menu' href="">Khuyen mai</a></li>
+            <li class="list_menu"><a class='item_menu' href="<?php echo base_url('san-pham-moi') ?>">Sản phẩm mới</a></li>
+            <li class="list_menu"><a class='item_menu' href="<?php echo base_url('ban-chay') ?>">Bán chạy</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right ">
                 <?php if (isset($_SESSION['login'])) {

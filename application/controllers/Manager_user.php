@@ -231,15 +231,9 @@ class manager_user extends CI_Controller
     /**
      * @param $id
      */
-    public function test($id = '')
+    public function view_one($id = '')
     {
-        $tmp = $this->My_model->Get_user_by_id($id);
-        echo "<pre>";
-        print_r($tmp);
-        echo "</pre>";
-    }
-    public function test2()
-    {
-        // $this->load->view('test');
+        $data['result'] = $this->My_model->Get_user_by_id($id);
+        $this->load->view('manager_user/view_one', $data);
     }
 }

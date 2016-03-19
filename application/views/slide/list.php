@@ -1,6 +1,6 @@
 <a class="btn btn-large btn-info" href="<?php echo base_url('slide/add'); ?>">
 <i class="fa fa-plus"></i>Them Danh Muc</a>
-<h3>Danh sach nguoif dung</h3>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 <form action="slide/chang_top" method="POST">
 <input type="submit" class="btn btn-success" value="Update">
 <div class="table-responsive">

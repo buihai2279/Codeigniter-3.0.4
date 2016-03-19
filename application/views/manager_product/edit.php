@@ -18,6 +18,7 @@
     });
 </script>
 <div class="col-md-12">
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 <form action="#" method="POST" ><hr>
          <div class="row">
              <div><lable><b>id:</b></lable></div>

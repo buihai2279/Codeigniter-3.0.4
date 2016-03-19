@@ -120,7 +120,7 @@ if (@$_POST['nlpayment']) {
   <tr><td>Address: </td>
    <td><input type="text" style="width:270px" id="fullname" name="address" class="field-check " value=""></td></tr>
   <tr><td>Date ship: </td>
-   <td><input type="text" style="width:270px" id="fullname" name="date_ship" class="field-check " value=""></td></tr>
+   <td><input type="text" style="width:270px" id="fullname" name="date_ship" max="31-12-2019" class="field-check " value=""></td></tr>
    
 
 

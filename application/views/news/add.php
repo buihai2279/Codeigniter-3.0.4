@@ -6,6 +6,7 @@
 <?php 
 } ?>
 <br>
+  <h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 	<form class="form-horizontal" method="POST" action="#">
    <div class="form-group">
       <label  class="col-sm-2 control-label">Title</label>

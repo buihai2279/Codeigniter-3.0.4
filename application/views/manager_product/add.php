@@ -27,6 +27,7 @@ label{width: 80px;}</style>
 // <?php $number = preg_replace( '/([^0-9\.])/', '', $_POST['price'] )?>
     
 </script>
+<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 <form class="form-inline" action="#" method="POST" >
     <div class="clearfix"></div><hr>
     <div class="form-group form-group-lg col-lg-12">

@@ -1,40 +1,38 @@
-<?php if (validation_errors()!=NULL) {
-  ?>
-  <div class="alert alert-warning">
-      <?php echo validation_errors(); ?>
-  </div>
-<?php 
-} ?>
-<br>
-	<h3>Danh sach nguoif dung</h3>
-	<form class="form-horizontal" method="POST" action="#">
-   <div class="form-group">
-      <label  class="col-sm-2 control-label">Name</label>
-      <div class="col-sm-10">
-        <input type="text" name="txt-name" value="<?php echo set_value('txt-name')?>" class="form-control" placeholder="Name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Mail</label>
-      <div class="col-sm-10">
-        <input type="mail" name="txt-mail" class="form-control" value="<?php echo set_value('txt-mail')?>"  placeholder="Tittle">
-      </div>
-    </div>
-    <div class="form-group">
-      <label  class="col-sm-2 control-label">Info contact</label>
-      <div class="col-sm-10">
-        <input type="info" name="txt-info" class="form-control" value="<?php echo set_value('txt-info')?>" placeholder="Facebook,Skype,Phone">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Content</label>
-      <div class="col-sm-10">
-        <textarea type="text" name="txt-content" value="<?php echo set_value('txt-content')?>" class="form-control"></textarea>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" name="submit" value="ok" class="btn btn-default">Submit</button>
-      </div>
-    </div>
-</form> 
+
+		<script src="<?php echo base_url('public/ckeditors/ckeditor.js')?>"></script>
+		<script src="<?php echo base_url('public/ckfinder/ckfinder.js')?>"></script>
+<div class="container">
+	
+<form action="<?php echo base_url('contact/add'); ?>" method="POST" role="form">
+	<legend><h3><?php echo(isset($title)) ? $title : '' ; ?></h3></legend>
+
+	<div class="form-group">
+		<label for="">Name</label>
+		<input name="txt-name" class="form-control" value="<?php echo set_value('txt-name')?>" >
+	</div>
+	<div class="form-group">
+		<label for="">Mail</label>
+		<input name="txt-mail" class="form-control" value="<?php echo set_value('txt-mail')?>">
+	</div>
+	<div class="form-group">
+
+		<label for="">content</label>
+      <textarea type="text" name="txt-content"id="editor1"  class="form-control" >
+      <?php echo set_value('txt-content')?>
+      </textarea>
+      <script>
+      CKEDITOR.replace( 'editor1' );
+      CKFinder.setupCKEditor();
+      </script>
+	</div>
+	<div class="form-group">
+		<label for="">Info</label>
+		<input name="txt-info" class="form-control" value="<?php echo set_value('txt-info')?>">
+	</div>
+
+	
+
+	<button type="submit" class="btn btn-primary " value="ok">Submit</button>
+</form>
+</div>
+<br><br><hr>

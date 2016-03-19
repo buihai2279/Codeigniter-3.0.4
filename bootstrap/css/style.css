@@ -62,8 +62,10 @@ header{
 .box_slide{
 	padding: 0px;
 }
-.row1{
-	height: 320px;
+@media (min-width: @screen-sm-min) {
+	.row1{
+		height: 320px;
+	}
 }
 .news{
 	padding: 0;

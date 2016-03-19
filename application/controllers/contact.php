@@ -2,6 +2,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Contact extends CI_Controller
 {
+
+    public $title_main='Techshop sự lựa chọn cho tương lai';
+    public $description_main='Techshop sự lựa chọn cho tương lai';
     public $table = 'contact';
     public $limit = 10;
     public function __construct()
@@ -62,7 +65,6 @@ class Contact extends CI_Controller
         $this->load->library('form_validation');
         $this->load->helper('form');
         $data['result']=$this->My_model->Get_row_by_id($id);
-        $data['id']=$id;
         if (isset($_POST['submit'])&&$_POST['submit']='ok') {
             $mail=$this->input->post('txt-mail');
             $bbc=$this->input->post('txt-bbc');
@@ -80,6 +82,7 @@ class Contact extends CI_Controller
             $this->form_validation->set_rules('txt-name', 'Name', 'required');
             $this->form_validation->set_rules('txt-mail', 'Mail', 'required');
             $this->form_validation->set_rules('txt-content', 'Content', 'required');
+            $this->form_validation->set_rules('txt-info', 'Info', 'required');
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $date_time = date('Y-m-d H:i:s');
             if ($this->form_validation->run() == true) {
@@ -93,11 +96,11 @@ class Contact extends CI_Controller
                 );
                 $result = $this->db->insert('contact', $data);
                 if (isset($result) && $result != '') {
-                    $this->My_model->Sent_message('Them Du lieu thanh cong', 'contact', 'success');
+                    $this->My_model->Sent_message('Them Du lieu thanh cong', 'home', 'success');
                 }
             }
         }
-        $this->My_model->Load_view('contact/add');
+        $this->My_model->Load_front_end('contact/add');
     }
 
 }

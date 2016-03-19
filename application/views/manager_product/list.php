@@ -34,7 +34,7 @@
 </style>
 	<a class="btn btn-large btn-info " href="<?php echo base_url('manager_product/add'); ?>">
 	<i class="fa fa-plus"></i>Them San Pham</a>
-	<h3>Danh sach nguoif dung</h3>
+	<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 	<?php if (!isset($result)||$result=='') {
 			echo "<tr><td>Không có Dữ liệu</td></tr>";
 		}else{
