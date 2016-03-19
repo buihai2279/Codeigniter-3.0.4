@@ -77,7 +77,7 @@ if (isset($segment['3']) && isset($segment['4'])) {
     }
 }
 ?>
-	<h3>Danh sach nguoif dung</h3>
+	<h3><?php echo(isset($title)) ? $title : '' ; ?></h3>
 	<div class="table-responsive">
 		<form action="<?php echo base_url('manager_user/proccess'); ?>" method="POST">
 			<table class="table table-hover table-hover table-bordered table-striped" style="margin-bottom: 68px">

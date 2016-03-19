@@ -7,7 +7,7 @@
         $("#slide-home").owlCarousel({
               // navigation : true, // Show next and prev buttons
               slideSpeed : 400,
-              autoPlay: 5500,
+              autoPlay: 6000,
               lazyLoad : true,
               paginationSpeed : 5000,
               paginationNumbers: true,
@@ -120,7 +120,7 @@
                             ?>
                               <span class="text-left">
                                   <ul>
-                                      <?php $tmp= explode('|', $value['description']);
+                                      <?php $tmp= explode('|', trim($value['description']));
                                       foreach ($tmp as  $val) {
                                            echo "<li class='line_height'>$val</li>";
                                        } ?>

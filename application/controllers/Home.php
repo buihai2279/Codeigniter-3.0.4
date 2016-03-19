@@ -220,9 +220,7 @@ class Home extends CI_Controller
     }
     public function page_not_found()
     {
-        $this->load->view('front-end/header');
-        echo "Truy cập vào đường link sai ";
-        $this->load->view('front-end/footer');
+         $this->My_model->Load_front_end('page_not');
     }
 
 

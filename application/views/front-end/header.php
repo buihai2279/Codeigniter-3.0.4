@@ -98,7 +98,7 @@ $(document).ready(function() {
                 <ul class="dropdown-menu sub-menu" >
                 <?php foreach ($menu as $value) {
                     ?>
-                    <li><a href="<?php echo $value['slug']?>"><?php echo $value['name']?></a></li>
+                    <li><a href="<?php echo base_url($value['slug'])?>"><?php echo $value['name']?></a></li>
                     <?php 
                 } ?>
                 </ul>
@@ -121,7 +121,7 @@ $(document).ready(function() {
                         <?php 
                         } ?>
                     <li><a href="<?php echo base_url('auth/change_password')?>">Đổi mật khẩu</a></li>
-                    <li id="history"><a>Lịch sử mua hàng</a></li>
+                    <li id="history"><a><i class="fa fa-history"></i>Lịch sử mua hàng</a></li>
                     <li><a href="<?php echo base_url('auth/logout')?>">Đăng xuất</a></li>
                 </ul>
             </li>

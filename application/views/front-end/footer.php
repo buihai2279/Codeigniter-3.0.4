@@ -42,7 +42,7 @@
 		<ul>
 			<li><a href="">TechShop.vn</a></li>
 			<li><a href="">Giới thiệu</a></li>
-			<li><a href="">Liên Hệ </a></li>
+			<li><a href="<?php echo base_url('lien-he')?>">Liên Hệ </a></li>
 			<li><a href="">Trợ giúp </a></li>
 		</ul></div>
 		<ul class="col-md-6 col-sm-6 col-lg-3 col-xs-6">

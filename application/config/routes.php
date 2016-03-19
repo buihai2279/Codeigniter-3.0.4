@@ -59,10 +59,9 @@ $route['tablet'] = 'home/slug_category/tablet';
 $route['phu-kien'] = 'home/slug_category/phu-kien';
 $route['laptop/(:any)'] = 'home/slug/$1';
 $route['tablet/(:any)'] = 'home/slug/$1';
-$route['lien-he'] = 'home/slug/$1';
+$route['lien-he'] = 'home/feedback';
 $route['thanh-toan'] = 'home/slug/$1';
 $route['san-pham-moi'] = 'home/New_product';
 $route['ban-chay'] = 'home/Sell';
 $route['phu-kien/(:any)'] = 'home/slug/$1';
-$route['danh-muc/(:any)'] = 'home/slug_category/$1';
 

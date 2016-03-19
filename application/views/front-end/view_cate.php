@@ -48,7 +48,7 @@
                     <div class="detail">
                         <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
                         <hr>
-                        <i class="price pull-left"><?php echo $value['price'] ?>₫</i>
+                        <i class="price pull-left"><?php echo number_format($value['price']) ?>₫</i>
                         <a href="<?php echo base_url('dtdd/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
 				<td><?php echo $value['status']; ?></td>
 				<td><?php echo $value['info']; ?></td>
 				<td>
-					<a href="<?php echo base_url('contact/reply').'/'.$value['id']?>">Reply</a>
+					<a href="<?php echo base_url('contact/reply').'/'.$value['id']?>"> <i class="fa fa-mail-reply"></i>Reply</a>
 					<a href="<?php echo base_url('contact/delete').'/'.$value['id']?>">Delete</a>
 				</td>
 			</tr>
