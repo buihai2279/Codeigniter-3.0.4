@@ -117,17 +117,17 @@ class Demo_library
             $tmp['info']=$span;
             $html1     = file_get_html('https://www.thegioididong.com'.$tmp['slug']);
             $ul= $html1->find('ul.parameter', 0);
-            $detail=array();
-            foreach ($ul->find('li') as $li) {
-                $detail[]= $li->find('span',0)->plaintext.':'.$li->find('div',0)->plaintext;
-            }
-            $tmp['detail']=$detail;
+            // $detail=array();
+            // foreach ($ul->find('li') as $li) {
+            //     $detail[]= $li->find('span',0)->plaintext.':'.$li->find('div',0)->plaintext;
+            // }
+            // $tmp['detail']=$detail;
             $variable1 = $html1->find('div.owl-carousel', 0);
             $slide=array();
             foreach ($variable1->find('div.item') as $value1) {
                 $slide[] = $value1->find('img', 0)->getAttribute('data-src');
             }
-            $tmp['link']=$slide;
+            $tmp['slide']=$slide;
             $result[]=$tmp;
         }
         return $result;

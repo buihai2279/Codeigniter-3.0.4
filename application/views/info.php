@@ -176,7 +176,7 @@
     <div class="col-md-6"><div class="fb-comments" data-href="<?php echo current_url()?>" data-numposts="4" width='100%'></div></div>
     <div class="col-md-5">
         <h3>Sản phẩm có thể bạn quan tâm</h3>
-        <?php foreach ($suggest as $value) {
+        <?php foreach ($phukien as $value) {
             ?>
         <div class="box_suggest">
             <div class="col-sm-3 col-xs-10">

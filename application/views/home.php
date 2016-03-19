@@ -36,7 +36,7 @@
 <div class="clearfix hidden-lg hidden-md"></div>
   <div class="panel col-lg-4 col-md-4 news">
     <div class="panel-heading heading-news">
-      <h3 class="panel-title"><a href="">Tin tuc</a></h3>
+      <h3 class="panel-title"><a href="">Tin tức</a></h3>
     </div>
     <div class="panel-body">
              <ul>
@@ -103,7 +103,7 @@
                                 $query=$this->db->get_where('category',array('parrent_id' => 1),4,0);
                                   $result=$query->result_array();
                                   foreach ($result as $value) {
-                                    echo '<li><a href="'.$value['slug'].'">'.$value['name'].'</a></li>';
+                                    echo '<li><a href="'.base_url('danh-muc').'/'.$value['slug'].'">'.$value['name'].'</a></li>';
                                   }
                                   ?>
                             </ul>
@@ -132,7 +132,7 @@
                       <div class="detail">
                           <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
                           <hr>
-                          <i class="price pull-left"><?php echo $value['price'] ?>₫</i>
+                          <i class="price pull-left"><?php echo number_format($value['price']) ?>₫</i>
                           <a href="<?php echo base_url('dtdd/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
                       </div>
                   </div>
@@ -153,7 +153,7 @@
                                 <span class="icon-bar"></span>
                             </span>
                         </button>
-                            <a href="<?php echo base_url('dtdd')?>" class="navbar-brand">Laptop</a>
+                            <a href="<?php echo base_url('laptop')?>" class="navbar-brand">Laptop</a>
                         </div>
                         <div class="navbar-collapse collapse nav-tittle">
                             <ul class="nav navbar-nav">
@@ -161,7 +161,7 @@
                                 $query=$this->db->get_where('category',array('parrent_id' => 2),4,0);
                                   $result=$query->result_array();
                                   foreach ($result as $value) {
-                                    echo '<li><a href="'.$value['slug'].'">'.$value['name'].'</a></li>';
+                                    echo '<li><a href="'.base_url('danh-muc').'/'.$value['slug'].'">'.$value['name'].'</a></li>';
                                   }
                                   ?>
                             </ul>
@@ -188,10 +188,10 @@
                           } ?>
                       </div>
                       <div class="detail">
-                          <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
+                          <h2 class="name"><a href="<?php echo base_url('laptop/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
                           <hr>
-                          <i class="price pull-left"><?php echo $value['price'] ?>₫</i>
-                          <a href="<?php echo base_url('dtdd/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
+                          <i class="price pull-left"><?php echo number_format($value['price']) ?>₫</i>
+                          <a href="<?php echo base_url('laptop/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
                       </div>
                   </div>
               </div>
@@ -211,7 +211,7 @@
                                 <span class="icon-bar"></span>
                             </span>
                         </button>
-                            <a href="<?php echo base_url('dtdd')?>" class="navbar-brand">Tablet</a>
+                            <a href="<?php echo base_url('tablet')?>" class="navbar-brand">Tablet</a>
                         </div>
                         <div class="navbar-collapse collapse nav-tittle">
                             <ul class="nav navbar-nav">
@@ -219,7 +219,7 @@
                                 $query=$this->db->get_where('category',array('parrent_id' => 3),4,0);
                                   $result=$query->result_array();
                                   foreach ($result as $value) {
-                                    echo '<li><a href="'.$value['slug'].'">'.$value['name'].'</a></li>';
+                                    echo '<li><a href="'.base_url('danh-muc').'/'.$value['slug'].'">'.$value['name'].'</a></li>';
                                   }
                                   ?>
                             </ul>
@@ -246,10 +246,10 @@
                           } ?>
                       </div>
                       <div class="detail">
-                          <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
+                          <h2 class="name"><a href="<?php echo base_url('tablet/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
                           <hr>
-                          <i class="price pull-left"><?php echo $value['price'] ?>₫</i>
-                          <a href="<?php echo base_url('dtdd/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
+                          <i class="price pull-left"><?php echo number_format($value['price']) ?>₫</i>
+                          <a href="<?php echo base_url('tablet/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
                       </div>
                   </div>
               </div>
@@ -269,7 +269,7 @@
                                 <span class="icon-bar"></span>
                             </span>
                         </button>
-                            <a href="<?php echo base_url('dtdd')?>" class="navbar-brand">Phụ kiện</a>
+                            <a href="<?php echo base_url('phu-kien')?>" class="navbar-brand">Phụ kiện</a>
                         </div>
                         <div class="navbar-collapse collapse nav-tittle">
                             <ul class="nav navbar-nav">
@@ -277,7 +277,7 @@
                                 $query=$this->db->get_where('category',array('parrent_id' => 4),4,0);
                                   $result=$query->result_array();
                                   foreach ($result as $value) {
-                                    echo '<li><a href="'.$value['slug'].'">'.$value['name'].'</a></li>';
+                                    echo '<li><a href="'.base_url('danh-muc').'/'.$value['slug'].'">'.$value['name'].'</a></li>';
                                   }
                                   ?>
                             </ul>
@@ -304,10 +304,10 @@
                           } ?>
                       </div>
                       <div class="detail">
-                          <h2 class="name"><a href="<?php echo base_url('dtdd/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
+                          <h2 class="name"><a href="<?php echo base_url('phu-kien/'.$value['slug'])?>"><?php echo $value['name'] ?></a></h2>
                           <hr>
-                          <i class="price pull-left"><?php echo $value['price'] ?>₫</i>
-                          <a href="<?php echo base_url('dtdd/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
+                          <i class="price pull-left"><?php echo number_format($value['price']) ?>₫</i>
+                          <a href="<?php echo base_url('phu-kien/'.$value['slug'])?>" class="btn-link view pull-right"><small>Xem chi tiết </small></a>
                       </div>
                   </div>
               </div>

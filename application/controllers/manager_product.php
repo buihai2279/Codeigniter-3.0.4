@@ -15,7 +15,6 @@ class Manager_product extends CI_Controller
     }
     public function index()
     {
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         $segment = (int) $this->uri->segment(3);
         $total   = $this->My_model->Count_table($this->table);
         if ($segment >= $total && $total > 0) {
@@ -25,11 +24,11 @@ class Manager_product extends CI_Controller
             $segment = 0;
         }
         $link           = 'http://localhost/Codeigniter-Project/manager_product/index/';
-        if(!$tmp=$this->cache->get('list')){
+        if(!$tmp=$this->cache->get('list_product')){
             $tmp=$this->My_model->get_limit($this->table,$this->limit,$segment);
-            $this->cache->save('list', $tmp, 30);
+            $this->cache->save('list_product', $tmp, 30);
         }
-        $data['result'] = $this->cache->get('list');
+        $data['result'] = $tmp;
         $data['pag']    = $this->My_model->create_pagination($link, $total, $segment);
         $this->My_model->Load_view('manager_product/list', $data);
     }

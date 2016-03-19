@@ -19,20 +19,18 @@ class Import extends CI_Controller {
 	{
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 	    $date_time = date('Y-m-d H:i:s');
-		$result=$this->demo_library->Get_phukien();
+		$result=$this->demo_library->Get_laptop();
 		foreach ($result as $value) {
-		    $slug=str_replace('/laptop/', '', $slug);
+		    $slug=str_replace('/laptop/', '',$value['slug']);
 		    $price=str_replace('.','',$value['price']);
 		    $price=str_replace('₫','', $price);
 		    $slide=implode('|', $value['slide']);
-		    $des=implode('|', $value['info']);
 		    $data=array(
 		    	'name'=> $value['name'],
 		    	'slug'=> $slug,
 		    	'price'=> $price,
 		    	'total'=> rand(10,100),
 		    	'status'=> 1,
-		    	'description'=> 'info',
 		    	'category_id'=> 2,
 		    	'img'=> $value['img'],
 		    	'slide'=> $slide,

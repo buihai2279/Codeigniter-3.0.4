@@ -42,7 +42,12 @@ class Home extends CI_Controller
         $data['news']=$news->result_array();
         $slide = $this->db->query("SELECT link,img,caption FROM slide ORDER BY top LIMIT 6 ");
         $data['slide']=$slide->result_array();
-        $this->My_model->Load_front_end('home',$data);
+
+        if(!$tmp=$this->cache->get('data_one')){
+            $tmp=$data;
+            $this->cache->save('data_one', $tmp, 30);
+        }
+        $this->My_model->Load_front_end('home',$tmp);
     }
     public function cart_detail()
     {
@@ -68,7 +73,6 @@ class Home extends CI_Controller
     public function delete_cart($rowid='')
     {
         unset($_SESSION['cart_contents'][$rowid]);
-        // unset($_SESSION['count_cart']);
         $_SESSION['count_cart']=count($this->cart->contents());
         $this->My_model->Sent_message('Cập nhật thành công','home/edit','success');
     }
@@ -99,9 +103,9 @@ class Home extends CI_Controller
             //sentmail
             unset($_SESSION['count_cart']);
             unset($_SESSION['cart_contents']);
-            $this->My_model->Sent_message('Thanh toán thành công','home/pay_thank','success');
+            $this->My_model->Sent_message('Thanh toán thành công cảm ơn bạn đã mua hàng tại Techshop mời để lại feedback để chúng tôi phục vụ được tốt hơn','home/feedback','success');
         } else {
-            echo "string";
+            echo "Error";
         }
     }
     public function Add_to_cart()
@@ -121,10 +125,10 @@ class Home extends CI_Controller
     {
         $data['result']=$this->My_model->get_row_by_slug($slug,'product');
         if ($data['result']!=false) {
-            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get($this->table);
+            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get_where($this->table,array('category_id'=>$data['result']->category_id));
             $data['suggest']=$query->result_array();
 
-            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get_where($this->table,array('category_id'=>$data['result']->category_id));
+            $query = $this->db->select('name,img,slug,price,description')->order_by('name', 'RANDOM')->limit(4)->get_where($this->table,array('category_id'=>4));
             $data['phukien']=$query->result_array();
 
             $this->My_model->Load_front_end('info',$data);
@@ -189,8 +193,7 @@ class Home extends CI_Controller
     }
     public function History()
     {
-        echo "string";
-        $this->load->view('1');
+        echo "Đang xây dựng";
     }
     public function New_product()
     {

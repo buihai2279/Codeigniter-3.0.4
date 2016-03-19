@@ -18,7 +18,10 @@ class Admin extends CI_Controller
     }
     public function index()
     {
-        $this->My_model->Load_view('auth_view/index');
+        if($this->My_model->check_manager()){
+
+            $this->My_model->Load_view('auth_view/index');
+        }else $this->My_model->Sent_message('Không có quyền truy cập','home','danger');
     }
 
 }
